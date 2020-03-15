@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 
 import axios from "axios";
 import "./App.css";
 
-import { Component } from "react";
+import LoginSystem from "./components/LoginSystem";
 
 class App extends Component {
   state = {
@@ -15,6 +15,14 @@ class App extends Component {
     idToUpdate: null,
     objectToUpdate: null
   };
+  // never let a process live forever
+  // always kill a process everytime we are done using it
+  componentWillUnmount() {
+    if (this.state.intervalIsSet) {
+      clearInterval(this.state.intervalIsSet);
+      this.setState({ intervalIsSet: null });
+    }
+  }
 
   //Getting from DB
   componentDidMount() {
@@ -76,8 +84,9 @@ class App extends Component {
     const { items } = this.state;
     return (
       <div>
+        <LoginSystem />
         <div>
-          {" "}
+          <p>------------------</p>{" "}
           <ul>
             {this.state.items.map(items => (
               <li>name:{items.name}</li>
@@ -106,6 +115,9 @@ class App extends Component {
             DELETE
           </button>
         </div>
+        <p>
+          ----------------------------------------------------------------------------------------------------------------------------
+        </p>
       </div>
     );
   }

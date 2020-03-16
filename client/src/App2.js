@@ -20,7 +20,7 @@ function App2() {
     }
 
     axios
-      .get(`http://localhost:4000/verifyToken?token=${token}`)
+      .get(`/verifyToken?token=${token}`)
       .then(response => {
         setUserSession(response.data.token, response.data.user);
         setAuthLoading(false);
@@ -40,14 +40,14 @@ function App2() {
       <BrowserRouter>
         <div>
           <div className="header">
-            <NavLink exact activeClassName="active" to="/">
+            <NavLink exact activeClassName="active" to="/2">
               Home
             </NavLink>
-            <NavLink activeClassName="active" to="/login">
+            <NavLink activeClassName="active" to="/2/login">
               Login
             </NavLink>
             <small>(Access without token only)</small>
-            <NavLink activeClassName="active" to="/dashboard">
+            <NavLink activeClassName="active" to="/2/dashboard">
               Dashboard
             </NavLink>
             <small>(Access with token only)</small>
@@ -55,8 +55,8 @@ function App2() {
           <div className="content">
             <Switch>
               <Route exact path="/2" component={Home} />
-              <PublicRoute path="/login" component={Login} />
-              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <PublicRoute path="/2/login" component={Login} />
+              <PrivateRoute path="/2/dashboard" component={Dashboard} />
             </Switch>
           </div>
         </div>

@@ -1,14 +1,33 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { setUserSession } from "../Utils/Common";
 
 function Login(props) {
-  const username = useFormInput("");
+  const [loading, setLoading] = useState(false);
+  const email = useFormInput("");
   const password = useFormInput("");
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   // handle button click of login form
   const handleLogin = () => {
-    props.history.push("/dashboard");
+    setError(null);
+    setLoading(true);
+    axios
+      .post("/x/signin", {
+        email: email.value,
+        password: password.value
+      })
+      .then(response => {
+        setLoading(false);
+        setUserSession(response.data.token, response.data.user);
+        props.history.push("/dashboard");
+      })
+      .catch(error => {
+        setLoading(false);
+        if (error.response.status === 401)
+          setError(error.response.data.message);
+        else setError("Something went wrong. Please try again later.");
+      });
   };
 
   return (
@@ -19,7 +38,7 @@ function Login(props) {
       <div>
         Username
         <br />
-        <input type="text" {...username} autoComplete="new-password" />
+        <input type="text" {...email} autoComplete="new-password" />
       </div>
       <div style={{ marginTop: 10 }}>
         Password

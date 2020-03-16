@@ -1,15 +1,18 @@
 import React from "react";
+import { getUser, removeUserSession } from "../Utils/Common";
 
 function Dashboard(props) {
+  const user = getUser();
+
   // handle click event of logout button
   const handleLogout = () => {
-    props.history.push("/login");
+    removeUserSession();
+    props.history.push("/2/login");
   };
 
   return (
     <div>
-      Welcome User!
-      <br />
+      Welcome {user.name}!<br />
       <br />
       <input type="button" onClick={handleLogout} value="Logout" />
     </div>

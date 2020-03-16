@@ -133,9 +133,18 @@ app.post("/x/signin", (req, res) => {
         user: {
           id: user.id,
           name: user.name,
-          email: user.email
+          email: user.email,
+          password: user.password
         }
       });
+    });
+    res.json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password
+      }
     });
     // generate token
     const token = utils.generateToken(user);

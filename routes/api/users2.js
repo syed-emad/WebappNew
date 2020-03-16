@@ -26,34 +26,30 @@ router.post("/", (req, res) => {
       email,
       password
     });
+    newUser.name = name;
+    newUser.password = password;
+    newUser.email = email;
+    newUser.save().then(item => res.json(item));
+  });
+});
+// validate the user credentials
 
-    //salt is use to create password hash
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
-        if (err) throw err;
-        newUser.password = hash;
-        newUser.save().then(user => {
-          jwt.sign(
-            {
-              id: user.id
-            },
-            config.get("jwtSecret"),
-            //{ expiresIn: 3600 },
-            (err, token) => {
-              if (err) throw err;
-              res.json({
-                token,
-                user: {
-                  id: user.id,
-                  name: user.name,
-                  email: user.email
-                }
-              });
-            }
-          );
-        });
+// validate the user credentials
+router.post("/x/signin", function(req, res) {
+  const { email, password } = req.body;
+
+  // return 400 status if username/password is not exist
+  if (!email || !password) {
+    return res.status(404).json({ msg: "please enter everthing" });
+  }
+
+  Users.findOne({ email }).then(user => {
+    if ((password = user.password)) {
+      return res.status(400).json({
+        error: true,
+        message: "Username or Password required."
       });
-    });
+    }
   });
 });
 
@@ -62,4 +58,5 @@ router.get("/", (req, res) => {
     .sort({ date: -1 })
     .then(items => res.json(items));
 });
+
 module.exports = router;

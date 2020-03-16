@@ -2,9 +2,13 @@ import React, { Component } from "react";
 
 import axios from "axios";
 import "./App.css";
-
+import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import LoginSystem from "./components/LoginSystem";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import Home from "./components/Home";
 
+import App2 from "./App2";
 class App extends Component {
   state = {
     items: [],
@@ -15,6 +19,7 @@ class App extends Component {
     idToUpdate: null,
     objectToUpdate: null
   };
+
   // never let a process live forever
   // always kill a process everytime we are done using it
   componentWillUnmount() {
@@ -94,7 +99,6 @@ class App extends Component {
           </ul>
         </div>
         <p>------------------</p>
-
         <div style={{ padding: "10px" }}>
           <input
             type="text"
@@ -115,9 +119,6 @@ class App extends Component {
             DELETE
           </button>
         </div>
-        <p>
-          ----------------------------------------------------------------------------------------------------------------------------
-        </p>
       </div>
     );
   }

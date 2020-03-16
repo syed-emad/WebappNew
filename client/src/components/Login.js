@@ -20,7 +20,7 @@ function Login(props) {
       .then(response => {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
-        props.history.push("/dashboard");
+        props.history.push("/2/dashboard");
       })
       .catch(error => {
         setLoading(false);

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
 
 import axios from "axios";
 import "./App.css";
+import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import LoginSystem from "./components/LoginSystem";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import Home from "./components/Home";
 
-import { Component } from "react";
-
+import App2 from "./App2";
 class App extends Component {
   state = {
     items: [],
@@ -15,6 +19,15 @@ class App extends Component {
     idToUpdate: null,
     objectToUpdate: null
   };
+
+  // never let a process live forever
+  // always kill a process everytime we are done using it
+  componentWillUnmount() {
+    if (this.state.intervalIsSet) {
+      clearInterval(this.state.intervalIsSet);
+      this.setState({ intervalIsSet: null });
+    }
+  }
 
   //Getting from DB
   componentDidMount() {
@@ -76,36 +89,20 @@ class App extends Component {
     const { items } = this.state;
     return (
       <div>
-        <div>
-          {" "}
-          <ul>
-            {this.state.items.map(items => (
-              <li>name:{items.name}</li>
-            ))}
-          </ul>
-        </div>
-        <p>------------------</p>
-
-        <div style={{ padding: "10px" }}>
-          <input
-            type="text"
-            onChange={e => this.setState({ name: e.target.value })}
-            placeholder="add something in the database"
-            style={{ width: "200px" }}
-          />
-          <button onClick={() => this.putDataToDB(this.state.name)}>ADD</button>
-        </div>
-        <div style={{ padding: "10px" }}>
-          <input
-            type="text"
-            style={{ width: "200px" }}
-            onChange={e => this.setState({ idToDelete: e.target.value })}
-            placeholder="put id of item to delete here"
-          />
-          <button onClick={() => this.deleteFromDB(this.state.idToDelete)}>
-            DELETE
-          </button>
-        </div>
+        <BrowserRouter>
+          <div>
+            <div className="header">
+              <NavLink exact activeClassName="active" to="/2">
+                Home
+              </NavLink>
+            </div>
+            <div className="content">
+              <Switch>
+                <Route exact path="/2" component={App2} />
+              </Switch>
+            </div>
+          </div>
+        </BrowserRouter>
       </div>
     );
   }

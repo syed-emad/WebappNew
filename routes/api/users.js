@@ -57,4 +57,9 @@ router.post("/", (req, res) => {
   });
 });
 
+router.get("/", (req, res) => {
+  Users.find()
+    .sort({ date: -1 })
+    .then(items => res.json(items));
+});
 module.exports = router;

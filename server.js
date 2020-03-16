@@ -15,6 +15,8 @@ const users = require("./routes/api/users");
 const users2 = require("./routes/api/users2");
 const auth = require("./routes/api/auth");
 const app = express();
+require("dotenv").config();
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 // enable CORS
@@ -52,7 +54,7 @@ app.use("/api/teachers", teachers);
 app.use("/api/users", users);
 app.use("/api/users2", users2);
 app.use("/api/auth", auth);
-
+app.use("/admin", require("./admin")); //for the admin panel
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.
 app.use(function(req, res, next) {

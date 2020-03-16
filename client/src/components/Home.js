@@ -112,6 +112,7 @@ export default class Home extends Component {
           <button onClick={() => this.deleteFromDB(this.state.idToDelete)}>
             DELETE
           </button>
+          <p>-----------To go to admin panel write : Localhost:5000/admin--</p>
         </div>
       </div>
     );

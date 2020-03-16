@@ -15,14 +15,17 @@
   "dependencies": {
     "admin-bro": "^2.1.0-beta.15",
     "admin-bro-expressjs": "^2.0.0",
+    "admin-bro-mongoose": "^0.4.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "client": "file:client",
     "concurrently": "^5.1.0",
     "config": "^3.3.0",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
+    "express-session": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.4"
   },

@@ -7,6 +7,7 @@ import LoginSystem from "./components/LoginSystem";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
+import teacherheader from "./components/teacherheader";
 
 import App2 from "./App2";
 class App extends Component {

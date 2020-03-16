@@ -8,8 +8,11 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
 import UpperSection from "./components/Homepage/UpperSection";
-
+import Howitworks from "./components/Homepage/Howitworks";
+import BecomeTeacher from "./components/Homepage/BecomeTeacher";
+import Footer from "./components/Homepage/Footer";
 import App2 from "./App2";
+
 class App extends Component {
   state = {
     items: [],
@@ -90,7 +93,21 @@ class App extends Component {
     const { items } = this.state;
     return (
       <div>
-        <UpperSection />
+        <BrowserRouter>
+          <div>
+            <div className="header"></div>
+            <div className="content">
+              <Switch>
+                <Route exact path="/" component={UpperSection} />
+                <Route exact path="/" component={Howitworks} />
+                <Route exact path="/" component={BecomeTeacher} />
+                <Route exact path="/" component={Footer} />
+
+                <Route exact path="/2" component={App2} />
+              </Switch>
+            </div>
+          </div>
+        </BrowserRouter>
       </div>
     );
   }

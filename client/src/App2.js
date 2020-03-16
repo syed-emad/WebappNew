@@ -41,7 +41,7 @@ function App2() {
         <div>
           <div className="header">
             <NavLink exact activeClassName="active" to="/2">
-              Home
+              Register
             </NavLink>
             <NavLink activeClassName="active" to="/2/login">
               Login

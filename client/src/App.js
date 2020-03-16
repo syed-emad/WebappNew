@@ -7,12 +7,11 @@ import LoginSystem from "./components/LoginSystem";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
-import UpperSection from "./components/Homepage/UpperSection";
-import Howitworks from "./components/Homepage/Howitworks";
-import BecomeTeacher from "./components/Homepage/BecomeTeacher";
-import Footer from "./components/Homepage/Footer";
+import HomeFinal from "./components/Homepage/HomeFinal";
 import App2 from "./App2";
 
+import RegisterNew from "./components/LoginSignup/RegisterNew";
+import Register from "./components/LoginSignup/Register";
 class App extends Component {
   state = {
     items: [],
@@ -98,12 +97,10 @@ class App extends Component {
             <div className="header"></div>
             <div className="content">
               <Switch>
-                <Route exact path="/" component={UpperSection} />
-                <Route exact path="/" component={Howitworks} />
-                <Route exact path="/" component={BecomeTeacher} />
-                <Route exact path="/" component={Footer} />
-
+                <Route exact path="/" component={HomeFinal} />
                 <Route exact path="/2" component={App2} />
+                <Route exact path="/login" component={RegisterNew} />
+                <Route exact path="/Register" component={Register} />
               </Switch>
             </div>
           </div>

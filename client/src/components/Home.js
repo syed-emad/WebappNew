@@ -80,30 +80,32 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <p>Welcome to Login Page</p>
-        <LoginSystem />
         <div>
-          <p>------------------</p>{" "}
+          <p>---------THESE ARE FROM DATABASE---------</p>{" "}
           <ul>
             {this.state.items.map(items => (
               <li>name:{items.name}</li>
             ))}
           </ul>
         </div>
-        <p>------------------</p>
+        <p>-----------ADD API-----PLEASE RELOAD AFTER PRESSING BUTTON--</p>
         <div style={{ padding: "10px" }}>
           <input
             type="text"
             onChange={e => this.setState({ name: e.target.value })}
             placeholder="add something in the database"
-            style={{ width: "200px" }}
+            style={{ width: "200px", border: "1px solid red" }}
           />
           <button onClick={() => this.putDataToDB(this.state.name)}>ADD</button>
         </div>
+        <p>
+          -----------DELETE API--sample id :5e6fae746744cc9708357f51
+          ---5e6e842c7b625684fcad6cb7--PLEASE RELOAD AFTER PRESSING BUTTON----
+        </p>
         <div style={{ padding: "10px" }}>
           <input
             type="text"
-            style={{ width: "200px" }}
+            style={{ width: "200px", border: "1px solid red" }}
             onChange={e => this.setState({ idToDelete: e.target.value })}
             placeholder="put id of item to delete here"
           />

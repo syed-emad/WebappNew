@@ -5,7 +5,8 @@ import "../Styling/plugins/OwlCarousel2-2.3.4/owl.theme.default.css";
 import "../Styling/plugins/OwlCarousel2-2.3.4/animate.css";
 import "../Styling/styles/main_styles.css";
 import "../Styling/styles/responsive.css";
-export default class UpperSection extends Component {
+import { getUser, removeUserSession } from "../../Utils/Common";
+class UpperSection extends Component {
   render() {
     return (
       <div>
@@ -67,10 +68,10 @@ export default class UpperSection extends Component {
                   <div className="log_reg">
                     <ul className="d-flex flex-row align-items-center justify-content-start">
                       <li>
-                        <a href="/2">Login</a>
+                        <a href="/login">Login </a>
                       </li>
                       <li>
-                        <a href="/2">Register</a>
+                        <a href="/Register">Register</a>
                       </li>
                     </ul>
                   </div>
@@ -298,3 +299,4 @@ export default class UpperSection extends Component {
     );
   }
 }
+export default UpperSection;

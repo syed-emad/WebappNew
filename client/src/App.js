@@ -7,6 +7,7 @@ import LoginSystem from "./components/LoginSystem";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
+import UpperSection from "./components/Homepage/UpperSection";
 
 import App2 from "./App2";
 class App extends Component {
@@ -89,20 +90,7 @@ class App extends Component {
     const { items } = this.state;
     return (
       <div>
-        <BrowserRouter>
-          <div>
-            <div className="header">
-              <NavLink exact activeClassName="active" to="/2">
-                Home
-              </NavLink>
-            </div>
-            <div className="content">
-              <Switch>
-                <Route exact path="/2" component={App2} />
-              </Switch>
-            </div>
-          </div>
-        </BrowserRouter>
+        <UpperSection />
       </div>
     );
   }

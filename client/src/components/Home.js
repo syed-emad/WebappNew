@@ -88,6 +88,7 @@ export default class Home extends Component {
             ))}
           </ul>
         </div>
+
         <p>-----------ADD API-----PLEASE RELOAD AFTER PRESSING BUTTON--</p>
         <div style={{ padding: "10px" }}>
           <input

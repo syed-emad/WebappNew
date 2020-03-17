@@ -50,7 +50,8 @@ export default class Card extends Component {
                           <i class="fa fa-book" style={{ color: "#360f64" }}>
                             &nbsp;&nbsp;
                           </i>
-                          <small>Math&nbsp;</small>&nbsp;&nbsp;{" "}
+                          <small>{teachers.Qualification2}&nbsp;</small>
+                          &nbsp;&nbsp;{" "}
                           <i
                             class="fa fa-star"
                             style={{
@@ -69,17 +70,12 @@ export default class Card extends Component {
                               color: "black"
                             }}
                           >
-                            5&nbsp;
+                            {teachers.Rating}&nbsp;
                           </small>
                           &nbsp;&nbsp;
                         </p>
                         <p className="card-text">
-                          <small>
-                            Consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim
-                            ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.{" "}
-                          </small>
+                          <small>{teachers.About} </small>
                         </p>
                         <p className="card-text">
                           <h4

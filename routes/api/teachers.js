@@ -16,7 +16,10 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const newTeacher = new Teacher({
     name: req.body.name,
-    Qualification: req.body.Qualification
+    Qualification: req.body.Qualification,
+    Qualification2: req.body.Qualification,
+    Rating: req.body.Rating,
+    About: req.body.About
   });
   newTeacher.save().then(teacher => res.json(teacher));
 });

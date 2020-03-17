@@ -118,7 +118,7 @@ app.post("/x/signin", (req, res) => {
 
   //validation
   if (!email || !password) {
-    return res.status(404).json({ msg: "please enter everthing" });
+    return res.status(404).json({ msg: "please fill all the fields" });
   }
   //Check for exsisting user
   Users.findOne({ email })
@@ -132,7 +132,7 @@ app.post("/x/signin", (req, res) => {
     bcrypt.compare(password, user.password, (err,result)=>{
       if(err){
         return res.status(404).json({
-          message:"auth failed"
+          message:"invalid credentials"
         });
 
       }
@@ -148,7 +148,7 @@ app.post("/x/signin", (req, res) => {
         }
       );
       return res.status(200).json({
-        message: "Auth successful",
+        message: "Authprization successful",
         user: {
           id: user.id,
           name: user.name,
@@ -159,7 +159,7 @@ app.post("/x/signin", (req, res) => {
     }
    
     res.status(401).json({
-      message: "Auth failed,incorrect password"
+      message: "Auth failed, incorrect password"
     });
   });
 }) 

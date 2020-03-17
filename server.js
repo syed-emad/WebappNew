@@ -121,30 +121,61 @@ app.post("/x/signin", (req, res) => {
     return res.status(404).json({ msg: "please enter everthing" });
   }
   //Check for exsisting user
-  Users.findOne({ email }).then(user => {
+  Users.findOne({ email })
+  .exec()
+  .then(user => {
     if (!user) {
-      return res.status(400).json({ msg: "user does not exsist" });
+      return res.status(400).json({ msg: "user does not exist" });
     }
 
     //validating password
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (!isMatch) return res.status(404).json({ msg: "Invalid Crdentials" });
+    bcrypt.compare(password, user.password, (err,result)=>{
+      if(err){
+        return res.status(404).json({
+          message:"auth failed"
+        });
 
-      res.json({
+      }
+      if(result){
+        const token = jwt.sign(
+        {
+          email: user.email,
+          userId: user._id
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "1h"
+        }
+      );
+      return res.status(200).json({
+        message: "Auth successful",
         user: {
           id: user.id,
           name: user.name,
-          email: user.email
-        }
+          email: user.email},
+
+        token: token
+      });
+    }
+   
+    res.status(401).json({
+      message: "Auth failed,incorrect password"
+    });
+  });
+}) 
+    // // generate token
+    // const token = utils.generateToken(user);
+    // // get basic user details
+    // const userObj = utils.getCleanUser(user);
+    // // return the token along with user details
+    // return res.json({ user: userObj, token });
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       });
     });
-    // generate token
-    const token = utils.generateToken(user);
-    // get basic user details
-    const userObj = utils.getCleanUser(user);
-    // return the token along with user details
-    return res.json({ user: userObj, token });
-  });
+
 });
 // verify the token and return it if it's valid
 app.get("/verifyToken", function(req, res) {

@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import '../Styling/styles/bootstrap-4.1.2/bootstrap.min.css'
-import '../Styling/plugins/font-awesome-4.7.0/css/font-awesome.min.css'
-import '../Styling/plugins/OwlCarousel2-2.3.4/owl.carousel.css'
-import '../Styling/plugins/OwlCarousel2-2.3.4/owl.theme.default.css'
-import '../Styling/plugins/OwlCarousel2-2.3.4/animate.css'
-import '../Styling/styles/listings.css'
-import '../Styling/styles/listings_responsive.css'
+import React, { Component } from 'react';
+import '../Styling/styles/bootstrap-4.1.2/bootstrap.min.css';
+import '../Styling/plugins/font-awesome-4.7.0/css/font-awesome.min.css';
+import '../Styling/plugins/OwlCarousel2-2.3.4/owl.carousel.css';
+import '../Styling/plugins/OwlCarousel2-2.3.4/owl.theme.default.css';
+import '../Styling/plugins/OwlCarousel2-2.3.4/animate.css';
+import '../Styling/styles/listings.css';
+import '../Styling/styles/listings_responsive.css';
 
 
 export class teacherheader extends Component {

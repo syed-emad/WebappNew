@@ -17,7 +17,8 @@ router.post("/", (req, res) => {
     return res.status(404).json({ msg: "please enter everthing" });
   }
   //Check for exsisting teacher
-  Teacher.findOne({ email }).then(teacher => {
+  Teacher.findOne({ email })
+  .then(teacher => {
     if (teacher) {
       return res.status(400).json({ 
         msg: "teacher already exist" 
@@ -43,7 +44,9 @@ router.post("/", (req, res) => {
         });
       }
       newTeacher.password = hash;
-      newTeacher.save().then(teacher => {
+      newTeacher
+      .save()
+      .then(teacher => {
         jwt.sign(
           {
             id: teacher.id
@@ -56,8 +59,8 @@ router.post("/", (req, res) => {
               token,
               teacher: {
                 id: teacher.id,
-                name: user.name,
-                email: user.email
+                name: teacher.name,
+                email: teacher.email
               }
             });
           }

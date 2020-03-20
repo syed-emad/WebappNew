@@ -8,15 +8,15 @@ const utils = require("./utils");
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-
-//declaring models variables.Will use them below
+//decaling models variables.Will use them below
 const items = require("./routes/api/items");
 const teachers = require("./routes/api/teachers");
 const users = require("./routes/api/users");
 const users2 = require("./routes/api/users2");
 const auth = require("./routes/api/auth");
-
 const app = express();
+require("dotenv").config();
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 // enable CORS
@@ -54,8 +54,7 @@ app.use("/api/teachers", teachers);
 app.use("/api/users", users);
 app.use("/api/users2", users2);
 app.use("/api/auth", auth);
-app.use('/admin', require('./admin'))  //for the admin panel
-
+app.use("/admin", require("./admin")); //for the admin panel
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.
 app.use(function(req, res, next) {
@@ -112,57 +111,56 @@ app.post("/users/signin", function(req, res) {
   // return the token along with user details
   return res.json({ user: userObj, token });
 });
-
 app.post("/x/signin", (req, res) => {
   const { email, password } = req.body;
 
   //validation
   if (!email || !password) {
-    return res.status(404).json({ msg: "please fill all the fields" });
+    return res.status(404).json({ msg: "please enter everthing" });
   }
   //Check for exsisting user
   Users.findOne({ email })
-  .exec()
-  .then(user => {
-    if (!user) {
-      return res.status(400).json({ msg: "user does not exist" });
-    }
-
-    //validating password
-    bcrypt.compare(password, user.password, (err,result)=>{
-      if(err){
-        return res.status(404).json({
-          message:"invalid credentials"
-        });
-
+    .exec()
+    .then(user => {
+      if (!user) {
+        return res.status(400).json({ msg: "user does not exist" });
       }
-      if(result){
-        const token = jwt.sign(
-        {
-          email: user.email,
-          userId: user._id
-        },
-        process.env.JWT_SECRET,
-        {
-            expiresIn: "1h"
-        }
-      );
-      return res.status(200).json({
-        message: "Authprization successful",
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email},
 
-        token: token
+      //validating password
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) {
+          return res.status(404).json({
+            message: "auth failed"
+          });
+        }
+        if (result) {
+          const token = jwt.sign(
+            {
+              email: user.email,
+              userId: user._id
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "1h"
+            }
+          );
+          return res.status(200).json({
+            message: "Auth successful",
+            user: {
+              id: user.id,
+              name: user.name,
+              email: user.email
+            },
+
+            token: token
+          });
+        }
+
+        res.status(401).json({
+          message: "Auth failed,incorrect password"
+        });
       });
-    }
-   
-    res.status(401).json({
-      message: "Auth failed, incorrect password"
-    });
-  });
-}) 
+    })
     // // generate token
     // const token = utils.generateToken(user);
     // // get basic user details
@@ -175,7 +173,6 @@ app.post("/x/signin", (req, res) => {
         error: err
       });
     });
-
 });
 // verify the token and return it if it's valid
 app.get("/verifyToken", function(req, res) {

@@ -16,7 +16,10 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const newTeacher = new Teacher({
     name: req.body.name,
-    Qualification: req.body.Qualification
+    Qualification: req.body.Qualification,
+    Qualification2: req.body.Qualification,
+    Rating: req.body.Rating,
+    About: req.body.About
   });
   newTeacher.save().then(teacher => res.json(teacher));
 });
@@ -30,4 +33,4 @@ router.delete("/:id", (req, res) => {
     .catch(err => res.status(404).json({ success: false }));
 });
 
-module.exports = router
+module.exports = router;

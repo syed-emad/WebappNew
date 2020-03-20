@@ -10,6 +10,22 @@ const TeacherSchema = new Schema({
   Qualification: {
     type: String,
     required: true
+  },
+  Qualification2: {
+    type: String,
+    required: true
+  },
+  Qualification: {
+    type: String,
+    required: true
+  },
+  About: {
+    type: String,
+    required: true
+  },
+  Rating: {
+    type: String,
+    required: true
   }
 });
 

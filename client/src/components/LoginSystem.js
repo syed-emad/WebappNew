@@ -33,7 +33,7 @@ class LoginSystem extends Component {
       .post("/api/users", User)
       .then(() => {
         console.log("User Created");
-        window.location = "/";
+        window.location = "/2";
       })
       .catch(err => {
         console.error(err);

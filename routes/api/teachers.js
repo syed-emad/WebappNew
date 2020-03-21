@@ -3,14 +3,48 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/uploads');
+  },
+  filename: function(req, file, cb){
+     cb(null,"IMAGE-" + Date.now() + file.originalname);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 1000000}
+});
+
+
 //item model
 const Teacher = require("../../models/Teachers");
 
 //@route POST api/items
 //@desc Create A post
 //@access Public
-router.post("/", (req, res) => {
-  const { name, email, password } = req.body;
+router.post("/", upload.single('profileImage'), (req, res) => {
+  const newTeacher = new Teacher({
+    name:req.body.name,
+    email:req.body.email,
+    password:req.body.password,
+    gender:req.body.gender,
+    city:req.body.city,
+    zipCode:req.body.zipCode,
+    phone:req.body.phone,
+    profileImage:req.file.path,
+    about:req.body.about,
+    qualification:req.body.qualification
+
+    // Qualification: req.body.Qualification,
+    // Qualification2: req.body.Qualification
+    // Rating: req.body.Rating,
+    // About: req.body.About
+  });
 
   //validation
   if (!name || !email || !password) {
@@ -24,16 +58,7 @@ router.post("/", (req, res) => {
         msg: "teacher already exist" 
       });
     }
-  const newTeacher = new Teacher({
-    name,
-    email,
-    password,
-    // Qualification: req.body.Qualification,
-    // Qualification2: req.body.Qualification
-    // Rating: req.body.Rating,
-    // About: req.body.About
-  });
-
+  
   //salt is use to create password hash
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newTeacher.password, salt, (err, hash) => {
@@ -60,7 +85,14 @@ router.post("/", (req, res) => {
               teacher: {
                 id: teacher.id,
                 name: teacher.name,
-                email: teacher.email
+                email: teacher.email,
+                gender:teacher.gender,
+                city:teacher.city,
+                zipCode:teacher.zipCode,
+                phone:teacher.phone,
+                profileImage:req.file,
+                about:teacher.about,
+                qualification:teacher.qualification
               }
             });
           }
@@ -69,6 +101,12 @@ router.post("/", (req, res) => {
     });
   });
   
+})
+.catch(err => {
+  console.log(err);
+  res.status(500).json({
+    error: err
+  });
 });
 });
 

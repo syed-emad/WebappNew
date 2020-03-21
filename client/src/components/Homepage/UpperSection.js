@@ -61,7 +61,7 @@ class UpperSection extends Component {
                         <a href="#">Find a Tutor</a>
                       </li>
                       <li>
-                        <a href="#becomeatutor">Become a Tutor</a>
+                        <a href="\TeacherSignup">Become a Tutor</a>
                       </li>
                     </ul>
                   </nav>

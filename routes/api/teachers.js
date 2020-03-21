@@ -29,7 +29,8 @@ const Teacher = require("../../models/Teachers");
 //@access Public
 router.post("/", upload.single('profileImage'), (req, res) => {
   const newTeacher = new Teacher({
-    name:req.body.name,
+    firstname:req.body.firstname,
+    lastname:req.body.lastname,
     email:req.body.email,
     password:req.body.password,
     gender:req.body.gender,
@@ -47,7 +48,7 @@ router.post("/", upload.single('profileImage'), (req, res) => {
   });
 
   //validation
-  if (!name || !email || !password) {
+  if (!firstname || !lastname || !email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
   }
   //Check for exsisting teacher
@@ -84,7 +85,8 @@ router.post("/", upload.single('profileImage'), (req, res) => {
               token,
               teacher: {
                 id: teacher.id,
-                name: teacher.name,
+                firstname: teacher.firstname,
+                lastname: teacher.lastname,
                 email: teacher.email,
                 gender:teacher.gender,
                 city:teacher.city,
@@ -115,7 +117,7 @@ router.post("/", upload.single('profileImage'), (req, res) => {
 router.get("/", (req, res) => {
   Teacher.find()
     .sort({ date: -1 })
-    .select('id name email')
+    .select('id firstname lastname email')
     .exec()
     .then(items => res.json(items));
 });
@@ -125,7 +127,7 @@ router.get("/", (req, res) => {
 router.get("/:teacherId", (req, res, next) => {
   const id = req.params.teacherId;
   Teacher.findById(id)
-  .select('id name email')
+  .select('id firstname lastname email')
   .exec()
   .then(item => {
     console.log("From database", item);

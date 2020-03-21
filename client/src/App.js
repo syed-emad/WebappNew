@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 
 import HomeFinal from "./components/Homepage/HomeFinal";
 import App2 from "./App2";
+import App3 from "./App3";
 
 import RegisterNew from "./components/LoginSignup/RegisterNew";
 import Register from "./components/LoginSignup/Register";
@@ -51,6 +52,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={HomeFinal} />
               <Route exact path="/2" component={App2} />
+              <Route exact path="/3" component={App3} />
               <PublicRoute exact path="/login" component={RegisterNew} />
               <PublicRoute exact path="/card" component={Card} />
               <PublicRoute exact path="/Register" component={Register} />

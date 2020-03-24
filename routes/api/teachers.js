@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
-
+const path= require("path");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -51,6 +51,7 @@ router.post("/", upload.single('profileImage'), (req, res) => {
   if (!firstname || !lastname || !email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
   }
+  if (!req.file) return res.send('Please upload a file')
   //Check for exsisting teacher
   Teacher.findOne({ email })
   .then(teacher => {

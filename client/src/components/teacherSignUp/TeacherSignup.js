@@ -63,128 +63,158 @@ export class TeacherSignup extends Component {
     }
   };
 
-      handleInputChange = e => {
-        const { name, value, checked } = e.target;
-        const { form, formErrors } = this.state;
-        let formObj = {};
-        this.setState({form: formObj }, () => {
-          
-          if (!Object.keys(formErrors).includes(name)) return;
-          let formErrorsObj = {};
-          if (name === "password" || name === "confirmPassword") {
-            let refValue = this.state.form[
-              name === "password" ? "confirmPassword" : "password"
-            ];
-            const errorMsg = this.validateField(name, value, refValue);
-            formErrorsObj = { ...formErrors, [name]: errorMsg };
-            if (!errorMsg && refValue) {
-              formErrorsObj.confirmPassword = null;
-              formErrorsObj.password = null;
-            }
-          } else {
-            const errorMsg = this.validateField(
-             name,
-              name === "language" ? this.state.form["language"] : value
-            );
-            formErrorsObj = { ...formErrors, [name]: errorMsg };
-          }
-          this.setState({ formErrors: formErrorsObj });
-          
-          // [e.target.name]: e.target.value
-        });
+  handleInputChange = e => {
+    const { name, value, checked } = e.target;
+    const { form, formErrors } = this.state;
+    let formObj = {};
+    if (name === "language") {
+      // handle the change event of language field
+      if (checked) {
+        // push selected value in list
+        formObj = { ...form };
+        formObj[name].push(value);
+      } else {
+        // remove unchecked value from the list
+        formObj = {
+          ...form,
+          [name]: form[name].filter(x => x !== value)
+        };
+      }
+    } else {
+      // handle change event except language field
+      formObj = {
+        ...form,
+        [name]: value
       };
-
-      validateField = (name, value, refValue) => {
-        let errorMsg = null;
-        switch (name) {
-          case "firstname":
-            if (!value) errorMsg = "Please enter Name.";
-            break;
-          case "email":
-            if (!value) errorMsg = "Please enter Email.";
-            else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value))
-              errorMsg = "Please enter valid Email.";
-            break;
-          // case "phone":
-          //   if (!value) errorMsg = "Please enter Phone.";
-          //   break;
-          case "city":
-            if (!value) errorMsg = "Please select City.";
-            break;
-          case "gender":
-            if (!value) errorMsg = "Please select Gender.";
-            break;
-          case "password":
-            // refValue is the value of Confirm Password field
-            if (!value) errorMsg = "Please enter Password.";
-            else if (refValue && value !== refValue)
-              errorMsg = "Password and Confirm Password does not match.";
-            break;
-          case "confirmPassword":
-            // refValue is the value of Password field
-            if (!value) errorMsg = "Please enter Confirm Password.";
-            else if (refValue && value !== refValue)
-              errorMsg = "Password and Confirm Password does not match.";
-            break;
-          
-          default:
-            break;
-        }
-        return errorMsg;
-      };
-     
-      validateForm = (form, formErrors, validateFunc) => {
-        const errorObj = {};
-        Object.keys(formErrors).map(x => {
-          let refValue = null;
-          if (x === "password" || x === "confirmPassword") {
-            refValue = form[x === "password" ? "confirmPassword" : "password"];
-          }
-          const msg = validateFunc(x, form[x], refValue);
-          if (msg) errorObj[x] = msg;
-        });
-        return errorObj;
-      };
-
-      handleSubmit = e => {
-        // e.preventDefault();
-    
-        // const { name, email, password, gender,city,zipCode,phone,file,about,qualification, date } = this.state;
-    
-        // const Teacher = {
-        //   name,
-        //   email,
-        //   password,
-        //   gender,
-        //   city,
-        //   zipCode,
-        //   phone,
-        //   file,
-        //   about,
-        //   qualification,
-        //   date
-        // };
-        
-        const { form, formErrors } = this.state;
-    const errorObj = this.validateForm(form, formErrors, this.validateField);
-    if (Object.keys(errorObj).length !== 0) {
-      this.setState({ formErrors: { ...formErrors, ...errorObj } });
-      return false;
     }
-    console.log('Data: ', form);
+    this.setState({ form: formObj }, () => {
+      if (!Object.keys(formErrors).includes(name)) return;
+      let formErrorsObj = {};
+      if (name === "password" || name === "confirmPassword") {
+        let refValue = this.state.form[
+          name === "password" ? "confirmPassword" : "password"
+        ];
+        const errorMsg = this.validateField(name, value, refValue);
+        formErrorsObj = { ...formErrors, [name]: errorMsg };
+        if (!errorMsg && refValue) {
+          formErrorsObj.confirmPassword = null;
+          formErrorsObj.password = null;
+        } 
+      } else {
+        const errorMsg = this.validateField(
+          name,
+          name === "language" ? this.state.form["language"] : value
+        );
+        formErrorsObj = { ...formErrors, [name]: errorMsg };
+      }
+      this.setState({ formErrors: formErrorsObj });
+    });
+  }
+
+  validateField = (name, value, refValue) => {
+    let errorMsg = null;
+    switch (name) {
+      case "firstname":
+        if (!value) errorMsg = "Please enter Name.";
+        break;
+      case "email":
+        if (!value) errorMsg = "Please enter Email.";
+        else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value))
+          errorMsg = "Please enter valid Email.";
+        break;
+      case "phone":
+        if (!value) errorMsg = "Please enter Mobile.";
+        break;
+      case "city":
+        if (!value) errorMsg = "Please select City.";
+        break;
+      case "gender":
+        if (!value) errorMsg = "Please select Gender.";
+        break;
+      case "password":
+        // refValue is the value of Confirm Password field
+        if (!value) errorMsg = "Please enter Password.";
+        else if (refValue && value !== refValue)
+          errorMsg = "Password and Confirm Password does not match.";
+        break;
+      case "confirmPassword":
+        // refValue is the value of Password field
+        if (!value) errorMsg = "Please enter Confirm Password.";
+        else if (refValue && value !== refValue)
+          errorMsg = "Password and Confirm Password does not match.";
+        break;
+      case "language":
+        if (value.length === 0) errorMsg = "Please select Language.";
+        break;
+      default:
+        break;
+    }
+    return errorMsg;
+  };
+     
+  validateForm = (form, formErrors, validateFunc) => {
+    const errorObj = {};
+    Object.keys(formErrors).map(x => {
+      let refValue = null;
+      if (x === "password" || x === "confirmPassword") {
+        refValue = form[x === "password" ? "confirmPassword" : "password"];
+      }
+      const msg = validateFunc(x, form[x], refValue);
+      if (msg) errorObj[x] = msg;
+    });
+    return errorObj;
+  };
+
+//       handleSubmit = e => {
+//         // e.preventDefault();
     
-        // axios
-        //   .post("/api/teachers", form)
-        //   .then(() => {
-        //     console.log("Teacher Created");
-        //     window.location = "/login";
-        //   })
-        //   .catch(err => {
-        //     console.error(err);
-        //   });
-
-
-      };
+//         // const { name, email, password, gender,city,zipCode,phone,file,about,qualification, date } = this.state;
+    
+//         // const Teacher = {
+//         //   name,
+//         //   email,
+//         //   password,
+//         //   gender,
+//         //   city,
+//         //   zipCode,
+//         //   phone,
+//         //   file,
+//         //   about,
+//         //   qualification,
+//         //   date
+//         // };
+        
+    
+//         // axios
+//         //   .post("/api/teachers", form)
+//         //   .then(() => {
+//         //     console.log("Teacher Created");
+//         //     window.location = "/login";
+//         //   })
+//         //   .catch(err => {
+//         //     console.error(err);
+//         //   });
+// };
+handleSubmit = (e) => {
+  e.preventDefault();
+  
+      const { form, formErrors } = this.state;
+  const errorObj = this.validateForm(form, formErrors, this.validateField);
+  if (Object.keys(errorObj).length !== 0) {
+    this.setState({ formErrors: { ...formErrors, ...errorObj } });
+    return false;
+  }
+  console.log('Data: ', form);
+  
+  axios.post("/api/teachers", {form} )
+          .then(() => {
+            console.log("Teacher Created");
+            window.location = "/login";
+          })
+          .catch(err => {
+            console.error(err);
+          });
+};
     
       render() {
         const { form, formErrors } = this.state;

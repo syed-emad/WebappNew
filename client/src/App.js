@@ -15,6 +15,7 @@ import PublicRoute from "./Utils/PublicRoute";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
 import TeacherFinal from "./components/TeacherPage/Card";
 import Card from "./components/TeacherPage/Card";
+import Teachersignup from "./components/teachersignup/Teachersignup";
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -50,7 +51,10 @@ function App() {
             <Switch>
               <Route exact path="/" component={HomeFinal} />
               <Route exact path="/2" component={App2} />
+              <Route exact path="/3" component={Teachersignup} />
+
               <PublicRoute exact path="/login" component={RegisterNew} />
+
               <PublicRoute exact path="/card" component={Card} />
               <PublicRoute exact path="/Register" component={Register} />
               <PrivateRoute path="/dashboard" component={Dashboard} />

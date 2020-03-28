@@ -27,7 +27,9 @@ const Teacher = require("../../models/Teachers");
 //@route POST api/items
 //@desc Create A post
 //@access Public
-router.post("/", upload.single('profileImage'), (req, res) => {
+router.post("/", (req, res) => {
+  const { firstname, lastname, email, password } = req.body;
+
   const newTeacher = new Teacher({
     firstname:req.body.firstname,
     lastname:req.body.lastname,
@@ -37,21 +39,16 @@ router.post("/", upload.single('profileImage'), (req, res) => {
     city:req.body.city,
     zipCode:req.body.zipCode,
     phone:req.body.phone,
-    profileImage:req.file.path,
+    //profileImage:req.file.path,
     about:req.body.about,
     qualification:req.body.qualification
-
-    // Qualification: req.body.Qualification,
-    // Qualification2: req.body.Qualification
-    // Rating: req.body.Rating,
-    // About: req.body.About
   });
 
   //validation
   if (!firstname || !lastname || !email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
   }
-  if (!req.file) return res.send('Please upload a file')
+  // if (!req.file) return res.send('Please upload a file')
   //Check for exsisting teacher
   Teacher.findOne({ email })
   .then(teacher => {
@@ -93,7 +90,7 @@ router.post("/", upload.single('profileImage'), (req, res) => {
                 city:teacher.city,
                 zipCode:teacher.zipCode,
                 phone:teacher.phone,
-                profileImage:req.file,
+                //profileImage:req.file,
                 about:teacher.about,
                 qualification:teacher.qualification
               }
@@ -118,7 +115,7 @@ router.post("/", upload.single('profileImage'), (req, res) => {
 router.get("/", (req, res) => {
   Teacher.find()
     .sort({ date: -1 })
-    .select('id firstname lastname email')
+    .select('id firstname email')
     .exec()
     .then(items => res.json(items));
 });
@@ -128,7 +125,7 @@ router.get("/", (req, res) => {
 router.get("/:teacherId", (req, res, next) => {
   const id = req.params.teacherId;
   Teacher.findById(id)
-  .select('id firstname lastname email')
+  .select('id firstname email')
   .exec()
   .then(item => {
     console.log("From database", item);

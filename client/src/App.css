@@ -48,6 +48,8 @@
 .title{
   font-weight: 600;
   margin-top:0;
+  font-family: Poppins-Regular;
+  
 }
 .err {
   font-size: small;

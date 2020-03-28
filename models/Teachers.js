@@ -5,30 +5,30 @@ const Schema = mongoose.Schema;
 const TeacherSchema = new Schema({
   firstname: {
     type: String,
-    required: true
+    required: false
   },
   lastname: {
     type: String,
-    required: true
+    required: false
   },
   email: {
     type: String,
-    required: true,
+    required: false,
     
     unique: true,
     match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   } ,
   password: {
     type: String,
-    required: true
+    required: false
   },
   gender:{
     type: String,
-    enum: ["male", "female"]
+    
   },
   city:{
     type: String,
-    required: true
+    required: false
   },
   zipCode:{
     type: String
@@ -38,15 +38,15 @@ const TeacherSchema = new Schema({
   },
   profileImage:{
     type:String,
-    required:true
+    
   },
   about: {
     type: String,
-    required: true
+    required: false
   },
   qualification: {
     type: String,
-     required: true
+     required: false
   }
   
   // Rating: {

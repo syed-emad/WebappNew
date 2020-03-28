@@ -214,3 +214,8 @@
 [0323/112348.680:ERROR:process_memory_win.cc(73)] ReadMemory at 0x20c04865dc0 of 512 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0323/112348.680:ERROR:process_memory_win.cc(73)] ReadMemory at 0x20c0487ae50 of 512 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0323/112348.739:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0324/165359.083:ERROR:process_reader_win.cc(108)] process 3552 not found
+[0324/165359.263:ERROR:exception_snapshot_win.cc(98)] thread ID 5752 not found in process
+[0324/165359.276:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0324/170451.896:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0324/170451.896:ERROR:exception_snapshot_win.cc(98)] thread ID 21404 not found in process

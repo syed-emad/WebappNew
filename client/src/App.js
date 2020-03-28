@@ -18,6 +18,7 @@ import TeacherFinal from "./components/TeacherPage/Card";
 import Card from "./components/TeacherPage/Card";
 import TeacherSignup from "./components/teacherSignUp/TeacherSignup";
 
+import test from "./components/teacherSignUp/test";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -53,6 +54,8 @@ function App() {
               <Route exact path="/" component={HomeFinal} />
               <Route exact path="/2" component={App2} />
               <Route exact path="/3" component={App3} />
+              
+              <Route exact path="/test" component={test} />
               <PublicRoute exact path="/login" component={RegisterNew} />
               <PublicRoute exact path="/card" component={Card} />
               <PublicRoute exact path="/Register" component={Register} />

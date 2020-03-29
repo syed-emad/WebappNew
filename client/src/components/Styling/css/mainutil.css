@@ -190,6 +190,14 @@ iframe {
   justify-content: space-between;
   padding: 177px 130px 33px 95px;
 }
+.signup-box {
+  font-family: Poppins-Regular;
+  border: 1px solid #ddd;
+  width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 5px;
+}
 
 /*------------------------------------------------------------------
 [  ]*/
@@ -205,7 +213,7 @@ iframe {
 /*------------------------------------------------------------------
 [  ]*/
 .login100-form {
-  width: 290px;
+  width: 700px;
 }
 
 .login100-form-title {
@@ -242,7 +250,23 @@ iframe {
   border-radius: 25px;
   padding: 0 30px 0 68px;
 }
-
+ label {
+  font-family: Poppins-Medium;
+  font-size: 50px;
+  margin-left: 25px;
+  line-height: 1.5;
+  font: black;
+}
+ .radio100 {
+  font-family: Poppins-Medium;
+  font-size: 25px;
+  opacity: 0;
+  z-index: 1;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+} 
 
 /*------------------------------------------------------------------
 [ Focus ]*/

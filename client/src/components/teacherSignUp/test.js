@@ -84,12 +84,16 @@ export class test extends Component {
     let currentStep = this.state.currentStep;
     if(currentStep !==1){
       return (
-        <div className="container-login100-form-btn">
+          <div className="clearfix">
+        <div className=" container-login100-form-btn">
+        <span className="float-left">
         <button 
           className="login100-form-btn" 
           type="button" onClick={this._prev}>
         Previous
         </button>
+        </span>
+        </div>
         </div>
       )
     }
@@ -100,12 +104,15 @@ export class test extends Component {
     let currentStep = this.state.currentStep;
     if(currentStep <3){
       return (
+          <div className="clearfix">
         <div className="container-login100-form-btn">
-        <button className="login100-form-btn"onClick={this._next}>
+        <span className="float-right">  
+        <button className="login100-form-btn float-right"onClick={this._next}>
         Next
         </button>
+        </span>
       </div>
-               
+        </div>       
       )
     }
     return null;
@@ -114,14 +121,19 @@ export class test extends Component {
     render() {    
       return (
         <React.Fragment>
-        <h1>React Wizard Form 🧙‍♂️</h1>
-        <p>Step {this.state.currentStep} </p> 
+
+        <div className="row" style={{ fontFamily: "Montserrat", marginLeft: "10px", marginTop:"20px" }}>
+        <h1 >Teacher Sign-up</h1>
+        </div>
+        <p className="label100" style={{ fontSize:"30px", marginLeft: "10px", marginTop:"20px" }} >Step {this.state.currentStep} </p> 
         
-        <div className="limiter">
-          <div className="container-login100">
+        
+         
+          <div className="signup-box">
+             
         <form 
         onSubmit={this.handleSubmit}
-        className="login100-form validate-form"
+        className="form-group validate-form"
         >
         {/* 
           render the form steps and pass required props in
@@ -146,7 +158,8 @@ export class test extends Component {
   
         </form>
         </div>
-        </div>
+        
+        
         </React.Fragment>
       );
     }
@@ -158,96 +171,129 @@ export class test extends Component {
     } 
     return(
      
-        <div className="form-group">
-            <div className="row">
-                <div className="col-md-6">
-        <label htmlFor="firstname">First name</label>
-        <input
-          className="form-control"
-          id="firstname"
-          name="firstname"
-          type="text"
-          placeholder="Enter first name"
-          value={props.firstname}
-          onChange={props.handleChange}
-          />
+        <div className="form-group mb-10px">
+            <h2 style={{ fontFamily: "Montserrat"}}>Basic Details</h2>
+            <div className="row"  >
+                <div className="col-md-6 ">
+                    <div className="wrap-input100 validate-input">
+                        <label className=" label100 ml-3" htmlFor="firstname">First name:</label>
+                            <input
+                            className="input100"
+                            id="firstname"
+                            name="firstname"
+                            type="text"
+                            placeholder="Enter first name"
+                            value={props.firstname}
+                            onChange={props.handleChange}
+                            />
+                    </div>
+                    <div className="wrap-input100 validate-input">
+                    <label className=" ml-3" htmlFor="email">Email:</label>
+                            <input
+                            className="input100"
+                            id="email"
+                            type="text"
+                            name="email"
+                            placeholder="Email"
+                            value={props.email}
+                            onChange={props.handleChange}
+                            />
+                  </div>
+                  <div className="wrap-input100 validate-input">
+                  <label className=" ml-3" htmlFor="phone">Phone:</label>
+                  <input
+                        className="input100"
+                        id="phone"
+                        name="phone"
+                        type="text"
+                        placeholder="Enter phone"
+                        value={props.phone}
+                        onChange={props.handleChange}
+                        />
+                  </div>
+                  <div className="wrap-input100 validate-input">
+                  <label className=" ml-3" htmlFor="city">City:</label>
+                        <input
+                        className="input100"
+                        id="city"
+                        name="city"
+                        type="text"
+                        placeholder="Enter city"
+                        value={props.city}
+                        onChange={props.handleChange}
+                        />
+                 </div>
                 </div>
-                <div className="col-md-6">
-          <label htmlFor="lastname">Last name</label>
-        <input
-          className="form-control"
-          id="lastname"
-          name="lastname"
-          type="text"
-          placeholder="Enter last name"
-          value={props.lastname}
-          onChange={props.handleChange}
-          />
+                
+                <div className="col-md-6 ">
+                <div className="wrap-input100 validate-input">
+                    <label className=" ml-3" htmlFor="lastname">Last name:</label>
+                        <input
+                        className="input100"
+                        id="lastname"
+                        name="lastname"
+                        type="text"
+                        placeholder="Enter last name"
+                        value={props.lastname}
+                        onChange={props.handleChange}
+                        />
+                </div>
+                <div className="wrap-input100 validate-input">
+                <label className=" ml-3" htmlFor="password">Password:</label>
+                        <input
+                        className="input100"
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Enter password"
+                        value={props.password}
+                        onChange={props.handleChange}
+                        />
+                        
+                </div>
+                <div className="wrap-input100 validate-input">
+                            <label className="ml-3">
+                                Gender:
+                            </label>
+                            <div className="form-control border-0 p-0 pt-3">
+                                <label className="mr-2">
+                                    <input
+                                        type="radio"
+                                        name="gender"
+                                        value="male"
+                                        style={{ marginTop:"5px"}}
+                                        onChange={props.handleChange}
+                                    /> Male
+                                </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    value="female"
+                                    style={{marginLeft:"25px", marginTop:"5px"}}
+                                    onChange={props.handleChange}
+                                /> Female
+                            </label>
+                        </div>
+                        
+                </div>
+                <div className="wrap-input100 validate-input">
+                <label className=" ml-3 pt-4" htmlFor="zipCode" >Zip Code:</label>
+                        <input
+                        className="input100"
+                        id="zipCode"
+                        name="zipCode"
+                        type="text"
+                        placeholder="Enter zip code"
+                        value={props.zipCode}
+                        onChange={props.handleChange}
+                        />
+                        
+                </div>
+                
+            </div>
           </div>
-          </div>
-          <input
-            className="input100"
-            id="email"
-            type="text"
-            name="email"
-            placeholder="Email"
-            value={props.email}
-            onChange={props.handleChange}
-                  />
-        <input
-          className="input100"
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          value={props.password}
-          onChange={props.handleChange}
-          />
-        <input
-          className="input100"
-          id="phone"
-          name="phone"
-          type="text"
-          placeholder="Enter phone"
-          value={props.phone}
-          onChange={props.handleChange}
-          />
-        <input
-          className="input100"
-          id="phone"
-          name="phone"
-          type="text"
-          placeholder="Enter phone"
-          value={props.phone}
-          onChange={props.handleChange}
-          />
-        <input
-          className="input100"
-          id="city"
-          name="city"
-          type="text"
-          placeholder="Enter city"
-          value={props.city}
-          onChange={props.handleChange}
-          />
-          <input
-          className="input100"
-          id="gender"
-          name="gender"
-          type="text"
-          placeholder="Enter gender"
-          value={props.gender}
-          onChange={props.handleChange}
-          />
-          <input
-          className="input100"
-          id="zipCode"
-          name="zipCode"
-          type="text"
-          placeholder="Enter zip code"
-          value={props.zipCode}
-          onChange={props.handleChange}
-          />
+         
 
       </div>
      
@@ -260,17 +306,12 @@ export class test extends Component {
       return null
     } 
     return(
-      <div className="form-group">
-        <label htmlFor="username">Username</label>
-        <input
-          className="form-control"
-          id="username"
-          name="username"
-          type="text"
-          placeholder="Enter username"
-          value={props.username}
-          onChange={props.handleChange}
-          />
+        <div className="form-group mb-10px">
+        <h2 style={{ fontFamily: "Montserrat"}}>About You</h2>
+        <div className="row"  >
+
+            
+        </div>
       </div>
     );
   }
@@ -282,18 +323,10 @@ export class test extends Component {
     return(
       <React.Fragment>
       <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          className="form-control"
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          value={props.password}
-          onChange={props.handleChange}
-          />      
+        <label htmlFor="bye">Bye</label>
+            
       </div>
-      <button className="btn btn-success btn-block">Sign up</button>
+      <button className="btn btn-success btn-block" onSubmit={this.handleSubmit}>Sign up</button>
       </React.Fragment>
     );
   }

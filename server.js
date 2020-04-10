@@ -16,6 +16,7 @@ const users = require("./routes/api/users");
 const users2 = require("./routes/api/users2");
 const auth = require("./routes/api/auth");
 const app = express();
+const multipart= require("connect-multiparty");
 require("dotenv").config();
 
 // parse application/x-www-form-urlencoded
@@ -26,6 +27,7 @@ app.use(cors());
 app.use(bodyParser.json());
 //Bodyparser Middleware
 app.use(express.json());
+app.use(multipart());
 const Users = require("./models/Users");
 //DB Config
 const db = config.get("mongoURI");
@@ -56,6 +58,8 @@ app.use("/api/users", users);
 app.use("/api/users2", users2);
 app.use("/api/auth", auth);
 app.use("/admin", require("./admin")); //for the admin panel
+app.use('/uploads',express.static('uploads'));
+
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.
 app.use(function(req, res, next) {

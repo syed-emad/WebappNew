@@ -3,12 +3,13 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
-const path= require("path");
+// const multipart =require("connect-multiparty");
+// const multipartMiddleware= multipart();
 const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/uploads');
+    cb(null, './uploads');
   },
   filename: function(req, file, cb){
      cb(null,"IMAGE-" + Date.now() + file.originalname);
@@ -28,6 +29,7 @@ const Teacher = require("../../models/Teachers");
 //@desc Create A post
 //@access Public
 router.post("/", (req, res) => {
+  
   const { firstname, lastname, email, password } = req.body;
 
   const newTeacher = new Teacher({
@@ -41,14 +43,18 @@ router.post("/", (req, res) => {
     phone:req.body.phone,
     //profileImage:req.file.path,
     about:req.body.about,
-    qualification:req.body.qualification
+    qualification:req.body.qualification,
+    subjects:req.body.subjects,
+    level:req.body.level,
+    days:req.body.days,
+    time:req.body.time
   });
 
   //validation
   if (!firstname || !lastname || !email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
   }
-  // if (!req.file) return res.send('Please upload a file')
+  //if (!req.file) return res.send('Please upload a file')
   //Check for exsisting teacher
   Teacher.findOne({ email })
   .then(teacher => {
@@ -90,9 +96,13 @@ router.post("/", (req, res) => {
                 city:teacher.city,
                 zipCode:teacher.zipCode,
                 phone:teacher.phone,
-                //profileImage:req.file,
+               // profileImage:req.file,
                 about:teacher.about,
-                qualification:teacher.qualification
+                qualification:teacher.qualification,
+                subjects:teacher.subjects,
+                level:teacher.level,
+                days:teacher.days,
+                time:teacher.time
               }
             });
           }
@@ -115,7 +125,7 @@ router.post("/", (req, res) => {
 router.get("/", (req, res) => {
   Teacher.find()
     .sort({ date: -1 })
-    .select('id firstname email')
+    
     .exec()
     .then(items => res.json(items));
 });

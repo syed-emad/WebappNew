@@ -45,9 +45,26 @@ const TeacherSchema = new Schema({
     required: false
   },
   qualification: {
+    type: [String],
+    required: false
+  },
+  subjects:{
     type: String,
-     required: false
+    required: false
+  },
+  level:{
+    type: String,
+    required: false
+  },
+  days:{
+    type: String,
+    required: false
+  },
+  time:{
+    type: String,
+    required: false
   }
+
   
   // Rating: {
   //   type: String,

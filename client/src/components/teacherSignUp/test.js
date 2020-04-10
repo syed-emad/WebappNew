@@ -1,5 +1,31 @@
 import React, { Component } from 'react'
+import ReactSelect from 'react-select';
 import axios from "axios";
+
+const levelList = [
+  { value: "primary", label: "Primary" },
+  { value: "secondary", label: "Secondary" },
+  { value: "matric/inter", label: "Matric/Intermediate" },
+  { value: "olevels/alevels", label: "Olevels/Alevels" },
+  { value: "univeristy", label: "University" },
+];
+const daysList =[
+  { value: "monday", label: "Monday" },
+  { value: "tuesday", label: "Tuesday" },
+  { value: "wednesday", label: "Wednesday" },
+  { value: "thursday", label: "Thursday" },
+  { value: "friday", label: "Friday" },
+  { value: "saturday", label: "Saturday" },
+  { value: "sunday", label: "Sunday" },
+];
+
+
+const timeList=[
+  { value: "morning", label: "Morning (8am-12pm)" },
+  { value: "afternoon", label: "Afternoon (12pm-4pm)" },
+  { value: "evening", label: "Evening (4pm-9pm)" },
+  { value: "night", label: "Night (9pm-12am)" },
+];
 export class test extends Component {
     constructor(props) {
       super(props)
@@ -13,14 +39,19 @@ export class test extends Component {
           gender:null,
           city:null,
           zipCode:"",
-          // file:"",
-          // about:"",
-          // qualification:"",
-    
+          profileImage:"",
+          about:"",
+          qualification:null,
+          subjects:"",
+          level:"",
+          days:"",
+          time:"",
           success: true
       }
+      
     }
   
+    
     handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -29,7 +60,7 @@ export class test extends Component {
      
     handleSubmit = event => {
       event.preventDefault()
-      const {firstname, lastname, email, password, gender,city,zipCode,phone, date } = this.state;
+      const {firstname, lastname, email, password, gender,city,zipCode,phone,qualification,about,subjects,level,days,time, date } = this.state;
 
     const Teacher = {
       firstname,
@@ -40,9 +71,13 @@ export class test extends Component {
       city,
       zipCode,
       phone,
-      // file,
-      // about,
-      // qualification,
+     // profileImage,
+      about,
+      qualification,
+      subjects,
+      level,
+      days,
+      time,
       date
     };
 
@@ -55,25 +90,20 @@ export class test extends Component {
       .catch(err => {
         console.error(err);
       });
-    //   alert(`Your registration detail: \n 
-    //          Email: ${email} \n 
-    //          Username: ${username} \n
-    //          Password: ${password}`)
+    
     }
     
     _next = () => {
-      let currentStep = this.state.currentStep
-      currentStep = currentStep >= 2? 3: currentStep + 1
-      this.setState({
-        currentStep: currentStep
-      })
+        let currentStep = this.state.currentStep
+        this.setState({
+            currentStep : currentStep + 1
+        })
     }
       
     _prev = () => {
       let currentStep = this.state.currentStep
-      currentStep = currentStep <= 1? 1: currentStep - 1
       this.setState({
-        currentStep: currentStep
+        currentStep: currentStep -1
       })
     }
   
@@ -85,7 +115,7 @@ export class test extends Component {
     if(currentStep !==1){
       return (
           <div className="clearfix">
-        <div className=" container-login100-form-btn">
+        <div className="container-login100-form-btn2">
         <span className="float-left">
         <button 
           className="login100-form-btn" 
@@ -105,9 +135,9 @@ export class test extends Component {
     if(currentStep <3){
       return (
           <div className="clearfix">
-        <div className="container-login100-form-btn">
+        <div className="container-login100-form-btn2">
         <span className="float-right">  
-        <button className="login100-form-btn float-right"onClick={this._next}>
+        <button className="login100-form-btn" type="button" onClick={this._next}>
         Next
         </button>
         </span>
@@ -134,6 +164,7 @@ export class test extends Component {
         <form 
         onSubmit={this.handleSubmit}
         className="form-group validate-form"
+        enctype="multipart/form-data"
         >
         {/* 
           render the form steps and pass required props in
@@ -141,17 +172,29 @@ export class test extends Component {
           <Step1 
             currentStep={this.state.currentStep} 
             handleChange={this.handleChange}
+            firstname={this.state.firstname}
+            lastname={this.state.lastname}
             email={this.state.email}
+            password={this.state.password}
+            gender={this.state.gender}
+            city={this.state.city}
+            zipCode={this.state.zipCode}
+            phone={this.state.phone}
+            
           />
           <Step2 
             currentStep={this.state.currentStep} 
             handleChange={this.handleChange}
-            username={this.state.username}
+            about={this.state.about}
+            qualification={this.state.qualification}
+            subjects={this.state.subjects}
+            level={this.state.level}
           />
           <Step3 
             currentStep={this.state.currentStep} 
             handleChange={this.handleChange}
-            password={this.state.password}
+            days={this.state.days}
+            time={this.state.time}
           />
           {this.previousButton()}
           {this.nextButton()}
@@ -306,14 +349,82 @@ export class test extends Component {
       return null
     } 
     return(
-        <div className="form-group mb-10px">
+        <div className="form-group mb-10px ">
         <h2 style={{ fontFamily: "Montserrat"}}>About You</h2>
+        
         <div className="row"  >
+                      
+                        <textarea
+                        className="form-control m-4"
+                        id="about"
+                        name="about"
+                        type="textarea"
+                        rows="5"
+                        placeholder="Tell us about yourself in no more than 150 words"
+                        value={props.about}
+                        onChange={props.handleChange}
+                        />
+                        
+                        <label className="ml-3">
+                        Qualification:
+                        </label>
+                        <input 
+                        className="form-control m-4"
+                        type="text" 
+                        id="qualification" 
+                        name="qualification"
+                        placeholder="Qualification"
+                        value={props.qualification}
+                        onChange={props.handleChange}
+                        />
+                        
+                         
 
-            
+                        <div className="col">
+                        <label className="ml-2">
+                        Subjects:
+                        </label>
+                        <input 
+                        className="form-control"
+                        type="text" 
+                        id="subjects" 
+                        name="subjects"
+                        placeholder="Subjects"
+                        value={props.subjects}
+                        onChange={props.handleChange}
+                        />
+                        
+                        </div>
+
+                        <div className="col">
+                        <div className="form-group">
+                        <label>
+                          Level:
+                        </label>
+                        <ReactSelect
+                        name="level"
+                        isMulti
+                        options={levelList}
+                        value={props.level}
+                        onChange={e =>
+                          props.handleChange({
+                            target: {
+                              name: "level",
+                              value: e.value
+                            }
+                          })
+                        }
+                      />
+              
+            </div>                      
+                        </div>
+
+                                                
+                        
+
         </div>
       </div>
-    );
+    );  
   }
   
   function Step3(props) {
@@ -322,11 +433,60 @@ export class test extends Component {
     } 
     return(
       <React.Fragment>
-      <div className="form-group">
-        <label htmlFor="bye">Bye</label>
+      <div className="form-group mb-10px ">
+        <h2 style={{ fontFamily: "Montserrat"}}>Choose your timetable</h2>
+        <label htmlFor="bye">Select days and time that you prefer to teach</label>
+        <div className="row"  >
             
+        <div className="col">
+          <div className="form-group">
+            <label>
+               Days:
+            </label>
+            <ReactSelect
+                name="days"
+                isMulti
+                options={daysList}
+                value={props.days}
+                onChange={e =>
+                props.handleChange({
+                target: {
+                name: "days",
+                value: e.value
+               }
+              })
+              }
+            />          
+        </div>
+      </div>  
+
+      <div className="col">
+          <div className="form-group">
+            <label>
+               Time:
+            </label>
+            <ReactSelect
+                name="time"
+                isMulti
+                options={timeList}
+                value={props.time}
+                onChange={e =>
+                props.handleChange({
+                target: {
+                name: "time",
+                value: e.value
+               }
+              })
+              }
+            />          
+        </div>
+      </div>  
+
       </div>
-      <button className="btn btn-success btn-block" onSubmit={this.handleSubmit}>Sign up</button>
+      </div>
+      <span className="float-right">
+      <button className="login100-form-btn" onSubmit={props.handleSubmit}>Sign up</button>
+      </span>
       </React.Fragment>
     );
   }

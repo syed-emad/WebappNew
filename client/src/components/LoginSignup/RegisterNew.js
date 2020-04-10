@@ -20,6 +20,7 @@ function RegisterNew(props) {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
         props.history.push("/dashboard");
+        window.location = "/list";
       })
       .catch(error => {
         setLoading(false);

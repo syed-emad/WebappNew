@@ -5,7 +5,26 @@ import axios from "axios";
 const levelList = [
   { value: "primary", label: "Primary" },
   { value: "secondary", label: "Secondary" },
-  { value: "matric/inter", label: "Matric/Intermediate" }
+  { value: "matric/inter", label: "Matric/Intermediate" },
+  { value: "olevels/alevels", label: "Olevels/Alevels" },
+  { value: "univeristy", label: "University" },
+];
+const daysList =[
+  { value: "monday", label: "Monday" },
+  { value: "tuesday", label: "Tuesday" },
+  { value: "wednesday", label: "Wednesday" },
+  { value: "thursday", label: "Thursday" },
+  { value: "friday", label: "Friday" },
+  { value: "saturday", label: "Saturday" },
+  { value: "sunday", label: "Sunday" },
+];
+
+
+const timeList=[
+  { value: "morning", label: "Morning (8am-12pm)" },
+  { value: "afternoon", label: "Afternoon (12pm-4pm)" },
+  { value: "evening", label: "Evening (4pm-9pm)" },
+  { value: "night", label: "Night (9pm-12am)" },
 ];
 export class TeacherSignup extends Component {
     constructor(props) {
@@ -96,7 +115,7 @@ export class TeacherSignup extends Component {
     if(currentStep !==1){
       return (
           <div className="clearfix">
-        <div className=" container-login100-form-btn2">
+        <div className="container-login100-form-btn2">
         <span className="float-left">
         <button 
           className="login100-form-btn" 
@@ -118,7 +137,7 @@ export class TeacherSignup extends Component {
           <div className="clearfix">
         <div className="container-login100-form-btn2">
         <span className="float-right">  
-        <button className="login100-form-btn " type="button" onClick={this._next}>
+        <button className="login100-form-btn" type="button" onClick={this._next}>
         Next
         </button>
         </span>
@@ -132,15 +151,14 @@ export class TeacherSignup extends Component {
     render() {    
       return (
         <React.Fragment>
-
+        <div className="container2">
         <div className="row" style={{ fontFamily: "Montserrat", marginLeft: "10px", marginTop:"20px" }}>
         <h1 >Teacher Sign-up</h1>
         </div>
         <p className="label100" style={{ fontSize:"30px", marginLeft: "10px", marginTop:"20px" }} >Step {this.state.currentStep} </p> 
-        
-        
-         
-          <div className="signup-box">
+                 
+         <div className="signup-box"         
+          >
              
         <form 
         onSubmit={this.handleSubmit}
@@ -174,14 +192,15 @@ export class TeacherSignup extends Component {
           <Step3 
             currentStep={this.state.currentStep} 
             handleChange={this.handleChange}
-            password={this.state.password}
+            days={this.state.days}
+            time={this.state.time}
           />
           {this.previousButton()}
           {this.nextButton()}
   
         </form>
         </div>
-        
+        </div>
         
         </React.Fragment>
       );
@@ -349,7 +368,7 @@ export class TeacherSignup extends Component {
                         Qualification:
                         </label>
                         <input 
-                        className="form-control m-4"
+                        className="form-control m-3"
                         type="text" 
                         id="qualification" 
                         name="qualification"
@@ -361,7 +380,7 @@ export class TeacherSignup extends Component {
                          
 
                         <div className="col">
-                        <label className="ml-3">
+                        <label className="ml-2">
                         Subjects:
                         </label>
                         <input 
@@ -383,6 +402,7 @@ export class TeacherSignup extends Component {
                         </label>
                         <ReactSelect
                         name="level"
+                        isMulti
                         options={levelList}
                         value={props.level}
                         onChange={e =>
@@ -396,7 +416,7 @@ export class TeacherSignup extends Component {
                       />
               
             </div>                      
-                        </div>
+        </div>
 
                                                 
                         
@@ -412,10 +432,60 @@ export class TeacherSignup extends Component {
     } 
     return(
       <React.Fragment>
-      <div className="form-group">
-        <label htmlFor="bye">Bye</label>         
+      <div className="form-group mb-10px ">
+        <h2 style={{ fontFamily: "Montserrat"}}>Choose your timetable</h2>
+        <label className="mb-3" >Select days and time that you prefer to teach</label>
+        <div className="row"  >
+            
+        <div className="col">
+          <div className="form-group">
+            <label>
+               Days:
+            </label>
+            <ReactSelect
+                name="days"
+                isMulti
+                options={daysList}
+                value={props.days}
+                onChange={e =>
+                props.handleChange({
+                target: {
+                name: "days",
+                value: e.value
+               }
+              })
+              }
+            />          
+        </div>
+      </div>  
+
+      <div className="col">
+          <div className="form-group">
+            <label>
+               Time:
+            </label>
+            <ReactSelect
+                name="time"
+                isMulti
+                options={timeList}
+                value={props.time}
+                onChange={e =>
+                props.handleChange({
+                target: {
+                name: "time",
+                value: e.value
+               }
+              })
+              }
+            />          
+        </div>
+      </div>  
+
       </div>
-      <button className="btn btn-success btn-block" onSubmit={props.handleSubmit}>Sign up</button>
+      </div>
+      
+      <button className="login100-form-btn" onSubmit={props.handleSubmit}>Sign up</button>
+      
       </React.Fragment>
     );
   }

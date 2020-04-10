@@ -151,15 +151,14 @@ export class test extends Component {
     render() {    
       return (
         <React.Fragment>
-
+        <div className="container2">
         <div className="row" style={{ fontFamily: "Montserrat", marginLeft: "10px", marginTop:"20px" }}>
         <h1 >Teacher Sign-up</h1>
         </div>
         <p className="label100" style={{ fontSize:"30px", marginLeft: "10px", marginTop:"20px" }} >Step {this.state.currentStep} </p> 
-        
-        
-         
-          <div className="signup-box">
+                 
+         <div className="signup-box"         
+          >
              
         <form 
         onSubmit={this.handleSubmit}
@@ -201,7 +200,7 @@ export class test extends Component {
   
         </form>
         </div>
-        
+        </div>
         
         </React.Fragment>
       );
@@ -369,7 +368,7 @@ export class test extends Component {
                         Qualification:
                         </label>
                         <input 
-                        className="form-control m-4"
+                        className="form-control m-3"
                         type="text" 
                         id="qualification" 
                         name="qualification"
@@ -417,7 +416,7 @@ export class test extends Component {
                       />
               
             </div>                      
-                        </div>
+        </div>
 
                                                 
                         
@@ -435,7 +434,7 @@ export class test extends Component {
       <React.Fragment>
       <div className="form-group mb-10px ">
         <h2 style={{ fontFamily: "Montserrat"}}>Choose your timetable</h2>
-        <label htmlFor="bye">Select days and time that you prefer to teach</label>
+        <label className="mb-3" >Select days and time that you prefer to teach</label>
         <div className="row"  >
             
         <div className="col">
@@ -484,9 +483,9 @@ export class test extends Component {
 
       </div>
       </div>
-      <span className="float-right">
+      
       <button className="login100-form-btn" onSubmit={props.handleSubmit}>Sign up</button>
-      </span>
+      
       </React.Fragment>
     );
   }

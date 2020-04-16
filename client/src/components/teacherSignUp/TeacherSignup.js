@@ -85,7 +85,7 @@ export class TeacherSignup extends Component {
       .post("/api/teachers", Teacher)
       .then(() => {
         console.log("User Created");
-        window.location = "/login";
+        window.location = "/login-teacher";
       })
       .catch(err => {
         console.error(err);
@@ -151,7 +151,13 @@ export class TeacherSignup extends Component {
     render() {    
       return (
         <React.Fragment>
-        <div className="container2">
+         <div className="background_image"
+                        style={{ backgroundImage: "url(images/bg.jpg)" }}
+                      />
+        <div className="container2"
+        
+        >
+         
         <div className="row" style={{ fontFamily: "Montserrat", marginLeft: "10px", marginTop:"20px" }}>
         <h1 >Teacher Sign-up</h1>
         </div>

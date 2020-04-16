@@ -17,7 +17,7 @@ export default class Header extends Component {
             <div className="logo">
               <img src="images/logo.png" alt="" />
               <a
-                href="#"
+                href="/"
                 style={{ fontFamily: "Montserrat", marginLeft: "5px" }}
               >
                 PROFESSOR
@@ -29,7 +29,7 @@ export default class Header extends Component {
               <div className="log_reg">
                 <ul className="d-flex flex-row align-items-center justify-content-start">
                   <li>
-                    <a href="/login">Login </a>
+                    <a href="/login-teacher">Login </a>
                   </li>
                   <li>
                     <a href="/TeacherSignup">Register</a>

@@ -14,7 +14,7 @@ import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
-import TeacherFinal from "./components/TeacherPage/TeacherFinal";
+import TeacherFinal from "./components/TeacherPage/Card";
 import Card from "./components/TeacherPage/Card";
 import TeacherSignup from "./components/teacherSignUp/TeacherSignup";
 

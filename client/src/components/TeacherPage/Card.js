@@ -39,18 +39,18 @@ export default class Card extends Component {
                           className="card-title"
                           style={{ marginTop: "10px" }}
                         >
-                          <li>{teachers.name}</li>
+                          <li>{teachers.firstname}  {teachers.lastname}</li>
                         </h4>
                         <p>
                           <i class="fa fa-book" style={{ color: "#360f64" }}>
                             &nbsp;&nbsp;
                           </i>
-                          <small>{teachers.Qualification}&nbsp;</small>
+                          <small>{teachers.qualification}&nbsp;</small>
                           &nbsp;&nbsp;
                           <i class="fa fa-book" style={{ color: "#360f64" }}>
                             &nbsp;&nbsp;
                           </i>
-                          <small>{teachers.Qualification2}&nbsp;</small>
+                          <small>{teachers.qualification}&nbsp;</small>
                           &nbsp;&nbsp;{" "}
                           <i
                             class="fa fa-star"
@@ -70,12 +70,12 @@ export default class Card extends Component {
                               color: "black"
                             }}
                           >
-                            {teachers.Rating}&nbsp;
+                            {teachers.level}&nbsp;
                           </small>
                           &nbsp;&nbsp;
                         </p>
                         <p className="card-text">
-                          <small>{teachers.About} </small>
+                          <small>{teachers.about} </small>
                         </p>
                         <p className="card-text">
                           <h4
@@ -99,7 +99,7 @@ export default class Card extends Component {
 
                         <div class="text-right mb-3">
                           <a href="#" class="btn btn-primary">
-                            Book Lesson
+                            View Profile
                           </a>
                           &nbsp;
                           <a href="#" class="btn btn-primary">

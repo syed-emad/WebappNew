@@ -19,8 +19,8 @@ function RegisterNew(props) {
       .then(response => {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
-        props.history.push("/dashboard");
-        window.location = "/list";
+        props.history.push("/card");
+       
       })
       .catch(error => {
         setLoading(false);

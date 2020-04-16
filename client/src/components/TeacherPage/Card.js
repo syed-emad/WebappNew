@@ -50,7 +50,7 @@ export default class Card extends Component {
                           <i class="fa fa-book" style={{ color: "#360f64" }}>
                             &nbsp;&nbsp;
                           </i>
-                          <small>{teachers.qualification}&nbsp;</small>
+                          <small>{teachers.subjects}&nbsp;</small>
                           &nbsp;&nbsp;{" "}
                           <i
                             class="fa fa-star"

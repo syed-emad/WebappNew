@@ -49,7 +49,7 @@ class UpperSection extends Component {
                   <nav className="main_nav">
                     <ul className="d-flex flex-row align-items-center justify-content-start">
                       <li className="active">
-                        <a href="index.html">Home</a>
+                        <a href="#">Home</a>
                       </li>
                       <li>
                         <a href="#aboutus">About us</a>
@@ -58,10 +58,10 @@ class UpperSection extends Component {
                         <a href="#howitworks">How it works?</a>
                       </li>
                       <li>
-                        <a href="#">Find a Tutor</a>
+                        <a href="/dashboard">Find a Tutor</a>
                       </li>
                       <li>
-                        <a href="\TeacherSignup">Become a Tutor</a>
+                        <a href="/TeacherSignup">Become a Tutor</a>
                       </li>
                     </ul>
                   </nav>

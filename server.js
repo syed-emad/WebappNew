@@ -11,8 +11,12 @@ const jwt = require("jsonwebtoken");
 //decaling models variables.Will use them below
 const items = require("./routes/api/items");
 const teachers = require("./routes/api/teachers");
+
 const users = require("./routes/api/users");
 const users2 = require("./routes/api/users2");
+
+//const teachers2 = require("./routes/api/teachers2");
+
 const auth = require("./routes/api/auth");
 const app = express();
 require("dotenv").config();
@@ -54,6 +58,7 @@ app.use("/api/teachers", teachers);
 app.use("/api/users", users);
 app.use("/api/users2", users2);
 app.use("/api/auth", auth);
+//app.use("/api/teachers",teachers2);
 app.use("/admin", require("./admin")); //for the admin panel
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.

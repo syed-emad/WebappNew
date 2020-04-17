@@ -103,7 +103,7 @@ export default class Card extends Component {
                           </a>
                           &nbsp;
                           <a href="#" class="btn btn-primary">
-                            Book Lesson
+                            Messege
                           </a>
                         </div>
                       </div>

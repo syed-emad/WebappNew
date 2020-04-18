@@ -1,6 +1,7 @@
 import React, { Component , useState} from 'react'
 import axios from "axios";
-import { setUserSession } from "../../Utils/Common";
+import { setUserSession } from "../../Utils/Common2";
+
 function TeacherSignin(props) {
   const [loading, setLoading] = useState(false);
   const email = useFormInput("");
@@ -11,7 +12,7 @@ function TeacherSignin(props) {
     setError(null);
     setLoading(true);
     axios
-      .post("/x/signin", {
+      .post("/api/teacher/login", {
         email: email.value,
         password: password.value
       })
@@ -25,7 +26,9 @@ function TeacherSignin(props) {
         setLoading(false);
         if (error.response.status === 401)
           setError(error.response.data.message);
+          
         else setError("Something went wrong. Please try again later.");
+        alert("some error");
       });
   };
 
@@ -38,7 +41,7 @@ function TeacherSignin(props) {
               <img src="images/img-01.png" alt="IMG" />
             </div>
             <form className="login100-form validate-form">
-              <span className="login100-form-title">Member Login</span>
+              <span className="login100-form-title">Teacher Login</span>
               <div
                 className="wrap-input100 validate-input"
                 data-validate="Valid email is required: ex@abc.xyz"
@@ -90,7 +93,7 @@ function TeacherSignin(props) {
                 </a>
               </div>
               <div className="text-center p-t-136">
-                <a className="txt2" href="\Register">
+                <a className="txt2" href="\TeacherSignup">
                   Create your Account
                   <i
                     className="fa fa-long-arrow-right m-l-5"

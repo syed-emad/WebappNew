@@ -120,7 +120,63 @@ router.post("/", (req, res) => {
 });
 });
 
+router.post("/login", (req, res, next) => {
+  const { email, password } = req.body;
 
+  //validation
+  if (!email || !password) {
+    return res.status(404).json({ msg: "please enter everthing" });
+  }
+  //Check for exsisting user
+  Teacher.findOne({ email })
+    .exec()
+    .then(teacher => {
+      if (!teacher) {
+        return res.status(400).json({ msg: "teacher does not exist" });
+      }
+
+      //validating password
+      bcrypt.compare(password, teacher.password, (err, result) => {
+        if (err) {
+          return res.status(404).json({
+            message: "auth failed"
+          });
+        }
+        if (result) {
+          const token = jwt.sign(
+            {
+              email: teacher.email,
+              teacherId: teacher._id
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "1h"
+            }
+          );
+          return res.status(200).json({
+            message: "Auth successful",
+            teacher: {
+              id: teacher.id,
+              name: teacher.name,
+              email: teacher.email
+            },
+
+            token: token
+          });
+        }
+
+        res.status(401).json({
+          message: "Auth failed,incorrect password"
+        });
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
 //get all teachers
 router.get("/", (req, res) => {
   Teacher.find()

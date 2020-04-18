@@ -99,7 +99,7 @@ export default class Card extends Component {
 
                         <div class="text-right mb-3">
                           <a href="#" class="btn btn-primary">
-                            View Profile
+                            Send message
                           </a>
                           &nbsp;
                           <a href="#" class="btn btn-primary">

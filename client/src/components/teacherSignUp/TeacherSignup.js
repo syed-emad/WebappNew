@@ -151,9 +151,9 @@ export class TeacherSignup extends Component {
     render() {    
       return (
         <React.Fragment>
-         <div className="background_image"
+         {/* <div className="background_image"
                         style={{ backgroundImage: "url(images/bg.jpg)" }}
-                      />
+                      /> */}
         <div className="container2"
         
         >

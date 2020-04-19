@@ -1,21 +1,20 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 import "./App.css";
-import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
-
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomeFinal from "./components/Homepage/HomeFinal";
 import App2 from "./App2";
-
-import RegisterNew from "./components/LoginSignup/RegisterNew";
+import Login from "./components/LoginSignup/Login";
 import Register from "./components/LoginSignup/Register";
+import search from "./components/SearchResult/search";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
+import SearchPage from "./components/SearchResult/SearchPage";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
-import TeacherFinal from "./components/TeacherPage/Card";
 import Card from "./components/TeacherPage/Card";
-import Teachersignup from "./components/teachersignup/Teachersignup";
+//import Teachersignup from "./components/teachersignup/Teachersignup";
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -28,11 +27,11 @@ function App() {
 
     axios
       .get(`/verifyToken?token=${token}`)
-      .then(response => {
+      .then((response) => {
         setUserSession(response.data.token, response.data.user);
         setAuthLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         removeUserSession();
         setAuthLoading(false);
       });
@@ -50,14 +49,13 @@ function App() {
           <div className="content">
             <Switch>
               <Route exact path="/" component={HomeFinal} />
-              <Route exact path="/2" component={App2} />
-              <Route exact path="/3" component={Teachersignup} />
-
-              <PublicRoute exact path="/login" component={RegisterNew} />
-
+              <PublicRoute exact path="/login" component={Login} />
+              <PublicRoute exact path="/search" component={SearchPage} />
               <PublicRoute exact path="/card" component={Card} />
               <PublicRoute exact path="/Register" component={Register} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
+              //JUNK//
+              <Route exact path="/2" component={App2} />
             </Switch>
           </div>
         </div>

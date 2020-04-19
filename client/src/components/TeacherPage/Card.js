@@ -9,12 +9,12 @@ export default class Card extends Component {
     intervalIsSet: false,
     idToDelete: null,
     idToUpdate: null,
-    objectToUpdate: null
+    objectToUpdate: null,
   };
 
   //Getting TEACHERS from DB
   componentDidMount() {
-    axios.get(`/api/teachers/`).then(res => {
+    axios.get(`/api/teachers/`).then((res) => {
       const teachers = res.data;
       this.setState({ teachers });
     });
@@ -26,7 +26,7 @@ export default class Card extends Component {
         <div>
           <p>---------THESE ARE FROM DATABASE---------</p>{" "}
           <ul>
-            {this.state.teachers.map(teachers => (
+            {this.state.teachers.map((teachers) => (
               <div className="container py-3">
                 <div className="card">
                   <div className="row ">
@@ -57,7 +57,7 @@ export default class Card extends Component {
                             style={{
                               fontSize: "20px",
                               color: "#FFF533",
-                              marginTop: "-100px"
+                              marginTop: "-100px",
                             }}
                           >
                             &nbsp;&nbsp;
@@ -67,7 +67,7 @@ export default class Card extends Component {
                               fontSize: "15px",
                               fontWeight: "bold",
                               marginTop: "-100px",
-                              color: "black"
+                              color: "black",
                             }}
                           >
                             {teachers.Rating}&nbsp;

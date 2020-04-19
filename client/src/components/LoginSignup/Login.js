@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { setUserSession } from "../../Utils/Common";
 function RegisterNew(props) {
@@ -14,16 +14,16 @@ function RegisterNew(props) {
     axios
       .post("/x/signin", {
         email: email.value,
-        password: password.value
+        password: password.value,
       })
-      .then(response => {
+      .then((response) => {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
         props.history.push(
           `/dashboard?name=${response.data.user.name}&id=${response.data.user.id}`
         );
       })
-      .catch(error => {
+      .catch((error) => {
         setLoading(false);
         if (error.response.status === 401)
           setError(error.response.data.message);
@@ -87,9 +87,7 @@ function RegisterNew(props) {
               </div>
               <div className="text-center p-t-12">
                 <span className="txt1">Forgot</span>
-                <a className="txt2" href="#">
-                  Username / Password?
-                </a>
+                <a className="txt2">Username / Password?</a>
               </div>
               <div className="text-center p-t-136">
                 <a className="txt2" href="\Register">
@@ -107,15 +105,15 @@ function RegisterNew(props) {
     </div>
   );
 }
-const useFormInput = initialValue => {
+const useFormInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setValue(e.target.value);
   };
   return {
     value,
-    onChange: handleChange
+    onChange: handleChange,
   };
 };
 export default RegisterNew;

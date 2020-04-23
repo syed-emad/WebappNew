@@ -8,7 +8,6 @@ function SearchPage() {
     return (
       <div>
         <Header />
-        <SearchBar />
         <Search />
       </div>
     );

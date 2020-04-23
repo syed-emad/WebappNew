@@ -10,7 +10,9 @@ router.get("/", (req, res) => {
     .then((teachers) => res.json(teachers));
 });
 router.get("/search", (req, res) => {
-  let Qualification = req.query.name;
+  //let Qualification = req.query.name;
+  let Price = req.query.price;
+  console.log(Price);
   //let name = "Ali Aman";
   //req.query.name;
   console.log("yahya");
@@ -21,25 +23,45 @@ router.get("/search", (req, res) => {
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
   } else {
-    Teacher.find({ Qualification })
+    Teacher.find({ Qualification: "Maths" })
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
   }
 });
 router.get("/search2", (req, res) => {
   let Qualification = req.query.name;
-
+  let Price = req.query.price;
+  let Time = req.query.time;
+  let Day = req.query.day;
+  let sep = "_";
+  let DayTime = Day + sep + Time;
   //let name = "Ali Aman";
   //req.query.name;
-  console.log("yahya");
+  console.log("emad");
+  console.log(DayTime);
   console.log(Qualification);
+  console.log(Time);
+  console.log(Day);
+  console.log("---");
   //console.log(req.query.name);
-  if (!Qualification) {
+  if (!Qualification && !Price && !Day && !Time) {
     Teacher.find({})
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
-  } else {
+  } else if (Qualification && !Price && !Day && !Time) {
     Teacher.find({ Qualification })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && Price && !Day && !Time) {
+    Teacher.find({ Qualification, Price })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && Price && Day && !Time) {
+    Teacher.find({ Qualification, Price, Day })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && Price && !Day && Time) {
+    Teacher.find({ Qualification, Price, Time })
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
   }
@@ -57,6 +79,8 @@ router.post("/", (req, res) => {
     About: req.body.About,
     Price: req.body.Price,
     DayTime: req.body.DayTime,
+    Day: req.body.Day,
+    Time: req.body.Time,
   });
   newTeacher.save().then((teacher) => res.json(teacher));
 });

@@ -40,10 +40,7 @@ function Header(props) {
                   <a href="index.html">Home</a>
                 </li>
                 <li>
-                  <a href="#">Find a Tutor</a>
-                </li>
-                <li>
-                  <a href="#becomeatutor">Contact Us</a>
+                  <a href="#">Become a Tutor</a>
                 </li>
               </ul>
             </nav>
@@ -62,10 +59,6 @@ function Header(props) {
             <div className="hamburger">
               <i className="fa fa-bars trans_200" />
             </div>
-          </div>
-
-          <div className="hamburger">
-            <i className="fa fa-bars trans_200" />
           </div>
         </div>
       </header>

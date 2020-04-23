@@ -26,7 +26,7 @@ function SearchBar() {
   async function handleButtonClick() {
     try {
       const response = await axios.get(
-        `/api/teachers/search2?name=${searchedsubject}&price=${searchedprice}&daytime=${searchedtime}&day=${searchedday}`
+        `/api/teachers/search2?name=${searchedsubject}&price=${searchedprice}&time=${searchedtime}&day=${searchedday}`
       );
       setValue(response.data);
       console.log(response.data);
@@ -111,7 +111,10 @@ function SearchBar() {
                           <Link
                             to={`/search?name=${searchedsubject}&price=${searchedprice}&time=${searchedtime}&day=${searchedday}`}
                           >
-                            <button className="search_button2">
+                            <button
+                              className="search_button2"
+                              onClick={handleButtonClick}
+                            >
                               Find Tutor
                             </button>
                           </Link>

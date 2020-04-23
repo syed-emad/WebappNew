@@ -32,6 +32,14 @@ const TeacherSchema = new Schema({
     type: String,
     required: true,
   },
+  Day: {
+    type: String,
+    required: false,
+  },
+  Time: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = Teacher = mongoose.model("teacher", TeacherSchema);

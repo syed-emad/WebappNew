@@ -1,6 +1,6 @@
 import React, { Component , useState} from 'react'
 import axios from "axios";
-import { setUserSession } from "../../Utils/Common2";
+import { setTeacherSession } from "../../Utils/Common2";
 
 function TeacherSignin(props) {
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ function TeacherSignin(props) {
       })
       .then(response => {
         setLoading(false);
-        setUserSession(response.data.token, response.data.teacher);
+        setTeacherSession(response.data.token, response.data.teacher);
         props.history.push("/card");
        
       })

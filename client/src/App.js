@@ -8,13 +8,13 @@ import HomeFinal from "./components/Homepage/HomeFinal";
 import App2 from "./App2";
 import App3 from "./App3";
 
-import RegisterNew from "./components/LoginSignup/RegisterNew";
+import Login from "./components/LoginSignup/Login";
 import Register from "./components/LoginSignup/Register";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
-//import { getToken, removeUserSession, setUserSession } from "./Utils/Common2";
+// import { getTeacherToken, removeTeacherSession, setTeacherSession } from "./Utils/Common2";
 import TeacherFinal from "./components/TeacherPage/Card";
 import Card from "./components/TeacherPage/Card";
 import TeacherSignin from "./components/teacherSignUp/TeacherSignin";
@@ -54,11 +54,9 @@ function App() {
           <div className="content">
             <Switch>
               <Route exact path="/" component={HomeFinal} />
-              <Route exact path="/2" component={App2} />
-              <Route exact path="/3" component={App3} />
               
-              <Route exact path="/test" component={test} />
-              <PublicRoute exact path="/login" component={RegisterNew} />
+              
+              <PublicRoute exact path="/login" component={Login} />
               <PublicRoute exact path="/login-teacher" component={TeacherSignin} />
               <PublicRoute exact path="/card" component={Card} />
               <PublicRoute exact path="/Register" component={Register} />

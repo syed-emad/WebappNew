@@ -3,24 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const fileUpload = require('../../middleware/file-upload');
 // const multipart =require("connect-multiparty");
-// const multipartMiddleware= multipart();
-const multer = require("multer");
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function(req, file, cb){
-     cb(null,"IMAGE-" + Date.now() + file.originalname);
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  limits:{fileSize: 1000000}
-});
-
 
 //item model
 const Teacher = require("../../models/Teachers");
@@ -28,7 +12,7 @@ const Teacher = require("../../models/Teachers");
 //@route POST api/items
 //@desc Create A post
 //@access Public
-router.post("/", (req, res) => {
+router.post("/",fileUpload.single('profileImage'), (req, res) => {
   
   const { firstname, lastname, email, password } = req.body;
 
@@ -41,7 +25,7 @@ router.post("/", (req, res) => {
     city:req.body.city,
     zipCode:req.body.zipCode,
     phone:req.body.phone,
-    //profileImage:req.file.path,
+    profileImage:req.file.path,
     about:req.body.about,
     qualification:req.body.qualification,
     subjects:req.body.subjects,

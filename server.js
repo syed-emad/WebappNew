@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const config = require("config");
-const path = require("path");
+
 const multer = require("multer");
 const cors = require("cors");
 const utils = require("./utils");
@@ -16,18 +16,23 @@ const users = require("./routes/api/users");
 const users2 = require("./routes/api/users2");
 const auth = require("./routes/api/auth");
 const app = express();
-const multipart= require("connect-multiparty");
+const fs = require('fs');
+const path = require('path');
 require("dotenv").config();
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 // enable CORS
 app.use(cors());
 // parse application/json
 app.use(bodyParser.json());
 //Bodyparser Middleware
+
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 app.use(express.json());
-app.use(multipart());
+
 const Users = require("./models/Users");
 //DB Config
 const db = config.get("mongoURI");
@@ -58,7 +63,7 @@ app.use("/api/users", users);
 app.use("/api/users2", users2);
 app.use("/api/auth", auth);
 app.use("/admin", require("./admin")); //for the admin panel
-app.use('/uploads',express.static('uploads'));
+// app.use('/uploads',express.static('uploads'));
 
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.
@@ -209,6 +214,21 @@ app.get("/verifyToken", function(req, res) {
     return res.json({ user: userObj, token });
   });
 });
+
+// app.use((error, req, res, next) => {
+//   if (req.file) {
+//     fs.unlink(req.file.path, err => {
+//       console.log(err);
+//       console.log('neha');
+//     });
+//   }
+//   if (res.headerSent) {
+//     return next(error);
+//   }
+//   res.status(error.code || 500);
+//   res.json({ message: error.message || 'An unknown error occurred!' });
+// });
+
 //Port
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server started on Port ${port}`));

@@ -61,7 +61,10 @@ const UpperSection = () => {
                       <a href="#howitworks">How it works?</a>
                     </li>
                     <li>
-                      <a href="#">Find a Tutor</a>
+                      <Link to={`/search?name=${searchedsubject}`}>
+                        {" "}
+                        <a href="#">Find a Tutor</a>
+                      </Link>
                     </li>
                     <li>
                       <a href="#becomeatutor">Become a Tutor</a>

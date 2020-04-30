@@ -200,7 +200,7 @@ function Search() {
                       </p>
 
                       <div class="text-right mb-3">
-                        <a href="#" class="btn btn-primary">
+                        <a href="/Checkout" class="btn btn-primary">
                           Book Lesson
                         </a>
                         &nbsp;

@@ -14,6 +14,8 @@ import PublicRoute from "./Utils/PublicRoute";
 import SearchPage from "./components/SearchResult/SearchPage";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
 import Card from "./components/TeacherPage/Card";
+import Checkout from "./components/CheckoutPage/Checkout";
+import Success from "./components/CheckoutPage/Success";
 //import Teachersignup from "./components/teachersignup/Teachersignup";
 
 function App() {
@@ -52,6 +54,8 @@ function App() {
               <PublicRoute exact path="/login" component={Login} />
               <PublicRoute exact path="/search" component={SearchPage} />
               <PublicRoute exact path="/card" component={Card} />
+              <PublicRoute exact path="/Checkout" component={Checkout} />
+              <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               //JUNK//

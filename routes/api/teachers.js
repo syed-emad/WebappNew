@@ -10,20 +10,20 @@ router.get("/", (req, res) => {
     .then((teachers) => res.json(teachers));
 });
 router.get("/search", (req, res) => {
-  //let Qualification = req.query.name;
+  let Qualification = req.query.name;
   let Price = req.query.price;
   console.log(Price);
   //let name = "Ali Aman";
   //req.query.name;
   console.log("yahya");
-  console.log(Qualification);
+
   //console.log(req.query.name);
   if (!Qualification) {
     Teacher.find({})
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
   } else {
-    Teacher.find({ Qualification: "Maths" })
+    Teacher.find({ Qualification })
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
   }

@@ -9,12 +9,12 @@ export default class Card extends Component {
     intervalIsSet: false,
     idToDelete: null,
     idToUpdate: null,
-    objectToUpdate: null
+    objectToUpdate: null,
   };
 
   //Getting TEACHERS from DB
   componentDidMount() {
-    axios.get(`/api/teachers/`).then(res => {
+    axios.get(`/api/teachers/`).then((res) => {
       const teachers = res.data;
       this.setState({ teachers });
     });
@@ -26,7 +26,7 @@ export default class Card extends Component {
         <div>
           <p>---------THESE ARE FROM DATABASE---------</p>{" "}
           <ul>
-            {this.state.teachers.map(teachers => (
+            {this.state.teachers.map((teachers) => (
               <div className="container py-3">
                 <div className="card">
                   <div className="row ">
@@ -39,25 +39,25 @@ export default class Card extends Component {
                           className="card-title"
                           style={{ marginTop: "10px" }}
                         >
-                          <li>{teachers.firstname}  {teachers.lastname}</li>
+                          <li>{teachers.name}</li>
                         </h4>
                         <p>
                           <i class="fa fa-book" style={{ color: "#360f64" }}>
                             &nbsp;&nbsp;
                           </i>
-                          <small>{teachers.qualification}&nbsp;</small>
+                          <small>{teachers.Qualification}&nbsp;</small>
                           &nbsp;&nbsp;
                           <i class="fa fa-book" style={{ color: "#360f64" }}>
                             &nbsp;&nbsp;
                           </i>
-                          <small>{teachers.subjects}&nbsp;</small>
+                          <small>{teachers.Qualification2}&nbsp;</small>
                           &nbsp;&nbsp;{" "}
                           <i
                             class="fa fa-star"
                             style={{
                               fontSize: "20px",
                               color: "#FFF533",
-                              marginTop: "-100px"
+                              marginTop: "-100px",
                             }}
                           >
                             &nbsp;&nbsp;
@@ -67,15 +67,15 @@ export default class Card extends Component {
                               fontSize: "15px",
                               fontWeight: "bold",
                               marginTop: "-100px",
-                              color: "black"
+                              color: "black",
                             }}
                           >
-                            {teachers.level}&nbsp;
+                            {teachers.Rating}&nbsp;
                           </small>
                           &nbsp;&nbsp;
                         </p>
                         <p className="card-text">
-                          <small>{teachers.about} </small>
+                          <small>{teachers.About} </small>
                         </p>
                         <p className="card-text">
                           <h4
@@ -99,11 +99,11 @@ export default class Card extends Component {
 
                         <div class="text-right mb-3">
                           <a href="#" class="btn btn-primary">
-                            Send message
+                            Book Lesson
                           </a>
                           &nbsp;
                           <a href="#" class="btn btn-primary">
-                            Book Lesson
+                            Messege
                           </a>
                         </div>
                       </div>

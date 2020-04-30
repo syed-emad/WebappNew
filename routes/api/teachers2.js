@@ -2,21 +2,21 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
-const utils = require("../../utils");
 const jwt = require("jsonwebtoken");
-//User model
-const Users2 = require("../../models/Users2");
+const fileUpload = require('../../middleware/file-upload');
+// const multipart =require("connect-multiparty");
 
-//@route GET api/users
-//@desc Register new user
+//item model
+const Teacher2 = require("../../models/Teachers2");
+
+//@route POST api/items
+//@desc Create A post
 //@access Public
-
-router.post("/", (req, res) => {
+router.post("/",fileUpload.single('profileImage'), (req, res) => {
   
   const { firstname, lastname, email, password } = req.body;
 
-  const newUsers2 = new Users2({
-    roleID: req.body.roleID,
+  const newTeacher = new Teacher2({
     firstname:req.body.firstname,
     lastname:req.body.lastname,
     email:req.body.email,
@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
     city:req.body.city,
     zipCode:req.body.zipCode,
     phone:req.body.phone,
-    //profileImage:req.file.path,
+    profileImage:req.file.path,
     about:req.body.about,
     qualification:req.body.qualification,
     subjects:req.body.subjects,
@@ -39,31 +39,31 @@ router.post("/", (req, res) => {
     return res.status(404).json({ msg: "please enter everthing" });
   }
   //if (!req.file) return res.send('Please upload a file')
-  //Check for exsisting users2
-  Users2.findOne({ email })
-  .then(users2 => {
-    if (users2) {
+  //Check for exsisting teacher
+  Teacher.findOne({ email })
+  .then(teacher => {
+    if (teacher) {
       return res.status(400).json({ 
-        msg: "users2 already exist" 
+        msg: "teacher already exist" 
       });
     }
   
   //salt is use to create password hash
   bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUsers2.password, salt, (err, hash) => {
+    bcrypt.hash(newTeacher.password, salt, (err, hash) => {
       // if (err) throw err;
       if (err) {
         return res.status(500).json({
           error: err
         });
       }
-      newUsers2.password = hash;
-      newUsers2
+      newTeacher.password = hash;
+      newTeacher
       .save()
-      .then(users2 => {
+      .then(teacher => {
         jwt.sign(
           {
-            id: users2.id, role:users2.roleID
+            id: teacher.id
           },
           config.get("jwtSecret"),
           //{ expiresIn: 3600 },
@@ -71,22 +71,22 @@ router.post("/", (req, res) => {
             if (err) throw err;
             res.json({
               token,
-              users2: {
-                id: users2.id,
-                firstname: users2.firstname,
-                lastname: users2.lastname,
-                email: users2.email,
-                gender:users2.gender,
-                city:users2.city,
-                zipCode:users2.zipCode,
-                phone:users2.phone,
+              teacher: {
+                id: teacher.id,
+                firstname: teacher.firstname,
+                lastname: teacher.lastname,
+                email: teacher.email,
+                gender:teacher.gender,
+                city:teacher.city,
+                zipCode:teacher.zipCode,
+                phone:teacher.phone,
                // profileImage:req.file,
-                about:users2.about,
-                qualification:users2.qualification,
-                subjects:users2.subjects,
-                level:users2.level,
-                days:users2.days,
-                time:users2.time
+                about:teacher.about,
+                qualification:teacher.qualification,
+                subjects:teacher.subjects,
+                level:teacher.level,
+                days:teacher.days,
+                time:teacher.time
               }
             });
           }
@@ -106,23 +106,21 @@ router.post("/", (req, res) => {
 
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
- 
+
   //validation
   if (!email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
   }
-
- 
   //Check for exsisting user
-  Users2.findOne({ email })
+  Teacher.findOne({ email })
     .exec()
-    .then(users2 => {
-      if (!users2) {
-        return res.status(400).json({ msg: "users2 does not exist" });
+    .then(teacher => {
+      if (!teacher) {
+        return res.status(400).json({ msg: "teacher does not exist" });
       }
 
       //validating password
-      bcrypt.compare(password, users2.password, (err, result) => {
+      bcrypt.compare(password, teacher.password, (err, result) => {
         if (err) {
           return res.status(404).json({
             message: "auth failed"
@@ -131,9 +129,8 @@ router.post("/login", (req, res, next) => {
         if (result) {
           const token = jwt.sign(
             {
-              email: users2.email,
-              users2Id: users2._id,
-              roleID:users2.roleID
+              email: teacher.email,
+              teacherId: teacher._id
             },
             process.env.JWT_SECRET,
             {
@@ -142,10 +139,10 @@ router.post("/login", (req, res, next) => {
           );
           return res.status(200).json({
             message: "Auth successful",
-            users2: {
-              id: users2.id,
-              name: users2.name,
-              email: users2.email
+            teacher: {
+              id: teacher.id,
+              name: teacher.name,
+              email: teacher.email
             },
 
             token: token
@@ -164,9 +161,9 @@ router.post("/login", (req, res, next) => {
       });
     });
 });
-//get all users2
+//get all teachers
 router.get("/", (req, res) => {
-  Users2.find()
+  Teacher.find()
     .sort({ date: -1 })
     
     .exec()
@@ -174,24 +171,20 @@ router.get("/", (req, res) => {
 });
 
 
-//get users2 by id
-router.get("/:users2Id", (req, res, next) => {
-  const id = req.params.users2Id;
-  const currentUser = req.users2;
-  if (id !== currentUser.id && currentUser.roleID !== "2") {
-    return res.status(401).json({ message: 'Unauthorized' });
-}
-  Users2.findById(id)
+//get teacher by id
+router.get("/:teacherId", (req, res, next) => {
+  const id = req.params.teacherId;
+  Teacher.findById(id)
   .select('id firstname email')
   .exec()
   .then(item => {
     console.log("From database", item);
     if (item) {
       res.status(200).json({
-        users2: item,
+          teacher: item,
           request: {
               type: 'GET',
-              url: 'http://localhost:3000/users2'
+              url: 'http://localhost:3000/teachers'
           }
       });
     } else {
@@ -208,12 +201,12 @@ router.get("/:users2Id", (req, res, next) => {
 
 
 });
-//@route Delete api/users2 :id
+//@route Delete api/teachers :id
 //@desc Delete A item
 //@access Public
 router.delete("/:id", (req, res) => {
-  Users2.findById(req.params.id)
-    .then(users2 => users2.remove().then(() => res.json({ success: true })))
+  Teacher.findById(req.params.id)
+    .then(teacher => teacher.remove().then(() => res.json({ success: true })))
     .catch(err => res.status(404).json({ success: false }));
 });
 

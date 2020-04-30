@@ -1,8 +1,7 @@
 import React from "react";
-import { getUser, removeUserSession } from "../Utils/Common";
-import Home from "./Home";
-import Card from "./TeacherPage/Card";
-function Dashboard(props) {
+import { getUser, removeUserSession } from "../../Utils/Common";
+
+function Header(props) {
   const user = getUser();
 
   // handle click event of logout button
@@ -26,16 +25,34 @@ function Dashboard(props) {
               PROFESSOR
             </a>
           </div>
+
           {/* Header Nav */}
+          <div className="header_right d-flex flex-row align-items-center justify-content-start m-auto">
+            <nav className="main_nav">
+              <ul className="d-flex flex-row align-items-center justify-content-start">
+                <li>
+                  <a href=""></a>
+                </li>
+                <li>
+                  <a href=""></a>
+                </li>
+                <li className="active">
+                  <a href="index.html">Home</a>
+                </li>
+                <li>
+                  <a href="#">Become a Tutor</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
           <div className="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
-            <nav className="main_nav"></nav>
             <div className="log_reg">
               <ul className="d-flex flex-row align-items-center justify-content-start">
                 <li>
-                  <a> Welcome {user.name}!</a>
+                  <a href="/login">Login </a>
                 </li>
                 <li>
-                  <a onClick={handleLogout}>Logout</a>
+                  <a href="/Register">Register</a>
                 </li>
               </ul>
             </div>
@@ -49,13 +66,10 @@ function Dashboard(props) {
       <br />
       <br />
       <br />
-
-      <p>-----------------------------------------</p>
-
-      <Home />
-      <Card />
+      <br />
+      <br />>
     </div>
   );
 }
 
-export default Dashboard;
+export default Header;

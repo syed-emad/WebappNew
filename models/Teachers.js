@@ -3,73 +3,43 @@ const Schema = mongoose.Schema;
 
 //Schema
 const TeacherSchema = new Schema({
-  firstname: {
+  name: {
     type: String,
-    required: false
+    required: true,
   },
-  lastname: {
+  Qualification: {
     type: String,
-    required: false
+    required: true,
   },
-  email: {
+  Qualification2: {
+    type: String,
+    required: true,
+  },
+
+  About: {
+    type: String,
+    required: true,
+  },
+  Price: {
     type: String,
     required: false,
-    
-    unique: true,
-    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-  } ,
-  password: {
+  },
+  DayTime: {
     type: String,
-    required: false
+    required: false,
   },
-  gender:{
+  Rating: {
     type: String,
-    
+    required: true,
   },
-  city:{
+  Day: {
     type: String,
-    required: false
+    required: false,
   },
-  zipCode:{
-    type: String
-  },
-  phone:{
-    type:Number
-  },
-  profileImage:{
-    type:String,
-    
-  },
-  about: {
+  Time: {
     type: String,
-    required: false
+    required: false,
   },
-  qualification: {
-    type: [String],
-    required: false
-  },
-  subjects:{
-    type: String,
-    required: false
-  },
-  level:{
-    type: String,
-    required: false
-  },
-  days:{
-    type: String,
-    required: false
-  },
-  time:{
-    type: String,
-    required: false
-  }
-
-  
-  // Rating: {
-  //   type: String,
-  //   // required: true
-  // }
 });
 
 module.exports = Teacher = mongoose.model("teacher", TeacherSchema);

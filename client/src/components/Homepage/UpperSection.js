@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import "../Styling/styles/bootstrap-4.1.2/bootstrap.min.css";
 import "../Styling/plugins/OwlCarousel2-2.3.4/owl.carousel.css";
 import "../Styling/plugins/OwlCarousel2-2.3.4/owl.theme.default.css";
@@ -6,8 +8,9 @@ import "../Styling/plugins/OwlCarousel2-2.3.4/animate.css";
 import "../Styling/styles/main_styles.css";
 import "../Styling/styles/responsive.css";
 import { getUser, removeUserSession } from "../../Utils/Common";
-class UpperSection extends Component {
-  render() {
+const UpperSection = () => {
+  const [searchedsubject, setName] = useState("");
+  
     return (
       <div>
         <div>
@@ -58,7 +61,10 @@ class UpperSection extends Component {
                         <a href="#howitworks">How it works?</a>
                       </li>
                       <li>
-                        <a href="/dashboard">Find a Tutor</a>
+                      <Link to={`/search?name=${searchedsubject}`}>
+                        {" "}
+                        <a href="#">Find a Tutor</a>
+                      </Link>
                       </li>
                       <li>
                         <a href="/TeacherSignup">Become a Tutor</a>
@@ -116,10 +122,18 @@ class UpperSection extends Component {
                                         className="search_input"
                                         placeholder="Which subject you want to learn?"
                                         required="required"
+                                        required="required"
+                                        onChange={(event) =>
+                                          setName(event.target.value)
+                                        }
                                       />
-                                      <button className="search_button">
-                                        Find Tutor
-                                      </button>
+                                      <Link
+                                        to={`/search?name=${searchedsubject}`}
+                                      >
+                                        <button className="search_button">
+                                          Find Tutor
+                                        </button>
+                                      </Link>
                                     </div>
                                   </form>
                                 </div>
@@ -157,10 +171,17 @@ class UpperSection extends Component {
                                         className="search_input"
                                         placeholder="Which subject you want to learn?"
                                         required="required"
+                                        onChange={(event) =>
+                                          setName(event.target.value)
+                                        }
                                       />
-                                      <button className="search_button">
-                                        Find Tutor
-                                      </button>
+                                      <Link
+                                        to={`/search?name=${searchedsubject}`}
+                                      >
+                                        <button className="search_button">
+                                          Find Tutor
+                                        </button>
+                                      </Link>
                                     </div>
                                   </form>
                                 </div>
@@ -297,6 +318,6 @@ class UpperSection extends Component {
         </div>
       </div>
     );
-  }
-}
+  };
+
 export default UpperSection;

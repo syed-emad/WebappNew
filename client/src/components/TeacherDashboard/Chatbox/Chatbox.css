@@ -8,7 +8,7 @@ img {
     max-width: 100%;
 }
 h3 {
-    margin: 10px;
+    margin: 20px;
     color: #360f64;
 }
 h4 {
@@ -25,7 +25,7 @@ h4 {
 }
 
 .inbox_msg {
-    border: 1px solid #c4c4c4;
+    border: 2px solid #c4c4c4;
     clear: both;
     overflow: hidden;
 }

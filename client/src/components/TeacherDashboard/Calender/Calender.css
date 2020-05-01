@@ -32,7 +32,10 @@ main {
 
 }
 
-
+h3 {
+    margin: 20px;
+    color: #360f64;
+}
 
 .copyright {
     text-align: center;
@@ -141,9 +144,14 @@ main {
 .calendar__day {
     padding: 5px;
 }
+.calendar__day_input{
+color:black;
+background-color: white;
 
-
-
+}
+input[type=text]{
+    padding:0px;
+}
 
 /* COSMETIC STYLING */
 

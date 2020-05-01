@@ -3,7 +3,7 @@ import React from "react";
 import "./Calender.css";
 const Calender = () => {
   return (
-    <div className="wrapperx">
+    <div className="wrapperx" style={{marginBottom:"4px"}}>
       <main>
         <div className="calendar">
           <div className="calendar__header">

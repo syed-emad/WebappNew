@@ -4,6 +4,8 @@ import Headera from "./Headera";
 import Table from "./table";
 import Image from "./Image";
 import Charbox from "./Chatbox/Charbox";
+import Calender from "./Calender/Calender";
+import CardX from "./CardX/CardX";
 function DashboardMain() {
   return (
     <div>
@@ -100,6 +102,8 @@ function DashboardMain() {
               </a>
             </div>
           </div>
+          <CardX />
+
           <div className="info">
             <div>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
@@ -147,6 +151,7 @@ function DashboardMain() {
               <hr></hr>
               <Table />
               <Charbox />
+              <Calender />
             </div>
           </div>
         </div>

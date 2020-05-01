@@ -23,7 +23,7 @@ import Success from "./components/CheckoutPage/Success";
 import TeacherSignin from "./components/teacherSignUp/TeacherSignin";
 import teacherfinal from "./components/teacherSignUp/teacherfinal";
 import test from "./components/teacherSignUp/test";
-
+import DashboardMain from "./components/TeacherDashboard/DashboardMain";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -66,6 +66,7 @@ function App() {
               <PublicRoute exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
+              <PublicRoute exact path="/TeacherDashboard" component={DashboardMain} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               {/* <PublicRoute  exact path ="/list" component={TeacherFinal}/> */}
               <PublicRoute  exact path ="/TeacherSignup" component={teacherfinal}/>

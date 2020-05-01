@@ -3,7 +3,7 @@ import "./Checkout.css";
 function CheckoutCard(props) {
   {
     return (
-      <div className="row">
+      <div className="row2">
         <div className="col-75">
           <div className="containerxyzz">
             <form action="/Success">
@@ -112,9 +112,10 @@ function CheckoutCard(props) {
                   padding: "12px",
                   border: "1px solid #ccc",
                   borderradius: "3px",
+                  backgroundColor: "#360f64",
                 }}
               >
-                Find Tutor
+                Confirm
               </button>
             </form>
           </div>
@@ -231,7 +232,7 @@ function CheckoutCard(props) {
               </div>
               <div className="modal-footer">
                 <button
-                  className="btn btn-success btn-block"
+                  className="btn2 btn2-success btn-block"
                   data-dismiss="modal"
                 >
                   OK

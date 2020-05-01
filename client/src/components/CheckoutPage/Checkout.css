@@ -1,4 +1,4 @@
-.row {
+.row2 {
     display: -ms-flexbox;
     /* IE10 */
     display: flex;
@@ -47,13 +47,7 @@
     border-radius: 3px;
 }
 
-input[type=text] {
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
+
 
 label {
     margin-bottom: 10px;
@@ -66,7 +60,7 @@ label {
     font-size: 24px;
 }
 
-.btn {
+.btn2 {
     background-color: #360f64;
     color: white;
     padding: 12px;
@@ -78,7 +72,7 @@ label {
     font-size: 17px;
 }
 
-.btn:hover {
+.btn2:hover {
     background-color: white;
     color: #360f64;
 

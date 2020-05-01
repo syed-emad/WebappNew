@@ -41,7 +41,7 @@ const UpperSection = () => {
               <div className="logo">
                 <img src="images/logo.png" alt="" />
                 <a
-                  href="#"
+                  href="\"
                   style={{ fontFamily: "Montserrat", marginLeft: "5px" }}
                 >
                   PROFESSOR

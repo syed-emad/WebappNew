@@ -17,7 +17,7 @@ import Card from "./components/TeacherPage/Card";
 import Checkout from "./components/CheckoutPage/Checkout";
 import Success from "./components/CheckoutPage/Success";
 //import Teachersignup from "./components/teachersignup/Teachersignup";
-
+import DashboardMain from "./components/TeacherDashboard/DashboardMain";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -57,6 +57,11 @@ function App() {
               <PublicRoute exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
+              <PublicRoute
+                exact
+                path="/TeacherDashboard"
+                component={DashboardMain}
+              />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               //JUNK//
               <Route exact path="/2" component={App2} />

@@ -21,7 +21,7 @@ function Header(props) {
           {/* Logo */}
           <div className="logo">
             <img src="images/logo.png" alt="" />
-            <a href="#" style={{ fontFamily: "Montserrat", marginLeft: "5px" }}>
+            <a href="\" style={{ fontFamily: "Montserrat", marginLeft: "5px" }}>
               PROFESSOR
             </a>
           </div>
@@ -37,7 +37,7 @@ function Header(props) {
                   <a href=""></a>
                 </li>
                 <li className="active">
-                  <a href="index.html">Home</a>
+                  <a href="\">Home</a>
                 </li>
                 <li>
                   <a href="#">Become a Tutor</a>

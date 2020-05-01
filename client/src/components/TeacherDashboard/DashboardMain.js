@@ -1,15 +1,14 @@
 import React from "react";
 import "./DashboardMain.css";
 import Headera from "./Headera";
-import Table from "./table";
-import Image from "./Image";
-import Charbox from "./Chatbox/Charbox";
-import Calender from "./Calender/Calender";
+// import Table from "./table";
+// import Image from "./Image";
+// import Charbox from "./Chatbox/Charbox";
+// import Calender from "./Calender/Calender";
 import CardX from "./CardX/CardX";
 function DashboardMain() {
   return (
-    <div>
-      <div className="wrapper">
+    
         <div className="sidebar">
           <div
             className="logo"
@@ -51,27 +50,21 @@ function DashboardMain() {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="/TeacherDashboard/messages">
                 <i className="fa fa-project-diagram" />
-                portfolio
+                Messages
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="#schedule">
                 <i className="fa fa-blog" />
-                Blogs
+                My Schedule
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="#bookings">
                 <i className="fa fa-address-book" />
-                Contact
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fa fa-map-pin" />
-                Map
+                My Bookings
               </a>
             </li>
           </ul>
@@ -87,76 +80,7 @@ function DashboardMain() {
             </a>
           </div>
         </div>
-        <div className="main_content">
-          <div className="headerx">
-            <div class="pull-left">
-              {" "}
-              <img
-                src="images/img_avatar.png"
-                alt="Avatar"
-                style={{ borderRadius: "50%", height: "50px", width: "50px" }}
-              />
-              <a style={{ marginLeft: "5px" }}>
-                {" "}
-                Welcome User Name!! Have a nice day.{" "}
-              </a>
-            </div>
-          </div>
-          <CardX />
-
-          <div className="info">
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
-              nobis ut exercitationem atque accusamus sit natus officiis totam
-              blanditiis at eum nemo, nulla et quae eius culpa eveniet
-              voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio
-              perferendis itaque alias sint, beatae non maiores magnam ad,
-              veniam tenetur atque ea exercitationem earum eveniet totam ipsam
-              magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-              praesentium magnam provident accusamus temporibus! Repellendus
-              harum veritatis itaque molestias repudiandae ea corporis maiores
-              non obcaecati libero, unde ipsum consequuntur aut consectetur
-              culpa magni omnis vero odio suscipit vitae dolor quod dignissimos
-              perferendis eos? Consequuntur!
-            </div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
-              nobis ut exercitationem atque accusamus sit natus officiis totam
-              blanditiis at eum nemo, nulla et quae eius culpa eveniet
-              voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio
-              perferendis itaque alias sint, beatae non maiores magnam ad,
-              veniam tenetur atque ea exercitationem earum eveniet totam ipsam
-              magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-              praesentium magnam provident accusamus temporibus! Repellendus
-              harum veritatis itaque molestias repudiandae ea corporis maiores
-              non obcaecati libero, unde ipsum consequuntur aut consectetur
-              culpa magni omnis vero odio suscipit vitae dolor quod dignissimos
-              perferendis eos? Consequuntur!
-            </div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
-              nobis ut exercitationem atque accusamus sit natus officiis totam
-              blanditiis at eum nemo, nulla et quae eius culpa eveniet
-              voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio
-              perferendis itaque alias sint, beatae non maiores magnam ad,
-              veniam tenetur atque ea exercitationem earum eveniet totam ipsam
-              magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-              praesentium magnam provident accusamus temporibus! Repellendus
-              harum veritatis itaque molestias repudiandae ea corporis maiores
-              non obcaecati libero, unde ipsum consequuntur aut consectetur
-              culpa magni omnis vero odio suscipit vitae dolor quod dignissimos
-              perferendis eos? Consequuntur!
-              <br></br>
-              <br></br>
-              <hr></hr>
-              <Table />
-              <Charbox />
-              <Calender />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+       
   );
 }
 

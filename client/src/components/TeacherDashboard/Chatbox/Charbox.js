@@ -1,10 +1,12 @@
 import React from "react";
-
+import DashboardMain from "../DashboardMain";
 import "./Chatbox.css";
 const Charbox = () => {
   return (
+    <div className="wrapper">
+    <DashboardMain />
     <div className="container2">
-      <h3 className=" text-center">Messaging</h3>
+      <h3 className=" text-center" style={{margin:"30px"}}>My Messages</h3>
       <div className="messaging">
         <div className="inbox_msg">
           <div className="inbox_people">
@@ -259,6 +261,7 @@ const Charbox = () => {
           </a>
         </p>
       </div>
+    </div>
     </div>
   );
 };

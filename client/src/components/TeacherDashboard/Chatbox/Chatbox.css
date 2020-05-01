@@ -28,6 +28,9 @@ h4 {
     border: 2px solid #c4c4c4;
     clear: both;
     overflow: hidden;
+    margin-left:150px;
+    
+    width:90%;
 }
 
 .top_spac {
@@ -38,6 +41,7 @@ h4 {
 .recent_heading {
     float: left;
     width: 100%;
+    margin: 10px 10px 10px 0;
 }
 
 
@@ -46,6 +50,7 @@ h4 {
     text-align: right;
     width: auto;
     padding:0px;
+    margin: 10px 10px 10px 10px;
 }
 
 .headind_srch {
@@ -79,6 +84,7 @@ h4 {
 }
 
 .srch_bar .input-group-addon {
+    border: 1px solid #cdcdcd;
     margin: 0 0 0 -27px;
     display: flex;
   flex-flow: row wrap;
@@ -229,7 +235,7 @@ h4 {
 }
 
 .messaging {
-    padding: 0 0 50px 0;
+    padding: 0 0 50px 10px;
 }
 
 .msg_history {

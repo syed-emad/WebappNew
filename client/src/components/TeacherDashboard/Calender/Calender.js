@@ -1,16 +1,18 @@
 import React from "react";
-
+import DashboardMain from "../DashboardMain";
 import "./Calender.css";
 const Calender = () => {
 
   var time;
 
   return (
+   
+      
+    <div className="wrapperx" style={{marginBottom:"4px", marginTop:"40px"}}>
     
-    <div className="wrapperx" style={{marginBottom:"4px"}}>
-      <h3 className=" text-center">Availability</h3>
-      <main>
-        <div className="calendar">
+      <h3 className=" text-center" >My Schedule</h3>
+      
+        <div className="calendar" id="schedule">
           <div className="calendar__header">
             <div>mon</div>
             <div>tue</div>
@@ -94,8 +96,9 @@ const Calender = () => {
             <div className="calendar__day day">4</div>
           </div>
         </div>
-      </main>
+      
     </div>
+   
   );
 };
 

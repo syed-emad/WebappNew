@@ -10,14 +10,20 @@ import Register from "./components/LoginSignup/Register";
 import search from "./components/SearchResult/search";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./Utils/PrivateRoute";
+//import MainPage from "./components/TeacherDashboard/MainPage";
+import Charbox from "./components/TeacherDashboard/Chatbox/Charbox";
 import PublicRoute from "./Utils/PublicRoute";
 import SearchPage from "./components/SearchResult/SearchPage";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
 import Card from "./components/TeacherPage/Card";
 import Checkout from "./components/CheckoutPage/Checkout";
 import Success from "./components/CheckoutPage/Success";
+import Final from "./components/TeacherDashboard/Chatbox/Final";
+
 //import Teachersignup from "./components/teachersignup/Teachersignup";
+//import Final from "./components/TeacherDashboard/Chatbox/Final";
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
+//import MainPage from "./components/TeacherDashboard/MainPage";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -62,6 +68,7 @@ function App() {
                 path="/TeacherDashboard"
                 component={DashboardMain}
               />
+              <PublicRoute exact path="/messages" component={Final} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               //JUNK//
               <Route exact path="/2" component={App2} />

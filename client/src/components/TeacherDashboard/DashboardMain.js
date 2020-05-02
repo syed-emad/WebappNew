@@ -2,10 +2,10 @@ import React from "react";
 import "./DashboardMain.css";
 import Headera from "./Headera";
 import Table from "./table";
+
+import { Link } from "react-router-dom";
 import Image from "./Image";
 import Charbox from "./Chatbox/Charbox";
-import Calender from "./Calender/Calender";
-import CardX from "./CardX/CardX";
 function DashboardMain() {
   return (
     <div>
@@ -51,27 +51,23 @@ function DashboardMain() {
               </a>
             </li>
             <li>
-              <a href="#">
-                <i className="fa fa-project-diagram" />
-                portfolio
+              <Link to={`/messages}`}>
+                <a>
+                  <i className="fa fa-envelope" />
+                  Messages
+                </a>
+              </Link>
+            </li>
+            <li>
+              <a href="#schedule">
+                <i className="fa fa-calendar" />
+                My Schedule
               </a>
             </li>
             <li>
-              <a href="#">
-                <i className="fa fa-blog" />
-                Blogs
-              </a>
-            </li>
-            <li>
-              <a href="#">
+              <a href="#bookings">
                 <i className="fa fa-address-book" />
-                Contact
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fa fa-map-pin" />
-                Map
+                My Bookings
               </a>
             </li>
           </ul>
@@ -102,8 +98,6 @@ function DashboardMain() {
               </a>
             </div>
           </div>
-          <CardX />
-
           <div className="info">
             <div>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
@@ -150,8 +144,6 @@ function DashboardMain() {
               <br></br>
               <hr></hr>
               <Table />
-              <Charbox />
-              <Calender />
             </div>
           </div>
         </div>

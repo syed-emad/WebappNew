@@ -13,16 +13,19 @@ import PrivateRoute from "./Utils/PrivateRoute";
 //import MainPage from "./components/TeacherDashboard/MainPage";
 import Charbox from "./components/TeacherDashboard/Chatbox/Charbox";
 import PublicRoute from "./Utils/PublicRoute";
+import PublicRouteTeacher from "./Utils/PublicRouteTeacher";
 import SearchPage from "./components/SearchResult/SearchPage";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
 import Card from "./components/TeacherPage/Card";
 import Checkout from "./components/CheckoutPage/Checkout";
 import Success from "./components/CheckoutPage/Success";
 import Final from "./components/TeacherDashboard/Chatbox/Final";
+import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
 
 //import Teachersignup from "./components/teachersignup/Teachersignup";
 //import Final from "./components/TeacherDashboard/Chatbox/Final";
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
+import TeacherLogin from "./components/TeacherLogin/TeacherLogin";
 //import MainPage from "./components/TeacherDashboard/MainPage";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -63,12 +66,17 @@ function App() {
               <PublicRoute exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
-              <PublicRoute
+              <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"
                 component={DashboardMain}
               />
-              <PublicRoute exact path="/messages" component={Final} />
+              <PrivateRouteTeacher exact path="/messages" component={Final} />
+              <PublicRouteTeacher
+                exact
+                path="/TeacherLogin"
+                component={TeacherLogin}
+              />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               //JUNK//
               <Route exact path="/2" component={App2} />

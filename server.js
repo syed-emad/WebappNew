@@ -30,6 +30,7 @@ app.use(bodyParser.json());
 //Bodyparser Middleware
 app.use(express.json());
 const Users = require("./models/Users");
+const Teachers = require("./models/Teachers");
 //DB Config
 const db = config.get("mongoURI");
 // static user details
@@ -39,7 +40,7 @@ const userData = {
   password: "123456",
   name: "Clue Mediator",
   email: "cluemediator",
-  isAdmin: true
+  isAdmin: true,
 };
 
 //Connect to Mongo
@@ -47,10 +48,10 @@ mongoose
   .connect(db, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
   })
   .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 //Use Routes
 app.use("/api/items", items);
@@ -62,17 +63,17 @@ app.use("/api/auth", auth);
 app.use("/admin", require("./admin")); //for the admin panel
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   // check header or url parameters or post parameters for token
   var token = req.headers["authorization"];
   if (!token) return next(); //if no token, continue
 
   token = token.replace("Bearer ", "");
-  jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
+  jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
     if (err) {
       return res.status(401).json({
         error: true,
-        message: "Invalid user."
+        message: "Invalid user.",
       });
     } else {
       req.user = user; //set the user to req so other routes can use it
@@ -89,7 +90,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Node.js Tutorial! - " + req.user.name);
 });
 // validate the user credentials
-app.post("/users/signin", function(req, res) {
+app.post("/users/signin", function (req, res) {
   const user = req.body.email;
   const pwd = req.body.password;
 
@@ -97,7 +98,7 @@ app.post("/users/signin", function(req, res) {
   if (!user || !pwd) {
     return res.status(400).json({
       error: true,
-      message: "Username or Password required."
+      message: "Username or Password required.",
     });
   }
 
@@ -105,7 +106,7 @@ app.post("/users/signin", function(req, res) {
   if (user !== userData.email || pwd !== userData.password) {
     return res.status(401).json({
       error: true,
-      message: "Username or Password is Wrong."
+      message: "Username or Password is Wrong.",
     });
   }
 
@@ -126,7 +127,7 @@ app.post("/x/signin", (req, res) => {
   //Check for exsisting user
   Users.findOne({ email })
     .exec()
-    .then(user => {
+    .then((user) => {
       if (!user) {
         return res.status(400).json({ msg: "user does not exist" });
       }
@@ -135,18 +136,18 @@ app.post("/x/signin", (req, res) => {
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
           return res.status(404).json({
-            message: "auth failed"
+            message: "auth failed",
           });
         }
         if (result) {
           const token = jwt.sign(
             {
               email: user.email,
-              userId: user._id
+              userId: user._id,
             },
             process.env.JWT_SECRET,
             {
-              expiresIn: "1h"
+              expiresIn: "1h",
             }
           );
           return res.status(200).json({
@@ -154,15 +155,15 @@ app.post("/x/signin", (req, res) => {
             user: {
               id: user.id,
               name: user.name,
-              email: user.email
+              email: user.email,
             },
 
-            token: token
+            token: token,
           });
         }
 
         res.status(401).json({
-          message: "Auth failed,incorrect password"
+          message: "Auth failed,incorrect password",
         });
       });
     })
@@ -172,36 +173,85 @@ app.post("/x/signin", (req, res) => {
     // const userObj = utils.getCleanUser(user);
     // // return the token along with user details
     // return res.json({ user: userObj, token });
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err,
+      });
+    });
+});
+app.post("/x/signin/teachers", (req, res) => {
+  const { email, password } = req.body;
+
+  //validation
+  if (!email || !password) {
+    return res.status(404).json({ msg: "please enter everthing" });
+  }
+  //Check for exsisting user
+  Teachers.findOne({ email })
+    .exec()
+    .then((user) => {
+      if (!user) {
+        return res.status(400).json({ msg: "user does not exist" });
+      }
+      const token = jwt.sign(
+        {
+          email: user.email,
+          userId: user._id,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
+      return res.status(200).json({
+        message: "Auth successful",
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        },
+
+        token: token,
+      });
+      //validating password
+    })
+    // // generate token
+    // const token = utils.generateToken(user);
+    // // get basic user details
+    // const userObj = utils.getCleanUser(user);
+    // // return the token along with user details
+    // return res.json({ user: userObj, token });
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
       });
     });
 });
 // verify the token and return it if it's valid
-app.get("/verifyToken", function(req, res) {
+app.get("/verifyToken", function (req, res) {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token;
   if (!token) {
     return res.status(400).json({
       error: true,
-      message: "Token is required."
+      message: "Token is required.",
     });
   }
   // check token that was passed by decoding token using secret
-  jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
+  jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
     if (err)
       return res.status(401).json({
         error: true,
-        message: "Invalid token."
+        message: "Invalid token.",
       });
 
     // return 401 status if the userId does not match.
     if (user.Id !== user.Id) {
       return res.status(401).json({
         error: true,
-        message: "Invalid user."
+        message: "Invalid user.",
       });
     }
     // get basic user details

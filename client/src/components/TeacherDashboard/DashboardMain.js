@@ -1,12 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DashboardMain.css";
 import Headera from "./Headera";
 import Table from "./table";
-
+import { getUser, removeUserSession } from "../../Utils/Common";
 import { Link } from "react-router-dom";
 import Image from "./Image";
 import Charbox from "./Chatbox/Charbox";
-function DashboardMain() {
+import axios from "axios";
+function DashboardMain(props) {
+  const Teacher = getUser();
+  var url_string = window.location.href;
+  var url = new URL(url_string);
+  var name = url.searchParams.get("name");
+  var id = url.searchParams.get("id");
+  console.log(name);
+  console.log("ID:");
+  console.log(id);
+  const [value, setValue] = useState(null);
+  async function getSomething() {
+    try {
+      const response = await axios.get(`/api/teachers/dash?id=${id}`);
+      setValue(response.data);
+      console.log("Hi");
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  // handle click event of logout button
+  const handleLogout = () => {
+    removeUserSession();
+    props.history.push("/TeacherLogin");
+  };
+  useEffect(() => {
+    getSomething();
+  }, []);
+
   return (
     <div>
       <div className="wrapper">
@@ -51,12 +80,10 @@ function DashboardMain() {
               </a>
             </li>
             <li>
-              <Link to={`/messages}`}>
-                <a>
-                  <i className="fa fa-envelope" />
-                  Messages
-                </a>
-              </Link>
+              <a href="/messages">
+                <i className="fa fa-envelope" />
+                Messages
+              </a>
             </li>
             <li>
               <a href="#schedule">
@@ -94,8 +121,11 @@ function DashboardMain() {
               />
               <a style={{ marginLeft: "5px" }}>
                 {" "}
-                Welcome User Name!! Have a nice day.{" "}
+                Welcome {name} {Teacher.Qualification}!! Have a nice day.{" "}
               </a>
+            </div>
+            <div class="pull-right" style={{ margin: "10px" }}>
+              <a onClick={handleLogout}>Logout</a>
             </div>
           </div>
           <div className="info">

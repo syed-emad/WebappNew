@@ -28,6 +28,28 @@ router.get("/search", (req, res) => {
       .then((teachers) => res.json(teachers));
   }
 });
+router.get("/dash", (req, res) => {
+  _id = req.query.id;
+
+  console.log(_id);
+  let Price = req.query.price;
+  console.log(Price);
+  //let name = "Ali Aman";
+  //req.query.name;
+  console.log("yahya");
+
+  //console.log(req.query.name);
+  if (!_id) {
+    Teacher.find({})
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else {
+    Teacher.find({ _id })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  }
+});
+
 router.get("/search2", (req, res) => {
   let Qualification = req.query.name;
   let Price = req.query.price;
@@ -81,6 +103,8 @@ router.post("/", (req, res) => {
     DayTime: req.body.DayTime,
     Day: req.body.Day,
     Time: req.body.Time,
+    email: req.body.email,
+    password: req.body.password,
   });
   newTeacher.save().then((teacher) => res.json(teacher));
 });

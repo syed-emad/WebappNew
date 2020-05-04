@@ -3,6 +3,19 @@ const Schema = mongoose.Schema;
 
 //Schema
 const TeacherSchema = new Schema({
+  email: {
+    type: String,
+    required: false,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  register_date: {
+    type: Date,
+    default: Date.now,
+  },
   name: {
     type: String,
     required: true,

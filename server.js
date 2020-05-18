@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const config = require("config");
 
-const multer = require("multer");
+// const multer = require("multer");
 const cors = require("cors");
 const utils = require("./utils");
 const bcrypt = require("bcryptjs");

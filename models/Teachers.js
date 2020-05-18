@@ -1,24 +1,44 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//Schema
+//Bookingss Schema
+
+const BookingSchema = new Schema({
+  username: String,
+  amount: Number,
+});
+//Teachers Schema
+
 const TeacherSchema = new Schema({
+  email: {
+    type: String,
+    required: false,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: false,
+  },
+  register_date: {
+    type: Date,
+    default: Date.now,
+  },
   name: {
     type: String,
-    required: true,
+    required: false,
   },
   Qualification: {
     type: String,
-    required: true,
+    required: false,
   },
   Qualification2: {
     type: String,
-    required: true,
+    required: false,
   },
 
   About: {
     type: String,
-    required: true,
+    required: false,
   },
   Price: {
     type: String,
@@ -30,7 +50,7 @@ const TeacherSchema = new Schema({
   },
   Rating: {
     type: String,
-    required: true,
+    required: false,
   },
   Day: {
     type: String,
@@ -40,6 +60,18 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
+  bookings: [BookingSchema],
 });
 
 module.exports = Teacher = mongoose.model("teacher", TeacherSchema);
+
+// bookingid: [
+//   {
+//     username: String,
+//     subject: String,
+//     date: String,
+//     status: Boolean,
+//     time: String,
+//     amount: String,
+//   },
+// ],

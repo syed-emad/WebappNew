@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Slider from "./slider";
+// import Slider from "./slider";
 import "./Styling/main.css";
 import "./Styling/bootstrap.min.css";
 import "./Styling/aos.css";

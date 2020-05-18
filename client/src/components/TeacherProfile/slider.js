@@ -9,7 +9,7 @@ export default class slider extends Component {
     return (
       <div>
         <span>CustomSlider</span>
-        <Slider {...settings}>
+       
           <div>
             <h3>1</h3>
           </div>
@@ -28,7 +28,7 @@ export default class slider extends Component {
           <div>
             <h3>6</h3>
           </div>
-        </Slider>
+        
       </div>
     );
   }

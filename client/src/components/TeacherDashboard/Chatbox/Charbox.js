@@ -1,35 +1,30 @@
 import React from "react";
-import DashboardMain from "../DashboardMain";
+
 import "./Chatbox.css";
 const Charbox = () => {
   return (
-    <div className="wrapper">
-    <DashboardMain />
     <div className="container2">
-      <h3 className=" text-center" style={{margin:"30px"}}>My Messages</h3>
+      <h3 className=" text-center">Messaging</h3>
       <div className="messaging">
         <div className="inbox_msg">
           <div className="inbox_people">
             <div className="headind_srch">
               <div className="recent_heading">
-                <h4 style={{ color: "#360f64" }}>Recent</h4>
+                <h4>Recent</h4>
               </div>
               <div className="srch_bar">
-                <div className="row">
-               
-                <div className="input-group-addon">
+                <div className="stylish-input-group">
                   <input
                     type="text"
                     className="search-bar"
                     placeholder="Search"
                   />
-                  
+                  <span className="input-group-addon">
                     <button type="button">
                       {" "}
                       <i className="fa fa-search" aria-hidden="true" />{" "}
                     </button>
-                  </div>{" "}
-                  
+                  </span>{" "}
                 </div>
               </div>
             </div>
@@ -254,14 +249,7 @@ const Charbox = () => {
             </div>
           </div>
         </div>
-        <p className="text-center top_spac">
-          
-          <a target="_blank" href="#">
-            
-          </a>
-        </p>
       </div>
-    </div>
     </div>
   );
 };

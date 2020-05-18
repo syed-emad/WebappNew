@@ -1,9 +1,9 @@
 import React from "react";
-import DashboardMain from "./DashboardMain";
+
 import "./table.css";
 const table = () => {
   return (
-    <div id="bookings">
+    <div id="table">
       {" "}
       {/* <div
           class="  "
@@ -13,18 +13,41 @@ const table = () => {
             paddingTop: "60px",
           }} */}
       <h3 className=" text-center" style={{ margin: "30px" }}>
-        My Bookings
+        Schedule
       </h3>
       <div className="table100 ver1 m-b-110">
         <div className="table100-head">
           <table>
             <thead>
               <tr className="row100 head">
-                <th className="cell100 column1">Student name</th>
-                <th className="cell100 column2">Subject</th>
-                <th className="cell100 column3">Hours</th>
-                <th className="cell100 column4">Date</th>
-                <th className="cell100 column5">Status</th>
+                <th
+                  className="cell100 column1"
+                  style={{ backgroundColor: "#360f64" }}
+                >
+                  Subject
+                </th>
+                <th
+                  className="cell100 column2"
+                  style={{ backgroundColor: "#360f64" }}
+                >
+                  Day
+                </th>
+                <th
+                  className="cell100 column3"
+                  style={{ backgroundColor: "#360f64" }}
+                >
+                  Time
+                </th>
+                <th
+                  className="cell100 column4"
+                  style={{ backgroundColor: "#360f64" }}
+                >
+                  Date
+                </th>
+                <th
+                  className="cell100 column5"
+                  style={{ backgroundColor: "#360f64" }}
+                ></th>
               </tr>
             </thead>
           </table>
@@ -33,11 +56,15 @@ const table = () => {
           <table>
             <tbody>
               <tr className="row100 body">
-                <td className="cell100 column1">Amna Ahmed</td>
-                <td className="cell100 column2">Maths</td>
+                <td className="cell100 column1">Maths</td>
+                <td className="cell100 column2">Monday</td>
                 <td className="cell100 column3">9:00 AM - 11:00 AM</td>
                 <td className="cell100 column4">27 March 2020</td>
-                <td className="cell100 column5">Scheduled</td>
+                <td className="cell100 column5 ">
+                  <a className="newbutton2" style={{ color: "white" }}>
+                    Book
+                  </a>
+                </td>
               </tr>
               <tr className="row100 body">
                 <td className="cell100 column1">Rasheeda Abbas</td>

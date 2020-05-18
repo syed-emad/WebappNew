@@ -1,34 +1,33 @@
-import React, { Component , useState} from 'react'
+import React, { useState } from "react";
 import axios from "axios";
-// import { setTeacherSession } from "../../Utils/Common2";
-
-function TeacherSignin(props) {
+import { setUserSession } from "../../Utils/Common";
+function TeacherLogin(props) {
   const [loading, setLoading] = useState(false);
   const email = useFormInput("");
   const password = useFormInput("");
   const [error, setError] = useState(null);
 
+  // handle button click of login form
   const handleLogin = () => {
     setError(null);
     setLoading(true);
     axios
-      .post("/api/teacher/login", {
+      .post("/x/signin/teachers", {
         email: email.value,
-        password: password.value
+        password: password.value,
       })
-      .then(response => {
+      .then((response) => {
         setLoading(false);
-        setTeacherSession(response.data.token, response.data.teacher);
-        props.history.push("/card");
-       
+        setUserSession(response.data.token, response.data.user);
+        props.history.push(
+          `/TeacherDashboard?name=${response.data.user.name}&id=${response.data.user.id}`
+        );
       })
-      .catch(error => {
+      .catch((error) => {
         setLoading(false);
         if (error.response.status === 401)
           setError(error.response.data.message);
-          
         else setError("Something went wrong. Please try again later.");
-        alert("some error");
       });
   };
 
@@ -41,7 +40,7 @@ function TeacherSignin(props) {
               <img src="images/img-01.png" alt="IMG" />
             </div>
             <form className="login100-form validate-form">
-              <span className="login100-form-title">Teacher Login</span>
+              <span className="login100-form-title">Member Login</span>
               <div
                 className="wrap-input100 validate-input"
                 data-validate="Valid email is required: ex@abc.xyz"
@@ -88,12 +87,10 @@ function TeacherSignin(props) {
               </div>
               <div className="text-center p-t-12">
                 <span className="txt1">Forgot</span>
-                <a className="txt2" href="#">
-                  Username / Password?
-                </a>
+                <a className="txt2">Username / Password?</a>
               </div>
               <div className="text-center p-t-136">
-                <a className="txt2" href="\TeacherSignup">
+                <a className="txt2" href="\Register">
                   Create your Account
                   <i
                     className="fa fa-long-arrow-right m-l-5"
@@ -108,16 +105,15 @@ function TeacherSignin(props) {
     </div>
   );
 }
-const useFormInput = initialValue => {
+const useFormInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setValue(e.target.value);
   };
   return {
     value,
-    onChange: handleChange
+    onChange: handleChange,
   };
 };
-
-export default TeacherSignin;
+export default TeacherLogin;

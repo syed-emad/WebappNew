@@ -25,7 +25,9 @@
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.4"
+    "mongoose": "^5.9.4",
+    "react-fade-in": "^1.0.0",
+    "react-transitions": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

@@ -38,7 +38,7 @@ function Dashboard(props) {
                   <a> Welcome {user.name}!</a>
                 </li>
                 <li>
-                  <a onClick={handleLogout}>Logout</a>
+                  <a onClick={handleLogout}>Logoutxx</a>
                 </li>
               </ul>
             </div>

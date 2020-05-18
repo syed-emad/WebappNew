@@ -93,6 +93,7 @@ router.get("/search2", (req, res) => {
 //@desc Create A post
 //@access Public
 router.post("/", (req, res) => {
+  console.log(req.body);
   const newTeacher = new Teacher({
     name: req.body.name,
     Qualification: req.body.Qualification,
@@ -105,7 +106,16 @@ router.post("/", (req, res) => {
     Time: req.body.Time,
     email: req.body.email,
     password: req.body.password,
+    bookings: [
+      {
+        username: req.body.bookings[0].username,
+        amount: req.body.bookings[0].amount,
+      },
+    ],
+
+    // $push: { bookings: { username: { $each: [req.body.username] } } },
   });
+
   newTeacher.save().then((teacher) => res.json(teacher));
 });
 

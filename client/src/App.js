@@ -21,7 +21,8 @@ import Checkout from "./components/CheckoutPage/Checkout";
 import Success from "./components/CheckoutPage/Success";
 import Final from "./components/TeacherDashboard/Chatbox/Final";
 import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
-
+import search2 from "./components/SearchResult/search2";
+import TP from "./components/TeacherProfile/TP";
 //import Teachersignup from "./components/teachersignup/Teachersignup";
 //import Final from "./components/TeacherDashboard/Chatbox/Final";
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
@@ -62,6 +63,8 @@ function App() {
               <Route exact path="/" component={HomeFinal} />
               <PublicRoute exact path="/login" component={Login} />
               <PublicRoute exact path="/search" component={SearchPage} />
+              <PublicRoute exact path="/search2" component={search2} />
+              <PublicRoute exact path="/TP" component={TP} />
               <PublicRoute exact path="/card" component={Card} />
               <PublicRoute exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />

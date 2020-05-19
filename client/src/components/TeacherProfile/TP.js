@@ -20,7 +20,24 @@ function TP() {
   price = url.searchParams.get("price");
   //console.log("aaaa");
   //   console.log(name);
+  const [value, setValue] = useState(null);
 
+  async function getSomething() {
+    try {
+      const response = await axios.get(`/api/teachers/search?name=${name}`);
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getSomething();
+  }, []);
+
+  {value &&
+    value.map((data) => {
   return (
     <div>
       <div>
@@ -47,7 +64,7 @@ function TP() {
                         <img src="images/anthony.jpg" alt="Image" />
                       </a>
                     </div>
-                    <div className="h2 title">Anthony Barnett</div>
+                    <div className="h2 title">{data.name}</div>
                     <p
                       style={{
                         color: "white",
@@ -896,6 +913,7 @@ function TP() {
       </div>
     </div>
   );
+})}
 }
-
+ 
 export default TP;

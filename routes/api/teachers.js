@@ -100,6 +100,7 @@ router.post("/", (req, res) => {
     Qualification2: req.body.Qualification,
     Rating: req.body.Rating,
     About: req.body.About,
+    age:req.body.age,
     Price: req.body.Price,
     DayTime: req.body.DayTime,
     Day: req.body.Day,
@@ -110,8 +111,44 @@ router.post("/", (req, res) => {
       {
         username: req.body.bookings[0].username,
         amount: req.body.bookings[0].amount,
+        time:  req.body.bookings[0].time,
+        day:  req.body.bookings[0].day,
+        date :  req.body.bookings[0].date,
+        status:  req.body.bookings[0].status,
+        subject:  req.body.bookings[0].subject
       },
     ],
+    education:[
+      {
+        level: req.body.education[0].level,
+        institute:  req.body.education[0].institute,
+        startDate:  req.body.education[0].startDate,
+        endDate:  req.body.education[0].endDate,
+        field:  req.body.education[0].field
+      }
+    ],
+    work: [
+      {
+        title: req.body.work[0].title,
+        startDate: req.body.work[0].startDate,
+        endDate: req.body.work[0].endDate,
+        details: req.body.work[0].details
+      }
+    ],
+    schedule:[
+      {
+        day:req.body.schedule[0].day,
+        date: req.body.schedule[0].date,
+        time: req.body.schedule[0].time,
+        subject: req.body.schedule[0].subject,
+        details: req.body.schedule[0].details
+      }
+    ],
+    subjects: [
+      {
+        subject: req.body.subjects[0].subject
+      }
+    ]
 
     // $push: { bookings: { username: { $each: [req.body.username] } } },
   });
@@ -119,6 +156,10 @@ router.post("/", (req, res) => {
   newTeacher.save().then((teacher) => res.json(teacher));
 });
 
+router.put("/booking",(req,res)=> {
+
+
+});
 //@route Delete api/teachers :id
 //@desc Delete A item
 //@access Public

@@ -6,6 +6,45 @@ const Schema = mongoose.Schema;
 const BookingSchema = new Schema({
   username: String,
   amount: Number,
+  time: String,
+  day: String,
+  date : String,
+  status: String,
+  subject: String
+});
+
+//education schema
+
+const EducationScehma= new Schema ({
+  level: String,
+  institute: String,
+  startDate: String,
+  endDate: String,
+  field: String
+});
+//work experience schema
+
+const WorkSchema = new Schema({
+  title: String,
+  startDate:String,
+  endDate: String,
+  details: String
+});
+
+//teacher's schedule schema
+
+const ScheduleSchema = new Schema ({
+  day: String,
+  date: String,
+  time: String,
+  subject: String,
+  details: String
+
+});
+// subject schema
+
+const SubjectSchema = new Schema({
+  subject: String
 });
 //Teachers Schema
 
@@ -26,6 +65,10 @@ const TeacherSchema = new Schema({
   name: {
     type: String,
     required: false,
+  },
+  age:{
+    type: Number,
+    required:false
   },
   Qualification: {
     type: String,
@@ -61,6 +104,10 @@ const TeacherSchema = new Schema({
     required: false,
   },
   bookings: [BookingSchema],
+  education: [EducationScehma],
+  work: [WorkSchema],
+  schedule: [ScheduleSchema],
+  subjects: [SubjectSchema]
 });
 
 module.exports = Teacher = mongoose.model("teacher", TeacherSchema);

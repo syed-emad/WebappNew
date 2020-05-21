@@ -7,8 +7,8 @@ const BookingSchema = new Schema({
   username: String,
   amount: Number,
 });
-//Teachers Schema
 
+//Teachers Schema
 const TeacherSchema = new Schema({
   email: {
     type: String,
@@ -61,6 +61,8 @@ const TeacherSchema = new Schema({
     required: false,
   },
   bookings: [BookingSchema],
+  schedule: [],
+  emad: [],
 });
 
 module.exports = Teacher = mongoose.model("teacher", TeacherSchema);

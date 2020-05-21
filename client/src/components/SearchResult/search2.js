@@ -19,75 +19,63 @@ function search2() {
 
   return (
     <div>
-      <div class="container">
-        <FadeIn>
-          <div className="row">
-            <div className="columnxxx">
-              <div className="card">
-                <img
-                  src="images/team2.jpg"
-                  alt="Jane"
-                  style={{ width: "100%" }}
-                />
-                <div className="containerfd">
-                  <h9 className="h9">Jane Doe</h9>
-                  <p className="title2">CEO &amp; Founder</p>
-                  <p>
-                    Some text that describes me lorem ipsum ipsum lorem.Some
-                    text that describes me lorem ipsum ipsum lorem.
-                  </p>
-                  <p>
-                    <button className="buttonx43">Contact</button>
-                    <button className="buttonx43">Contact</button>
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            <div className="columnxxx">
-              <div className="card">
-                <img
-                  src="images/team2.jpg"
-                  alt="Mike"
-                  style={{ width: "100%" }}
-                />
-                <div className="containerfd">
-                  <h9 className="h9">Jane Doe</h9>
-                  <p className="title2">Art Director</p>
-                  <p>
-                    Some text that describes me lorem ipsum ipsum lorem.Some
-                    text that describes me lorem ipsum ipsum lorem.
-                  </p>
-
-                  <p>
-                    <button className="buttonx43">Contact</button>{" "}
-                    <button className="buttonx43">Contact</button>
-                  </p>
-                </div>
-              </div>
+      <div className="container">
+        <div
+          id="carouselExampleIndicators"
+          className="carousel slide"
+          data-ride="carousel"
+        >
+          <ol className="carousel-indicators">
+            <li
+              data-target="#carouselExampleIndicators"
+              data-slide-to={0}
+              className="active"
+            />
+            <li data-target="#carouselExampleIndicators" data-slide-to={1} />
+            <li data-target="#carouselExampleIndicators" data-slide-to={2} />
+          </ol>
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img
+                className="d-block w-100"
+                src="./images/listing_image_1.jpg"
+                alt="First slide"
+              />
             </div>
-            <div className="columnxxx">
-              <div className="card">
-                <img
-                  src="images/team2.jpg"
-                  alt="John"
-                  style={{ width: "100%" }}
-                />
-                <div className="containerfd">
-                  <h9 className="h9">Jane Doe</h9>
-                  <p className="title2">Designer</p>
-                  <p>
-                    Some text that describes me lorem ipsum ipsum lorem.Some
-                    text that describes me lorem ipsum ipsum lorem.
-                  </p>
-                  <p>
-                    <button className="buttonx43">Contact</button>{" "}
-                    <button className="buttonx43">Contact</button>
-                  </p>
-                </div>
-              </div>
+            <div className="carousel-item">
+              <img
+                className="d-block w-100"
+                src="./images/listing_image_2.jpg"
+                alt="Second slide"
+              />
+            </div>
+            <div className="carousel-item">
+              <img
+                className="d-block w-100"
+                src="./images/listing_image_1.jpg"
+                alt="Third slide"
+              />
             </div>
           </div>
-        </FadeIn>
+          <a
+            className="carousel-control-prev"
+            href="#carouselExampleIndicators"
+            role="button"
+            data-slide="prev"
+          >
+            <span className="carousel-control-prev-icon" aria-hidden="true" />
+            <span className="sr-only">Previous</span>
+          </a>
+          <a
+            className="carousel-control-next"
+            href="#carouselExampleIndicators"
+            role="button"
+            data-slide="next"
+          >
+            <span className="carousel-control-next-icon" aria-hidden="true" />
+            <span className="sr-only">Next</span>
+          </a>
+        </div>
       </div>
     </div>
   );

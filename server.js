@@ -52,7 +52,7 @@ mongoose
   })
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
-
+const getDB = () => db;
 //Use Routes
 app.use("/api/items", items);
 app.use("/api/teachers", teachers);
@@ -262,3 +262,4 @@ app.get("/verifyToken", function (req, res) {
 //Port
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server started on Port ${port}`));
+module.exports = { getDB };

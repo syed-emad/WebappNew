@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import FadeIn from "react-fade-in";
+import { useHistory } from "react-router-dom";
 //wait
 function Search() {
   const [searchedsubject, setName] = useState("");
@@ -161,10 +162,14 @@ function Search() {
                         {data.Qualification} &amp; {data.Qualification2}
                       </p>
                       <p>{data.About}</p>
-                      <p>
-                        <button className="buttonx43">Book</button>
-                        <button className="buttonx43">Message</button>
-                      </p>
+                      <div class=" ">
+                        <Link to={`/TeachersProfile?id=${data._id}`}>
+                          <button className="buttonx43">Book</button>
+                        </Link>
+                        <Link>
+                          <button className="buttonx43">Message</button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>{" "}

@@ -7,11 +7,11 @@ import HomeFinal from "./components/Homepage/HomeFinal";
 import App2 from "./App2";
 import Login from "./components/LoginSignup/Login";
 import Register from "./components/LoginSignup/Register";
-import search from "./components/SearchResult/search";
+
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./Utils/PrivateRoute";
 //import MainPage from "./components/TeacherDashboard/MainPage";
-import Charbox from "./components/TeacherDashboard/Chatbox/Charbox";
+
 import PublicRoute from "./Utils/PublicRoute";
 import PublicRouteTeacher from "./Utils/PublicRouteTeacher";
 import SearchPage from "./components/SearchResult/SearchPage";
@@ -22,7 +22,8 @@ import Success from "./components/CheckoutPage/Success";
 import Final from "./components/TeacherDashboard/Chatbox/Final";
 import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
 import search2 from "./components/SearchResult/search2";
-import TP from "./components/TeacherProfile/TP";
+import TP from "./components/TeacherProfile/TeachersProfile";
+import TF from "./components/TeacherForm/TeacherForm";
 //import Teachersignup from "./components/teachersignup/Teachersignup";
 //import Final from "./components/TeacherDashboard/Chatbox/Final";
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
@@ -64,11 +65,12 @@ function App() {
               <PublicRoute exact path="/login" component={Login} />
               <PublicRoute exact path="/search" component={SearchPage} />
               <PublicRoute exact path="/search2" component={search2} />
-              <PublicRoute exact path="/TP" component={TP} />
+              <PublicRoute exact path="/TeachersProfile" component={TP} />
               <PublicRoute exact path="/card" component={Card} />
               <PublicRoute exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
+              <PublicRoute exact path="/TF" component={TF} />
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"
@@ -81,7 +83,7 @@ function App() {
                 component={TeacherLogin}
               />
               <PrivateRoute path="/dashboard" component={Dashboard} />
-              //JUNK//
+
               <Route exact path="/2" component={App2} />
             </Switch>
           </div>

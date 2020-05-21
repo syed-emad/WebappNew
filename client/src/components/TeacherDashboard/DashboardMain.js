@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import Image from "./Image";
 import Charbox from "./Chatbox/Charbox";
 import axios from "axios";
+import "./table.css";
+
 function DashboardMain(props) {
   const Teacher = getUser();
   var url_string = window.location.href;
@@ -38,6 +40,9 @@ function DashboardMain(props) {
 
   return (
     <div>
+      {value &&
+        value.map((data) => {
+          return (
       <div className="wrapper">
         <div className="sidebar">
           <div
@@ -112,16 +117,17 @@ function DashboardMain(props) {
         </div>
         <div className="main_content">
           <div className="headerx">
+
             <div class="pull-left">
               {" "}
               <img
-                src="images/img_avatar.png"
+                src="images/team2.jpg"
                 alt="Avatar"
                 style={{ borderRadius: "50%", height: "50px", width: "50px" }}
               />
               <a style={{ marginLeft: "5px" }}>
                 {" "}
-                Welcome {name} {Teacher.Qualification}!! Have a nice day.{" "}
+                Welcome {name} {data.Qualification}! Have a nice day.{" "}
               </a>
             </div>
             <div class="pull-right" style={{ margin: "10px" }}>
@@ -173,11 +179,70 @@ function DashboardMain(props) {
               <br></br>
               <br></br>
               <hr></hr>
-              <Table />
+              {/* <Table /> */}
+    <div id="bookings" className="schedule" >
+    
+          {/* // {" "}
+          // {/* <div
+          //     class="  "
+          //     style={{
+          //       paddingLeft: "100px",
+          //       paddingRight: "100px",
+          //       paddingTop: "60px",
+          //     }} */} 
+            <h3 className=" text-center" style={{ margin: "30px" }}>
+              My Bookings
+            </h3>
+
+              
+            <div className="table100 ver1 m-b-110">
+              <div className="table100-head">
+                <table>
+                  <thead>
+                    <tr className="row100 head">
+                      <th className="cell100 column1">Student name</th>
+                      <th className="cell100 column2">Subject</th>
+                      <th className="cell100 column3">Time</th>
+                      <th className="cell100 column4">Day</th>
+                      <th className="cell100 column5">Date</th>
+                      <th className="cell100 column6">Price</th>
+                      <th className="cell100 column7">Status</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div className="table100-body js-pscroll">
+              {data.bookings &&
+          data.bookings.map((data2) => {
+            return (
+                <table>
+                  <tbody>
+                    <tr className="row100 body">
+                      <td className="cell100 column1">{data2.username}</td>
+                      <td className="cell100 column2">{data2.subject}</td>
+                      <td className="cell100 column3">{data2.time}</td>
+                      <td className="cell100 column4">{data2.day}</td>
+                      <td className="cell100 column5">{data2.date}</td>
+                      <td className="cell100 column6">{data2.amount}</td>
+                      <td className="cell100 column7">{data2.status}</td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+                );  
+              })}
+              </div>
+            </div>
+            
+      
+    </div>
             </div>
           </div>
         </div>
       </div>
+          );
+
+      })}
     </div>
   );
 }

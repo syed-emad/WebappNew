@@ -78,7 +78,10 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
-
+  profileImage:{
+    type:String,
+    required:false
+  },
   About: {
     type: String,
     required: false,

@@ -116,7 +116,7 @@ export class TeacherSignup extends Component {
       .post("/api/teachers", formData)
       .then(() => {
         console.log("User Created");
-        window.location = "/login-teacher";
+        window.location = "/TeacherLogin";
       })
       .catch(err => {
         console.error(err);

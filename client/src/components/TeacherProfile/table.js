@@ -2,6 +2,7 @@ import React from "react";
 
 import "./table.css";
 const table = () => {
+  async function bookfunction() {}
   return (
     <div id="table">
       {" "}
@@ -61,7 +62,11 @@ const table = () => {
                 <td className="cell100 column3">9:00 AM - 11:00 AM</td>
                 <td className="cell100 column4">27 March 2020</td>
                 <td className="cell100 column5 ">
-                  <a className="newbutton2" style={{ color: "white" }}>
+                  <a
+                    className="newbutton2"
+                    style={{ color: "white" }}
+                    onClick={bookfunction}
+                  >
                     Book
                   </a>
                 </td>

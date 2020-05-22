@@ -124,7 +124,7 @@ function TeachersProfile() {
                             </a>
                           </div>
                         </div>
-                        <div className="section">
+                        <div className="section"  id="contact">
                           <div className="container">
                             <div className="button-container">
                               <a
@@ -172,51 +172,54 @@ function TeachersProfile() {
                           <div className="col-lg-6 col-md-12">
                             <div className="card-body">
                               <div className="h4 mt-0 title">About</div>
-                              <p>
+                              {/* <p>
                                 Hello! I am Anthony Barnett. Web Developer,
                                 Graphic Designer and Photographer.
-                              </p>
+                              </p> */}
                               <p>
-                                Creative CV is a HTML resume template for
-                                professionals. Built with Bootstrap 4, Now UI
-                                Kit and FontAwesome, this modern and responsive
-                                design template is perfect to showcase your
-                                portfolio, skills and experience.{" "}
+                               {data.About}
                               </p>
                             </div>
                           </div>
                           <div className="col-lg-6 col-md-12">
+                          
                             <div className="card-body">
+                            
                               <div className="h4 mt-0 title">
                                 Basic Information
                               </div>
+                            
                               <div className="row">
                                 <div className="col-sm-4">
                                   <strong className="text-uppercase">
-                                    Age:
+                                    Age: 
                                   </strong>
                                 </div>
-                                <div className="col-sm-8">24</div>
+                                <div className="col-sm-8">{data.age}</div>
                               </div>
                               <div className="row mt-3">
                                 <div className="col-sm-4">
                                   <strong className="text-uppercase">
-                                    Email:
+                                    Email: 
                                   </strong>
                                 </div>
                                 <div className="col-sm-8">
-                                  anthony@company.com
+                                {data.email}
                                 </div>
                               </div>
                               <div className="row mt-3">
+                             
                                 <div className="col-sm-4">
                                   <strong className="text-uppercase">
                                     Subjects:
                                   </strong>
                                 </div>
                                 <div className="col-sm-8">
-                                  Maths,Physics,Geography
+                                
+                                    {data.subjects}  
                                 </div>
+                                
+                                
                               </div>
                               <div className="row mt-3">
                                 <div className="col-sm-4">
@@ -243,7 +246,7 @@ function TeachersProfile() {
                                       color: "black",
                                     }}
                                   >
-                                    4&nbsp;
+                                    {data.Rating}&nbsp;
                                   </small>
                                 </div>
                               </div>
@@ -257,7 +260,10 @@ function TeachersProfile() {
                                   English, German, French
                                 </div>
                               </div>
+                                 
+
                             </div>
+                          
                           </div>
                         </div>
                       </div>
@@ -325,27 +331,32 @@ function TeachersProfile() {
                                       <tr className="row100 body">
                                         <td className="cell100 column1">
                                           {data2.Subject}
-                                          
                                         </td>
                                         <td className="cell100 column2">
-                                          {data2.Day}  
+                                          {data2.Day}
                                         </td>
                                         <td className="cell100 column3">
-                                          {data2.Time} 
+                                          {data2.Time}
                                         </td>
                                         <td className="cell100 column4">
-                                          {data2.Date} 
+                                          {data2.Date}
                                         </td>
                                         <td className="cell100 column5 ">
-                                          <a
-                                            className="newbutton2"
-                                            style={{ color: "white" }}
-                                            onClick={() => {
-                                              call2functions(index, data2._id);
-                                            }}
+                                          <Link
+                                            to={`/Checkout?userid=${"123"}&bookingid=${data2._id}&index=${index}&teacherid=${id}&Subject=${data2.Subject}&Date=${data2.Date}&Time=${data2.Time}&Day=${data2.Day}`}
                                           >
-                                            {data2.Status}
-                                          </a>
+                                        
+                                            <a
+                                              className="newbutton2"
+                                              style={{ color: "white" }}
+                                              // onClick={() => {
+                                              //   call2functions(index, data2._id);
+                                              // }}
+                                            >
+                                              {data2.Status}
+                                            </a>{" "}
+                                            
+                                          </Link>
                                         </td>
                                         {/* <td className="cell100 column5 ">
                                           {" "}
@@ -370,111 +381,59 @@ function TeachersProfile() {
                     </div>
                   </div>
                   <div className="section" id="experience">
+                  
                     <div className="container cc-experience">
                       <div className="h4 text-center mb-4 title">
                         Work Experience
                       </div>
                       <div className="card">
+                      {data.work &&
+                      data.work.map((data4) => {
+                      return (
                         <div className="row">
                           <div className="col-md-3 ">
                             <div className="card-body cc-experience-header">
-                              <p>March 2016 - Present</p>
-                              <div className="h5">CreativeM</div>
+                              <p>{data4.startDate} - {data4.endDate}</p>
+                              <div className="h5">{data4.place}</div>
                             </div>
                           </div>
                           <div className="col-md-9">
                             <div className="card-body">
-                              <div className="h5">Front End Developer</div>
+                              <div className="h5">{data4.title}</div>
                               <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
+                                {data4.details}
                               </p>
                             </div>
                           </div>
+                          
                         </div>
-                      </div>
-                      <div className="card">
-                        <div className="row">
-                          <div className="col-md-3 ">
-                            <div className="card-body cc-experience-header">
-                              <p>April 2014 - March 2016</p>
-                              <div className="h5">WebNote</div>
-                            </div>
-                          </div>
-                          <div className="col-md-9">
-                            <div className="card-body">
-                              <div className="h5">Web Developer</div>
-                              <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card">
-                        <div className="row">
-                          <div className="col-md-3 ">
-                            <div className="card-body cc-experience-header">
-                              <p>April 2013 - February 2014</p>
-                              <div className="h5">WEBM</div>
-                            </div>
-                          </div>
-                          <div className="col-md-9">
-                            <div className="card-body">
-                              <div className="h5">Intern</div>
-                              <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                        );
+                        })}
                       </div>
                     </div>
                   </div>
-                  <div className="section">
+                  
+                  <div className="section" id="education">
                     <div className="container cc-education">
                       <div className="h4 text-center mb-4 title">Education</div>
                       <div className="card">
+                      {data.education &&
+                      data.education.map((data5) => {
+                      return (
                         <div className="row">
                           <div className="col-md-3 " data-aos-duration={500}>
                             <div className="card-body cc-education-header">
-                              <p>2013 - 2015</p>
-                              <div className="h5">Master's Degree</div>
+                              <p>{data5.startDate} - {data5.endDate}</p>
+                              <div className="h5">{data5.level}'s Degree</div>
                             </div>
                           </div>
                           <div className="col-md-9" data-aos-duration={500}>
                             <div className="card-body">
                               <div className="h5">
-                                Master of Information Technology
+                              {data5.field}
                               </div>
                               <p className="category">
-                                University of Computer Science
+                              {data5.institute}
                               </p>
                               <p>
                                 Euismod massa scelerisque suspendisse fermentum
@@ -491,75 +450,10 @@ function TeachersProfile() {
                             </div>
                           </div>
                         </div>
+                        );
+                      })}
                       </div>
-                      <div className="card">
-                        <div className="row">
-                          <div
-                            className="col-md-3 bg-primary"
-                            data-aos-duration={500}
-                          >
-                            <div className="card-body cc-education-header">
-                              <p>2009 - 2013</p>
-                              <div className="h5">Bachelor's Degree</div>
-                            </div>
-                          </div>
-                          <div className="col-md-9" data-aos-duration={500}>
-                            <div className="card-body">
-                              <div className="h5">
-                                Bachelor of Computer Science
-                              </div>
-                              <p className="category">
-                                University of Computer Science
-                              </p>
-                              <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card">
-                        <div className="row">
-                          <div
-                            className="col-md-3 bg-primary"
-                            data-aos-duration={500}
-                          >
-                            <div className="card-body cc-education-header">
-                              <p>2007 - 2009</p>
-                              <div className="h5">High School</div>
-                            </div>
-                          </div>
-                          <div className="col-md-9" data-aos-duration={500}>
-                            <div className="card-body">
-                              <div className="h5">Science and Mathematics</div>
-                              <p className="category">
-                                School of Secondary board
-                              </p>
-                              <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>

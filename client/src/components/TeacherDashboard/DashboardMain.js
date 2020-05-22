@@ -127,7 +127,7 @@ function DashboardMain(props) {
               />
               <a style={{ marginLeft: "5px" }}>
                 {" "}
-                Welcome {name} {data.Qualification}! Have a nice day.{" "}
+                Welcome {name}! Have a nice day.{" "}
               </a>
             </div>
             <div class="pull-right" style={{ margin: "10px" }}>
@@ -218,13 +218,13 @@ function DashboardMain(props) {
                 <table>
                   <tbody>
                     <tr className="row100 body">
-                      <td className="cell100 column1">{data2.username}</td>
-                      <td className="cell100 column2">{data2.subject}</td>
-                      <td className="cell100 column3">{data2.time}</td>
-                      <td className="cell100 column4">{data2.day}</td>
-                      <td className="cell100 column5">{data2.date}</td>
-                      <td className="cell100 column6">{data2.amount}</td>
-                      <td className="cell100 column7">{data2.status}</td>
+                      <td className="cell100 column1">{data2.Username}</td>
+                      <td className="cell100 column2">{data2.Subject}</td>
+                      <td className="cell100 column3">{data2.Time}</td>
+                      <td className="cell100 column4">{data2.Day}</td>
+                      <td className="cell100 column5">{data2.Date}</td>
+                      <td className="cell100 column6">{data2.Price}</td>
+                      <td className="cell100 column7">{data2.Status}</td>
                     </tr>
                    
                   </tbody>

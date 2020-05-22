@@ -130,50 +130,47 @@ router.post("/",fileUpload.single('profileImage'), (req, res) => {
     Price: req.body.Price,
     DayTime: req.body.DayTime,
     Day: req.body.Day,
+    subjects: req.body.subjects,
     Time: req.body.Time,
     email: req.body.email,
     password: req.body.password,
     bookings: [
-      {
-        username: req.body.bookings[0].username,
-        amount: req.body.bookings[0].amount,
-        time:  req.body.bookings[0].time,
-        day:  req.body.bookings[0].day,
-        date :  req.body.bookings[0].date,
-        status:  req.body.bookings[0].status,
-        subject:  req.body.bookings[0].subject
-      },
+      // {
+      //   username: req.body.bookings[0].username,
+      //   amount: req.body.bookings[0].amount,
+      //   time:  req.body.bookings[0].time,
+      //   day:  req.body.bookings[0].day,
+      //   date :  req.body.bookings[0].date,
+      //   status:  req.body.bookings[0].status,
+      //   subject:  req.body.bookings[0].subject
+      // },
     ],
     education:[
-      {
-        level: req.body.education[0].level,
-        institute:  req.body.education[0].institute,
-        startDate:  req.body.education[0].startDate,
-        endDate:  req.body.education[0].endDate,
-        field:  req.body.education[0].field
-      }
+      // {
+      //   level: req.body.education[0].level,
+      //   institute:  req.body.education[0].institute,
+      //   startDate:  req.body.education[0].startDate,
+      //   endDate:  req.body.education[0].endDate,
+      //   field:  req.body.education[0].field
+      // }
     ],
     work: [
-      {
-        title: req.body.work[0].title,
-        startDate: req.body.work[0].startDate,
-        endDate: req.body.work[0].endDate,
-        details: req.body.work[0].details
-      }
+      // {
+      //   title: req.body.work[0].title,
+      //   place:req.body.work[0].place,
+      //   startDate: req.body.work[0].startDate,
+      //   endDate: req.body.work[0].endDate,
+      //   details: req.body.work[0].details
+      // }
     ],
     schedule:[
-      {
-        day:req.body.schedule[0].day,
-        date: req.body.schedule[0].date,
-        time: req.body.schedule[0].time,
-        subject: req.body.schedule[0].subject,
-        details: req.body.schedule[0].details
-      }
-    ],
-    subjects: [
-      {
-        subject: req.body.subjects[0].subject
-      }
+      // {
+      //   day:req.body.schedule[0].day,
+      //   date: req.body.schedule[0].date,
+      //   time: req.body.schedule[0].time,
+      //   subject: req.body.schedule[0].subject,
+      //   details: req.body.schedule[0].details
+      // }
     ]
 
     // $push: { bookings: { username: { $each: [req.body.username] } } },

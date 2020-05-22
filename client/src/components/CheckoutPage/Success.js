@@ -2,6 +2,9 @@ import React from "react";
 import "./Sucess.css";
 import Footer from "./Footer";
 function Success(props) {
+  const Gotohome = () => {
+    props.history.push(`/`);
+  };
   {
     return (
       <div class="row" style={{ background: "black", marginTop: "10px" }}>
@@ -22,6 +25,7 @@ function Success(props) {
               <button
                 className="btn btn-success btn-block"
                 data-dismiss="modal"
+                onClick={Gotohome}
               >
                 Home
               </button>

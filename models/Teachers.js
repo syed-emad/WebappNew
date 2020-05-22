@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 //Bookingss Schema
 
 const BookingSchema = new Schema({
-  username: String,
-  amount: Number,
-  time: String,
-  day: String,
-  date : String,
-  status: String,
-  subject: String
+  Username: String,
+  Price: Number,
+  Day: String,
+  Date: String,
+  Time: String,
+  Subject: String,
+  Status: String
 });
 
 //education schema
@@ -26,6 +26,7 @@ const EducationScehma= new Schema ({
 
 const WorkSchema = new Schema({
   title: String,
+  place: String,
   startDate:String,
   endDate: String,
   details: String
@@ -34,18 +35,18 @@ const WorkSchema = new Schema({
 //teacher's schedule schema
 
 const ScheduleSchema = new Schema ({
-  day: String,
-  date: String,
-  time: String,
-  subject: String,
-  details: String
-
+  Day: String,
+  Date: String,
+  Time: String,
+  Subject: String,
+  Status: String,
+  Price:String
 });
 // subject schema
 
-const SubjectSchema = new Schema({
-  subject: String
-});
+// const SubjectSchema = new Schema({
+//   subject: String
+// });
 //Teachers Schema
 
 const TeacherSchema = new Schema({
@@ -106,11 +107,15 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
-  bookings: [BookingSchema],
-  education: [EducationScehma],
-  work: [WorkSchema],
-  schedule: [ScheduleSchema],
-  subjects: [SubjectSchema]
+  subjects:{
+    type: String,
+    required: false,
+  },
+  bookings: [],
+  education: [],
+  work: [],
+  schedule: []
+
 });
 
 module.exports = Teacher = mongoose.model("teacher", TeacherSchema);

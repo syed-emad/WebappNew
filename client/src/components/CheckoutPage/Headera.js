@@ -37,7 +37,7 @@ function Header(props) {
                   <a href=""></a>
                 </li>
                 <li className="active">
-                  <a href="index.html">Home</a>
+                  <a href="/">Home</a>
                 </li>
                 <li>
                   <a href="#">Become a Tutor</a>

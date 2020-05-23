@@ -39,7 +39,6 @@ const ScheduleSchema = new Schema ({
   Date: String,
   Time: String,
   Subject: String,
-  Status: String,
   Price:String
 });
 // subject schema

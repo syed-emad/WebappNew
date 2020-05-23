@@ -6,7 +6,18 @@ function RegisterNew(props) {
   const email = useFormInput("");
   const password = useFormInput("");
   const [error, setError] = useState(null);
-
+var url_string = window.location.href;
+var url = new URL(url_string);
+var date = new Date().getDate();
+var month = new Date().getMonth() + 1;
+var year = new Date().getFullYear();
+var finaldate = date + "-" + month + "-" + year;
+var id = url.searchParams.get("teacherid");
+var bookingid = url.searchParams.get("bookingid");
+var subject = url.searchParams.get("Subject");
+var day = url.searchParams.get("Day");
+var datenew = url.searchParams.get("Date");
+var time = url.searchParams.get("Time");
   // handle button click of login form
   const handleLogin = () => {
     setError(null);
@@ -20,7 +31,10 @@ function RegisterNew(props) {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
         props.history.push(
-          `/dashboard?name=${response.data.user.name}&id=${response.data.user.id}`
+          // `/dashboard?name=${response.data.user.name}&id=${response.data.user.id}`
+          `/Checkout?teacherid=${id}&index=${"1"}&bookingid=${bookingid}&Subject=${subject}&Day=${day}&Date=${datenew}&Time=${time}username=${
+            response.data.user.name
+          }&userid=${response.data.user.id}`
         );
       })
       .catch((error) => {

@@ -72,6 +72,48 @@ router.get("/dash", (req, res) => {
   }
 });
 
+router.put("/add", function (req, res) {
+ 
+    var id = req.query.id;
+    var email = "OKEMAIL";
+    console.log("in ids");
+    var data = {
+      _id: new ObjectId(),
+      Subject: req.query.subjectname,
+      Day: req.query.day,
+      Date: req.query.date,
+      Time: req.query.time,
+      Price: req.query.price,
+      Status:"Book",
+       
+    };
+    console.log(data);
+    Teacher.findOne({ _id: id }, function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (!foundObject) {
+          console.log(err);
+        } else {
+          if (req.query.id) {
+            Teacher.updateOne(
+              { _id: new ObjectId(id) },
+              { $push: { schedule: data } },
+              function (err, updatedObj) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log("Success");           
+                }
+              }
+            );
+          }
+      
+        }
+      }
+    });
+  });
+
 router.get("/search2", (req, res) => {
   let Qualification = req.query.name;
   let Price = req.query.price;
@@ -234,13 +276,15 @@ router.put("/ids", function (req, res) {
   console.log("in ids");
   var data = {
     _id: new ObjectId(),
-    Subject: "Maths",
-    Day: "Monday",
-    Date: "12/2/2020",
-    Time: "3:00-4:00PM",
-    Status: "Book",
+    Subject: req.query.subjectname,
+    Day: req.query.day,
+    Date: req.query.date,
+    Time: req.query.time,
+    Price: req.query.price,
+    Status:"Book",
+     
   };
-  console.log(id);
+  console.log(data);
   Teacher.findOne({ _id: id }, function (err, foundObject) {
     if (err) {
       console.log(err);
@@ -248,7 +292,7 @@ router.put("/ids", function (req, res) {
       if (!foundObject) {
         console.log(err);
       } else {
-        if (req.query.email) {
+        if (req.query.id) {
           Teacher.updateOne(
             { _id: new ObjectId(id) },
             { $push: { schedule: data } },

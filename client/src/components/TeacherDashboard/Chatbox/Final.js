@@ -53,7 +53,7 @@ function Final() {
               </a>
             </li>
             <li>
-              <a href="#schedule">
+              <a href="/schedule">
                 <i className="fa fa-calendar" />
                 My Schedule
               </a>

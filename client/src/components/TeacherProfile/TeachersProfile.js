@@ -8,6 +8,9 @@ import FadeIn from "react-fade-in";
 import Header from "./Header";
 import Table from "./table";
 import { Link } from "react-router-dom";
+import { getUser, removeUserSession } from "../../Utils/Common";
+const { If, Then, Else } = require("react-if");
+
 function TeachersProfile() {
   // let { name } = useParams();\var name
   const [Index, setIndex] = useState("");
@@ -23,11 +26,24 @@ function TeachersProfile() {
   //console.log("aaaa");
   //   console.log(name);
   const [value, setValue] = useState(null);
-  function call2functions(val, id) {
+     const user = getUser();
+     var loginbutton;
+     var name;
+     if (!!user && !!user.name) {
+       name = user.name;
+     } else {
+       name = "a";
+     }
+     
+     function call2functions(val, id) {
     day = val;
     butttonid = id;
     bookfunction2();
-  }
+    refreshPage();
+  } 
+  function refreshPage() {
+      window.location.reload(false);
+    }
   async function getSomething() {
     try {
       const response = await axios.get(`/api/teachers/searchbyid?id=${id}`);
@@ -55,7 +71,7 @@ function TeachersProfile() {
   async function bookfunction2() {
     try {
       const response = await axios.put(
-        `/api/teachers/newx?id=${id}&index=${day}&buttonid=${butttonid}`
+        `/api/teachers/newx?id=${id}&index=${day}&buttonid=${butttonid}&`
       );
       setValue(response.data);
       console.log(response.data);
@@ -168,17 +184,11 @@ function TeachersProfile() {
                           <div className="col-lg-6 col-md-12">
                             <div className="card-body">
                               <div className="h4 mt-0 title">About</div>
-                              <p>
+                              {/* <p>
                                 Hello! I am Anthony Barnett. Web Developer,
                                 Graphic Designer and Photographer.
-                              </p>
-                              <p>
-                                Creative CV is a HTML resume template for
-                                professionals. Built with Bootstrap 4, Now UI
-                                Kit and FontAwesome, this modern and responsive
-                                design template is perfect to showcase your
-                                portfolio, skills and experience.{" "}
-                              </p>
+                              </p> */}
+                              <p>{data.About}</p>
                             </div>
                           </div>
                           <div className="col-lg-6 col-md-12">
@@ -186,13 +196,14 @@ function TeachersProfile() {
                               <div className="h4 mt-0 title">
                                 Basic Information
                               </div>
+
                               <div className="row">
                                 <div className="col-sm-4">
                                   <strong className="text-uppercase">
                                     Age:
                                   </strong>
                                 </div>
-                                <div className="col-sm-8">24</div>
+                                <div className="col-sm-8">{data.age}</div>
                               </div>
                               <div className="row mt-3">
                                 <div className="col-sm-4">
@@ -200,9 +211,7 @@ function TeachersProfile() {
                                     Email:
                                   </strong>
                                 </div>
-                                <div className="col-sm-8">
-                                  anthony@company.com
-                                </div>
+                                <div className="col-sm-8">{data.email}</div>
                               </div>
                               <div className="row mt-3">
                                 <div className="col-sm-4">
@@ -210,9 +219,7 @@ function TeachersProfile() {
                                     Subjects:
                                   </strong>
                                 </div>
-                                <div className="col-sm-8">
-                                  Maths,Physics,Geography
-                                </div>
+                                <div className="col-sm-8">{data.subjects}</div>
                               </div>
                               <div className="row mt-3">
                                 <div className="col-sm-4">
@@ -239,7 +246,7 @@ function TeachersProfile() {
                                       color: "black",
                                     }}
                                   >
-                                    4&nbsp;
+                                    {data.Rating}&nbsp;
                                   </small>
                                 </div>
                               </div>
@@ -321,29 +328,81 @@ function TeachersProfile() {
                                       <tr className="row100 body">
                                         <td className="cell100 column1">
                                           {data2.Subject}
-                                          {index}
                                         </td>
                                         <td className="cell100 column2">
-                                          {data2.Day} {index}
+                                          {data2.Day}
                                         </td>
                                         <td className="cell100 column3">
-                                          {data2.Time}{" "}
+                                          {data2.Time}
                                         </td>
                                         <td className="cell100 column4">
-                                          {data2.Date}{" "}
+                                          {data2.Date}
                                         </td>
                                         <td className="cell100 column5 ">
-                                          <a
-                                            className="newbutton2"
-                                            style={{ color: "white" }}
-                                            onClick={() => {
-                                              call2functions(index, data2._id);
-                                            }}
-                                          >
-                                            {data2.Status}
-                                          </a>
+                                          <If condition={name != "a"}>
+                                            <Then>
+                                              <Link
+                                                to={`/Checkout?userid=${"123"}&bookingid=${
+                                                  data2._id
+                                                }&index=${index}&teacherid=${id}&Subject=${
+                                                  data2.Subject
+                                                }&Date=${data2.Date}&Time=${
+                                                  data2.Time
+                                                }&Day=${data2.Day}`}
+                                              >
+                                                <a
+                                                  className="newbutton2"
+                                                  style={{ color: "white" }}
+                                                  // onClick={() => {
+                                                  //   call2functions(index, data2._id);
+                                                  // }}
+                                                >
+                                                  {data2.Status}x
+                                                </a>{" "}
+                                              </Link>
+                                            </Then>
+                                            <Else>
+                                              <Link
+                                                to={`/Login?userid=${"None"}&bookingid=${
+                                                  data2._id
+                                                }&index=${index}&teacherid=${id}&Subject=${
+                                                  data2.Subject
+                                                }&Date=${data2.Date}&Time=${
+                                                  data2.Time
+                                                }&Day=${data2.Day}`}
+                                              >
+                                                <If
+                                                  condition={
+                                                    data2.Status == "Booked"
+                                                  }
+                                                >
+                                                  <Then>
+                                                    <button
+                                                      type="button"
+                                                      disabled
+                                                      class="newbutton3"
+                                                    >
+                                                     Booked
+                                                    </button>
+                                                  </Then>
+                                                  <Else>
+                                                    {" "}
+                                                    <a
+                                                      className="newbutton2"
+                                                      style={{ color: "white" }}
+                                                      // onClick={() => {
+                                                      //   call2functions(index, data2._id);
+                                                      // }}
+                                                    >
+                                                      {data2.Status}
+                                                    </a>{" "}
+                                                  </Else>
+                                                </If>
+                                              </Link>
+                                            </Else>
+                                          </If>
                                         </td>
-                                        <td className="cell100 column5 ">
+                                        {/* <td className="cell100 column5 ">
                                           {" "}
                                           used this too add details to schedule
                                           <a
@@ -354,7 +413,7 @@ function TeachersProfile() {
                                             Bookxx
                                             {data2.Status}
                                           </a>
-                                        </td>
+                                        </td> */}
                                       </tr>
                                     </tbody>
                                   </table>
@@ -371,124 +430,80 @@ function TeachersProfile() {
                         Work Experience
                       </div>
                       <div className="card">
-                        <div className="row">
-                          <div className="col-md-3 ">
-                            <div className="card-body cc-experience-header">
-                              <p>March 2016 - Present</p>
-                              <div className="h5">CreativeM</div>
-                            </div>
-                          </div>
-                          <div className="col-md-9">
-                            <div className="card-body">
-                              <div className="h5">Front End Developer</div>
-                              <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card">
-                        <div className="row">
-                          <div className="col-md-3 ">
-                            <div className="card-body cc-experience-header">
-                              <p>April 2014 - March 2016</p>
-                              <div className="h5">WebNote</div>
-                            </div>
-                          </div>
-                          <div className="col-md-9">
-                            <div className="card-body">
-                              <div className="h5">Web Developer</div>
-                              <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card">
-                        <div className="row">
-                          <div className="col-md-3 ">
-                            <div className="card-body cc-experience-header">
-                              <p>April 2013 - February 2014</p>
-                              <div className="h5">WEBM</div>
-                            </div>
-                          </div>
-                          <div className="col-md-9">
-                            <div className="card-body">
-                              <div className="h5">Intern</div>
-                              <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                        {data.work &&
+                          data.work.map((data4) => {
+                            return (
+                              <div className="row">
+                                <div className="col-md-3 ">
+                                  <div className="card-body cc-experience-header">
+                                    <p>
+                                      {data4.startDate} - {data4.endDate}
+                                    </p>
+                                    <div className="h5">{data4.place}</div>
+                                  </div>
+                                </div>
+                                <div className="col-md-9">
+                                  <div className="card-body">
+                                    <div className="h5">{data4.title}</div>
+                                    <p>{data4.details}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
                       </div>
                     </div>
                   </div>
-                  <div className="section">
+                  <div className="section" id="education">
                     <div className="container cc-education">
                       <div className="h4 text-center mb-4 title">Education</div>
                       <div className="card">
-                        <div className="row">
-                          <div className="col-md-3 " data-aos-duration={500}>
-                            <div className="card-body cc-education-header">
-                              <p>2013 - 2015</p>
-                              <div className="h5">Master's Degree</div>
-                            </div>
-                          </div>
-                          <div className="col-md-9" data-aos-duration={500}>
-                            <div className="card-body">
-                              <div className="h5">
-                                Master of Information Technology
+                        {data.education &&
+                          data.education.map((data5) => {
+                            return (
+                              <div className="row">
+                                <div
+                                  className="col-md-3 "
+                                  data-aos-duration={500}
+                                >
+                                  <div className="card-body cc-education-header">
+                                    <p>
+                                      {data5.startDate} - {data5.endDate}
+                                    </p>
+                                    <div className="h5">
+                                      {data5.level}'s Degree
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="col-md-9"
+                                  data-aos-duration={500}
+                                >
+                                  <div className="card-body">
+                                    <div className="h5">{data5.field}</div>
+                                    <p className="category">
+                                      {data5.institute}
+                                    </p>
+                                    <p>
+                                      Euismod massa scelerisque suspendisse
+                                      fermentum habitant vitae ullamcorper magna
+                                      quam iaculis, tristique sapien taciti
+                                      mollis interdum sagittis libero nunc
+                                      inceptos tellus, hendrerit vel eleifend
+                                      primis lectus quisque cubilia sed mauris.
+                                      Lacinia porta vestibulum diam integer
+                                      quisque eros pulvinar curae, curabitur
+                                      feugiat arcu vivamus parturient aliquet
+                                      laoreet at, eu etiam pretium molestie
+                                      ultricies sollicitudin dui.
+                                    </p>
+                                  </div>
+                                </div>
                               </div>
-                              <p className="category">
-                                University of Computer Science
-                              </p>
-                              <p>
-                                Euismod massa scelerisque suspendisse fermentum
-                                habitant vitae ullamcorper magna quam iaculis,
-                                tristique sapien taciti mollis interdum sagittis
-                                libero nunc inceptos tellus, hendrerit vel
-                                eleifend primis lectus quisque cubilia sed
-                                mauris. Lacinia porta vestibulum diam integer
-                                quisque eros pulvinar curae, curabitur feugiat
-                                arcu vivamus parturient aliquet laoreet at, eu
-                                etiam pretium molestie ultricies sollicitudin
-                                dui.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                            );
+                          })}
                       </div>
-                      <div className="card">
+                      {/* <div className="card">
                         <div className="row">
                           <div
                             className="col-md-3 bg-primary"
@@ -555,7 +570,7 @@ function TeachersProfile() {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
     .sort({ date: -1 })
     .then((teachers) => res.json(teachers));
 });
+
 router.get("/search", (req, res) => {
   let Qualification = req.query.name;
   let Price = req.query.price;
@@ -30,6 +31,7 @@ router.get("/search", (req, res) => {
       .then((teachers) => res.json(teachers));
   }
 });
+
 router.get("/searchbyid", (req, res) => {
   let _id = req.query.id;
 
@@ -45,6 +47,7 @@ router.get("/searchbyid", (req, res) => {
     console.log("erroxr");
   }
 });
+
 router.get("/dash", (req, res) => {
   _id = req.query.id;
 
@@ -106,9 +109,7 @@ router.get("/search2", (req, res) => {
   }
 });
 
-//@route POST api/items
-//@desc Create A post
-//@access Public
+//Post method teac
 router.post("/", (req, res) => {
   console.log(req.body);
   var data = {
@@ -128,35 +129,20 @@ router.post("/", (req, res) => {
     email: req.body.email,
     password: req.body.password,
     bookings: data,
-
-    // $push: { bookings: { username: { $each: [req.body.username] } } },
   });
 
   newTeacher.save().then((teacher) => res.json(teacher));
-}); //@access Public
+}); 
 
-// router.put("/:ids", function (req, res) {
-//   var id = req.query.id;
-//   var email = "OKEMAIL";
-//   console.log(id);
-//   Teacher.update({ _id: req.query.id }, { $set: email }, function (err, docs) {
-//     if (err) {
-//       console.log("some error occurred in update");
-//     } else {
-//       console.log("update user", docs);
-//       res.status(200).json(Teacher);
-//     }
-//   });
-// });
+//Add teacher schedule details to database
 router.put("/ids", function (req, res) {
   var id = req.query.id;
   var email = "OKEMAIL";
   console.log("in ids");
   var data = {
-    // username: req.query.email,
     _id: new ObjectId(),
-    Subject: "Maths",
-    Day: "Monday",
+    Subject: "Chemistry",
+    Day: "Friday",
     Date: "12/2/2020",
     Time: "3:00-4:00PM",
     Status: "Book",
@@ -177,68 +163,108 @@ router.put("/ids", function (req, res) {
               if (err) {
                 console.log(err);
               } else {
-                //res.send(updatedObj);
-                console.log("Success");
-                // console.log(updatedObj);
-                //  console.log(data);
+                console.log("Success");           
               }
             }
           );
         }
-        // foundObject.updateOne(
-        //   { _id: new ObjectId(id) },
-        //   { $push: { bookings: data } },
-        //   function (err, updatedObj) {
-        //     if (err) {
-        //       console.log(err);
-        //     } else {
-        //       //res.send(updatedObj);
-        //       console.log("Success");
-        //       console.log(updatedObj);
-        //       console.log(data);
-        //     }
-        //   }
-        // );
+    
       }
     }
   });
 });
 
+//Update the status of booking
 router.put("/newx", function (req, res) {
   var id = req.query.id;
   var buttonid = req.query.buttonid;
 
-  var index = "1";
   console.log(req.query.index, "index");
   console.log("buttonid:", buttonid);
 
-  var data = {
-    Status: "Bookedx",
-  };
-  // Teacher.findOne(
-  //   { "schedule._id": { $elemMatch: { _id: new ObjectId(buttonid) } } },
-  //   function (err, result) {
-  //     if (err) throw err;
-  //     console.log(result);
-  //     // if(result.schedule)
-  //   }
-  // );
   Teacher.updateOne(
     { _id: new ObjectId(id), "schedule._id": new ObjectId(buttonid) },
-    { $set: { "schedule.$.Status": "Booked" } }, //change boooked to sexyt emadxpkam kar raha ha?
-    
+    { $set: { "schedule.$.Status": "Booked" } },
+
     function (err, foundObject) {
       if (err) {
         console.log(err);
       } else {
-        console.log(foundObject);
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
       }
     }
   );
 });
-//@route Delete api/teachers :id
-//@desc Delete A item
-//@access Public
+
+router.put("/nottoube", function (req, res) {
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+
+  console.log(req.query.index, "index");
+  console.log("buttonid:", buttonid);
+
+  Teacher.findOne(
+    { _id: new ObjectId(id), "schedule._id": new ObjectId(buttonid) },
+    {"schedule.$.Status": { $in: "Booked" } } ,
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(foundObject, "ans");
+        // console.log("statusupdates");
+      }
+    }
+  );
+});
+ 
+//Confirm button
+router.put("/booked", function (req, res) {
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+  console.log("bookid",buttonid);
+  console.log(req.query.index, "index");
+  console.log("buttonid:", buttonid);
+ 
+   
+  
+  Teacher.findOne({ "schedule._id": new ObjectId(buttonid)}, function (err, foundObject) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(foundObject.schedule._id, "SUBJ");
+      if(foundObject.schedule._id=buttonid){
+        console.log(foundObject.schedule._id,"---------");
+         
+          var data = {
+            _id: foundObject.schedule._id,
+            Subject: req.query.Subject,
+            Day: req.query.Day,
+            Date: req.query.Date,
+            Time:req.query.Time,
+            Status: "Booked",
+          };
+       Teacher.updateOne(
+         { _id: new ObjectId(id) },
+         { $push: { bookings:data } },
+         function (err, updatedObj) {
+           if (err) {
+             console.log(err);
+           } else {
+             console.log("Success");
+           }
+         }
+       );
+      }
+      
+    }
+  });
+   
+ 
+   
+});
+//Deleting method
 router.delete("/:id", (req, res) => {
   Teacher.findById(req.params.id)
     .then((teacher) => teacher.remove().then(() => res.json({ success: true })))

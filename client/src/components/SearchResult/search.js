@@ -3,13 +3,22 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import FadeIn from "react-fade-in";
 import { useHistory } from "react-router-dom";
+import { getUser, removeUserSession } from "../../Utils/Common";
+const { If, Then, Else } = require("react-if");
 //wait
-function Search() {
+function Search(props) {
   const [searchedsubject, setName] = useState("");
   const [searchedprice, setPrice] = useState("");
   const [searchedtime, setTime] = useState("");
   const [searchedday, setDay] = useState("");
-
+  const user = getUser();
+   var name;
+   if (!!user && !!user.name) {
+     name = user.name;
+   } else {
+     name = "a";
+   }
+ 
   // let { name } = useParams();\var name
   var name;
   var price;

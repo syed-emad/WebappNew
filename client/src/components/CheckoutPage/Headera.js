@@ -49,10 +49,10 @@ function Header(props) {
             <div className="log_reg">
               <ul className="d-flex flex-row align-items-center justify-content-start">
                 <li>
-                  <a href="/login">Login </a>
+                  <a> Welcome {user.name}!</a>
                 </li>
                 <li>
-                  <a href="/Register">Register</a>
+                  <a onClick={handleLogout}>Logoutxx</a>
                 </li>
               </ul>
             </div>

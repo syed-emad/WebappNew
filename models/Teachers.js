@@ -4,8 +4,14 @@ const Schema = mongoose.Schema;
 //Bookingss Schema
 
 const BookingSchema = new Schema({
-  username: String,
-  amount: Number,
+  Day: String,
+  Date: String,
+  Time:String,
+  Status:String,
+  Subject:String,
+  Username:String,
+  BookingTime:String,
+  Price:String,
 });
 
 //Teachers Schema

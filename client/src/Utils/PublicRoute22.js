@@ -8,10 +8,10 @@ function PublicRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        !getToken() ? (
+        getToken() ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: "/Checkout" }} />
+          <Redirect to={{ pathname: "/Success" }} />
         )
       }
     />

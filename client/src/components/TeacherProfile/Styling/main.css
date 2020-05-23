@@ -5161,10 +5161,34 @@
    transition: 0.3s;
    margin: 10px;
  }
+.newbutton3 {
+  border: none;
+  border-radius: 0.1cm;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color:#940707;
+  text-align: center;
+  cursor: pointer;
+  width: 90%;
+  transition: 0.3s;
+  margin: 10px;
+ 
+}
 
+ .disabledCursor {
+   
+   
+   pointer-events: none;
+ }
  .newbutton:hover {
    background-color: purple;
  }
+.newbutton2:hover {
+  cursor: default;
+  pointer-events: none;
+}
 
  .cc-profile-image a {
    position: relative;
@@ -5283,7 +5307,7 @@
 
  }
 
-
+ 
 
  @media (max-width: 768px) {
    .cc-reference .cc-reference-header {

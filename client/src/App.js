@@ -12,6 +12,7 @@ import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./Utils/PrivateRoute";
 //import MainPage from "./components/TeacherDashboard/MainPage";
 
+
 import PublicRoute from "./Utils/PublicRoute";
 import PublicRouteTeacher from "./Utils/PublicRouteTeacher";
 import SearchPage from "./components/SearchResult/SearchPage";
@@ -29,6 +30,8 @@ import TF from "./components/TeacherForm/TeacherForm";
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
 import TeacherLogin from "./components/TeacherLogin/TeacherLogin";
 //import MainPage from "./components/TeacherDashboard/MainPage";
+ 
+import PublicRoute22 from "./Utils/PublicRoute22";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -63,11 +66,11 @@ function App() {
             <Switch>
               <Route exact path="/" component={HomeFinal} />
               <PublicRoute exact path="/login" component={Login} />
-              <PublicRoute exact path="/search" component={SearchPage} />
+              <Route exact path="/search" component={SearchPage} />
               <PublicRoute exact path="/search2" component={search2} />
               <PublicRoute exact path="/TeachersProfile" component={TP} />
               <PublicRoute exact path="/card" component={Card} />
-              <PublicRoute exact path="/Checkout" component={Checkout} />
+              <PublicRoute22 exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
               <PublicRoute exact path="/TF" component={TF} />

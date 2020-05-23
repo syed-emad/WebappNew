@@ -1,9 +1,15 @@
 import React from "react";
 import { getUser, removeUserSession } from "../../Utils/Common";
-
+const { If, Then, Else } = require("react-if");
 function Header(props) {
   const user = getUser();
-
+ 
+var name;
+if (!!user && !!user.name) {
+  name = user.name;
+} else {
+  name = "a";
+}
   // handle click event of logout button
   const handleLogout = () => {
     removeUserSession();
@@ -47,14 +53,28 @@ function Header(props) {
           </div>
           <div className="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
             <div className="log_reg">
-              <ul className="d-flex flex-row align-items-center justify-content-start">
-                <li>
-                  <a href="/login">Login </a>
-                </li>
-                <li>
-                  <a href="/Register">Register</a>
-                </li>
-              </ul>
+              <If condition={name != "a"}>
+                <Then>
+                  <span className="ok">
+                    <li>
+                      <a> Welcome {name}!</a>
+                    </li>
+                    <li>
+                      <a onClick={removeUserSession()}>Logout</a>
+                    </li>
+                  </span>
+                </Then>
+                <Else>
+                  <ul className="d-flex flex-row align-items-center justify-content-start">
+                    <li>
+                      <a href="/Login">Login </a>
+                    </li>
+                    <li>
+                      <a href="/Register">Register</a>
+                    </li>
+                  </ul>
+                </Else>
+              </If>
             </div>
             <div className="hamburger">
               <i className="fa fa-bars trans_200" />

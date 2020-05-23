@@ -1,9 +1,7 @@
 import React from "react";
 import { getUser, removeUserSession } from "../Utils/Common";
 
-import Home from "./Home";
-
-import Card from "./TeacherPage/Card";
+ 
 
 function Dashboard(props) {
   const user = getUser();
@@ -11,7 +9,7 @@ function Dashboard(props) {
   // handle click event of logout button
   const handleLogout = () => {
     removeUserSession();
-    props.history.push("/login");
+    props.history.push("/");
   };
 
   return (
@@ -25,7 +23,7 @@ function Dashboard(props) {
           {/* Logo */}
           <div className="logo">
             <img src="images/logo.png" alt="" />
-            <a href="#" style={{ fontFamily: "Montserrat", marginLeft: "5px" }}>
+            <a href="\search" style={{ fontFamily: "Montserrat", marginLeft: "5px" }}>
               PROFESSOR
             </a>
           </div>

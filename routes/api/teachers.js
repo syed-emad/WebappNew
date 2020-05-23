@@ -218,7 +218,45 @@ router.put("/nottoube", function (req, res) {
     }
   );
 });
- 
+ //Add Schedule
+ router.put("/add", function (req, res) {
+   var id = req.query.id;
+   var email = "OKEMAIL";
+   console.log("in ids");
+   var data = {
+     _id: new ObjectId(),
+     Subject: req.query.subjectname,
+     Day: req.query.day,
+     Date: req.query.date,
+     Time: req.query.time,
+     Price: req.query.price,
+     Status: "Book",
+   };
+   console.log(data);
+   Teacher.findOne({ _id: id }, function (err, foundObject) {
+     if (err) {
+       console.log(err);
+     } else {
+       if (!foundObject) {
+         console.log(err);
+       } else {
+         if (req.query.id) {
+           Teacher.updateOne(
+             { _id: new ObjectId(id) },
+             { $push: { schedule: data } },
+             function (err, updatedObj) {
+               if (err) {
+                 console.log(err);
+               } else {
+                 console.log("Success");
+               }
+             }
+           );
+         }
+       }
+     }
+   });
+ });
 //Confirm button
 router.put("/booked", function (req, res) {
   var id = req.query.id;

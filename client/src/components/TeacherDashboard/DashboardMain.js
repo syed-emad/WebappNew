@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./DashboardMain.css";
-import Headera from "./Headera";
-import Table from "./table";
 import { getUser, removeUserSession } from "../../Utils/Common";
 import { Link } from "react-router-dom";
 import Image from "./Image";
@@ -14,7 +12,7 @@ import "../TeacherProfile/Styling/bootstrap.min.css";
 import "../TeacherProfile/Styling/aos.css";
 
 function DashboardMain(props) {
-
+  var buttonid;
 const Teacher = getUser();
 var url_string = window.location.href;
 var url = new URL(url_string);
@@ -47,6 +45,23 @@ const [searchedday, setDay] = useState("");
     bookfunction();
     refreshPage();
     
+  }
+  async function deleteRecord(id){
+    buttonid=id;
+    deleteSchedule();
+    refreshPage();
+  }
+
+  async function deleteSchedule(){
+    try {
+      const response = await axios.delete(
+        `/api/teachers/delete?id=${id}&buttonid=${buttonid}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
   async function bookfunction() {
     try {
@@ -219,9 +234,9 @@ const [searchedday, setDay] = useState("");
     
     {/* add schedule bar */}
     <FadeIn>
-        <div className="home2">
-          <div className="home_container2 col-xl-10 offset-xl-1">
-            <div className="container">
+        <div className="home2" >
+          <div className="home_container2 col-xl-10 offset-xl-1" style={{ backgroundColor: "#594f8d"}}>
+            
               <div className="row">
                 <div className="col-xl-12 ">
                   <div className="home_content text-center">
@@ -230,7 +245,7 @@ const [searchedday, setDay] = useState("");
                         <div
                           className="d-flex flex-sm-row "
                           style={{
-                            padding: "50px",
+                            padding: "50px"
                           }}
                         >
                           <input
@@ -298,12 +313,7 @@ const [searchedday, setDay] = useState("");
                             <option value="Sunday">Sunday</option>
                           </select>
                           
-                            {/* <button
-                              onClick={getSomething2}
-                              className="search_button2"
-                            >
-                              Add
-                            </button> */}
+                            
                              <a
                               className="newbutton4"
                                style={{ color: "white" }}
@@ -319,15 +329,14 @@ const [searchedday, setDay] = useState("");
                   </div>
                 </div>
               </div>
-            </div>
+           
           </div>
         </div>
       </FadeIn>
-    
+      </div>    
           <div className="section" id="table">
           
-                        <div className="container">
-                          <div id="table">
+                        
                             {" "}
                             {/* <div
               class="  "
@@ -337,7 +346,7 @@ const [searchedday, setDay] = useState("");
                 paddingTop: "60px",
               }} */}
                             <h3 className=" text-center" style={{ margin: "30px" }}>
-                              Schedule
+                              My Schedule
                             </h3>
                             <div className="table100 ver1 m-b-110">
                               <div className="table100-head">
@@ -346,40 +355,40 @@ const [searchedday, setDay] = useState("");
                                     <tr className="row100 head">
                                       <th
                                         className="cell100 column1"
-                                        style={{ backgroundColor: "#360f64" }}
+                                        
                                       >
                                         Subject
                                       </th>
                                       <th
                                         className="cell100 column2"
-                                        style={{ backgroundColor: "#360f64" }}
+                                      
                                       >
                                         Day
                                       </th>
                                       <th
                                         className="cell100 column3"
-                                        style={{ backgroundColor: "#360f64" }}
+                                        
                                       >
                                         Time
                                       </th>
                                       <th
                                         className="cell100 column4"
-                                        style={{ backgroundColor: "#360f64" }}
+                                       
                                       >
                                         Date
                                       </th>
                                       <th
                                         className="cell100 column5"
-                                        style={{ backgroundColor: "#360f64" }}
+                                        
                                       >
                                         Price
                                       </th>
-                                      {/* <th
+                                      <th
                                         className="cell100 column6"
-                                        style={{ backgroundColor: "#360f64" }}
+                                        
                                       >
-                                        Status
-                                      </th> */}
+                                        
+                                      </th>
                                     </tr>
                                   </thead>
                                 </table>
@@ -411,7 +420,9 @@ const [searchedday, setDay] = useState("");
                                             <td className="cell100 column6">
                                             <button
                                                       type="button"
-                                                       
+                                                      onClick={() => {
+                                                        deleteRecord(data2._id);
+                                                       }}
                                                       class="newbutton3"
                                                     >
                                                      Delete
@@ -457,10 +468,8 @@ const [searchedday, setDay] = useState("");
                               </div>
                             </div>
                           </div>
-                        </div>
-                        
-                      </div>
-    </div>          
+                       
+             
               {/* <Table /> */}
     <div id="bookings" className="bookings" >
     

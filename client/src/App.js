@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+
 import HomeFinal from "./components/Homepage/HomeFinal";
 import App2 from "./App2";
 import Login from "./components/LoginSignup/Login";
 import Register from "./components/LoginSignup/Register";
-
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./Utils/PrivateRoute";
-//import MainPage from "./components/TeacherDashboard/MainPage";
-
-
 import PublicRoute from "./Utils/PublicRoute";
 import PublicRouteTeacher from "./Utils/PublicRouteTeacher";
 import SearchPage from "./components/SearchResult/SearchPage";
@@ -24,14 +20,13 @@ import Final from "./components/TeacherDashboard/Chatbox/Final";
 import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
 import search2 from "./components/SearchResult/search2";
 import TP from "./components/TeacherProfile/TeachersProfile";
-
-//import Teachersignup from "./components/teachersignup/Teachersignup";
-//import Final from "./components/TeacherDashboard/Chatbox/Final";
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
 import TeacherLogin from "./components/TeacherLogin/TeacherLogin";
 //import MainPage from "./components/TeacherDashboard/MainPage";
- 
+import ChannelForm from "./components/VideoChat/ChannelForm";
+import Call from "./components/VideoChat/Call";
 import PublicRoute22 from "./Utils/PublicRoute22";
+
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -56,6 +51,8 @@ function App() {
   if (authLoading && getToken()) {
     return <div className="content">Checking Authentication...</div>;
   }
+
+ 
 
   return (
     <div>
@@ -86,8 +83,8 @@ function App() {
                 component={TeacherLogin}
               />
               <PrivateRoute path="/dashboard" component={Dashboard} />
-
-              <Route exact path="/2" component={App2} />
+              <PublicRoute exact path="/call" component={Call} />
+              <PublicRoute exact path="/channel" component={ChannelForm} />
             </Switch>
           </div>
         </div>

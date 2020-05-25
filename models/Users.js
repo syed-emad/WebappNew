@@ -19,7 +19,8 @@ const UserSchema = new Schema({
   register_date: {
     type: Date,
     default: Date.now
-  }
+  },
+  mybookings:[]
 });
 
 module.exports = User = mongoose.model("user", UserSchema);

@@ -9,6 +9,7 @@ import Header from "./Header";
 import Table from "./table";
 import { Link } from "react-router-dom";
 import { getUser, removeUserSession } from "../../Utils/Common";
+import Footer from "../CheckoutPage/Footer"
 const { If, Then, Else } = require("react-if");
 
 function TeachersProfile() {
@@ -35,7 +36,7 @@ function TeachersProfile() {
        name = "a";
      }
      
-     function call2functions(val, id) {
+  function call2functions(val, id) {
     day = val;
     butttonid = id;
     bookfunction2();
@@ -266,7 +267,7 @@ function TeachersProfile() {
                       </div>
                     </div>
                   </div>
-                  <div className="section" id="table">
+                  <div className="section" id="schedule">
                     <div className="container">
                       <div id="table">
                         {" "}
@@ -369,7 +370,7 @@ function TeachersProfile() {
                                                   data2.Subject
                                                 }&Date=${data2.Date}&Time=${
                                                   data2.Time
-                                                }&Day=${data2.Day}`}
+                                                }&Day=${data2.Day}&teachername=${data.name}`}
                                               >
                                                 <If
                                                   condition={
@@ -388,7 +389,7 @@ function TeachersProfile() {
                                                   <Else>
                                                     {" "}
                                                     <a
-                                                      className="newbutton2"
+                                                      className="newbuttonx"
                                                       style={{ color: "white" }}
                                                       // onClick={() => {
                                                       //   call2functions(index, data2._id);
@@ -573,6 +574,7 @@ function TeachersProfile() {
                       </div> */}
                     </div>
                   </div>
+                  <div><Footer></Footer></div>
                 </div>
               </div>
             </div>

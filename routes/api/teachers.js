@@ -280,8 +280,10 @@ router.put("/booked", function (req, res) {
             Subject: req.query.Subject,
             Day: req.query.Day,
             Date: req.query.Date,
-            Time:req.query.Time,
+            Time: req.query.Time,
             Status: "Booked",
+            Username: req.query.username,
+            Classid: req.query.classid,
           };
        Teacher.updateOne(
          { _id: new ObjectId(id) },
@@ -290,7 +292,7 @@ router.put("/booked", function (req, res) {
            if (err) {
              console.log(err);
            } else {
-             console.log("Success");
+             console.log("Succefully add booking to teacher");
            }
          }
        );
@@ -303,10 +305,31 @@ router.put("/booked", function (req, res) {
    
 });
 //Deleting method
-router.delete("/:id", (req, res) => {
+router.delete("/id", (req, res) => {
   Teacher.findById(req.params.id)
     .then((teacher) => teacher.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
 });
+//DeleteSchedule
+router.delete("/delete", function (req, res) {
+  var id = req.query.id;
+  var buttonid = req.query.buttonid; //schedule to be deleted obj id
+  console.log("IM IN DELETE");
+  console.log(id);
+  console.log(buttonid);
 
+  Teacher.updateOne(
+    { _id: new ObjectId(id) },
+    { $pull: { schedule: { _id: new ObjectId(buttonid) } } },
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(foundObject, "ans");
+        console.log("statusupdates");
+      }
+    }
+  );
+});
 module.exports = router;

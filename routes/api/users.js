@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const ObjectId = require("mongodb").ObjectID;
 //User model
 const Users = require("../../models/Users");
 
@@ -61,5 +62,55 @@ router.get("/", (req, res) => {
   Users.find()
     .sort({ date: -1 })
     .then(items => res.json(items));
+});
+router.get("/id", (req, res) => {
+  let _id = req.query.id;
+  console.log(_id);
+  Users.find({ _id })
+    .sort({ date: -1 })
+    .then((items) => res.json(items));
+});
+
+router.put("/classbooked", function (req, res) {
+  var id = req.query.userid;
+  var email = "OKEMAIL";
+  console.log("in ids",id);
+  console.log("HEREEEEEEEEEEEEEEEEEEEEEEE");
+  var data = {
+    _id: new ObjectId(),
+    classid: ObjectId(req.query.buttonid),
+    TeacherName: req.query.teachername,
+    Subject: req.query.Subject,
+    Day: req.query.Day,
+    Date: req.query.Date,
+    Time: req.query.Time,
+    Price: req.query.price,
+    Status: "Booked",
+    Classid:req.query.classid,
+  };
+  console.log(data);
+  Users.findOne({ _id: id }, function (err, foundObject) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!foundObject) {
+        console.log(err);
+      } else {
+        if (req.query.id) {console.log("Hi");
+          Users.updateOne(
+            { _id: new ObjectId(id) },
+            { $push: { mybookings: data } },
+            function (err, updatedObj) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("Success",data);
+              }
+            }
+          );
+        }
+      }
+    }
+  });
 });
 module.exports = router;

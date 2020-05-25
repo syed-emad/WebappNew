@@ -7,12 +7,8 @@ import HomeFinal from "./components/Homepage/HomeFinal";
 import App2 from "./App2";
 import Login from "./components/LoginSignup/Login";
 import Register from "./components/LoginSignup/Register";
-
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./Utils/PrivateRoute";
-//import MainPage from "./components/TeacherDashboard/MainPage";
-
-
 import PublicRoute from "./Utils/PublicRoute";
 import PublicRouteTeacher from "./Utils/PublicRouteTeacher";
 import SearchPage from "./components/SearchResult/SearchPage";
@@ -22,16 +18,18 @@ import Checkout from "./components/CheckoutPage/Checkout";
 import Success from "./components/CheckoutPage/Success";
 import Final from "./components/TeacherDashboard/Chatbox/Final";
 import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
+import PublicRouteDashboard from "./Utils/PublicRouteDashboard"
 import search2 from "./components/SearchResult/search2";
 import TP from "./components/TeacherProfile/TeachersProfile";
 import TF from "./components/TeacherForm/TeacherForm";
-//import Teachersignup from "./components/teachersignup/Teachersignup";
-//import Final from "./components/TeacherDashboard/Chatbox/Final";
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
-import TeacherLogin from "./components/TeacherLogin/TeacherLogin";
-//import MainPage from "./components/TeacherDashboard/MainPage";
- 
+import TeacherLogin from "./components/TeacherLogin/TeacherLogin"; 
 import PublicRoute22 from "./Utils/PublicRoute22";
+import UserDashboardMain from "./components/UserDashboard/UserDashboardMain";
+import LoginDashboard from "./components/LoginSignup/LoginDashboard";
+import some from "./components/VideoChat/Call";
+import some2 from "./components/VideoChat/ChannelForm";
+import video from "./components/VideoChat/VideoStyle";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -66,6 +64,11 @@ function App() {
             <Switch>
               <Route exact path="/" component={HomeFinal} />
               <PublicRoute exact path="/login" component={Login} />
+              <PublicRoute
+                exact
+                path="/loginDashboard"
+                component={LoginDashboard}
+              />
               <Route exact path="/search" component={SearchPage} />
               <PublicRoute exact path="/search2" component={search2} />
               <PublicRoute exact path="/TeachersProfile" component={TP} />
@@ -79,6 +82,13 @@ function App() {
                 path="/TeacherDashboard"
                 component={DashboardMain}
               />
+              <PrivateRoute
+                exact
+                path="/UserDashboardMain"
+                component={UserDashboardMain}
+              />
+              <Route exact path="/VideoStyle" component={video} />
+              {/* <Route exact path="/VideoStyle" component={some2} /> */}
               <PrivateRouteTeacher exact path="/messages" component={Final} />
               <PublicRouteTeacher
                 exact

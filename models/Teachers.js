@@ -66,7 +66,7 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
-  bookings: [BookingSchema],
+  bookings: [ ],
   schedule: [],
   emad: [],
 });

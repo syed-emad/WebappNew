@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import axios from "axios";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 import HomeFinal from "./components/Homepage/HomeFinal";
 import App2 from "./App2";
 import Login from "./components/LoginSignup/Login";
@@ -18,15 +18,18 @@ import Checkout from "./components/CheckoutPage/Checkout";
 import Success from "./components/CheckoutPage/Success";
 import Final from "./components/TeacherDashboard/Chatbox/Final";
 import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
+import PublicRouteDashboard from "./Utils/PublicRouteDashboard"
 import search2 from "./components/SearchResult/search2";
 import TP from "./components/TeacherProfile/TeachersProfile";
-import DashboardMain from "./components/TeacherDashboard/DashboardMain";
-import TeacherLogin from "./components/TeacherLogin/TeacherLogin";
-//import MainPage from "./components/TeacherDashboard/MainPage";
-import ChannelForm from "./components/VideoChat/ChannelForm";
-import Call from "./components/VideoChat/Call";
-import PublicRoute22 from "./Utils/PublicRoute22";
 
+import DashboardMain from "./components/TeacherDashboard/DashboardMain";
+import TeacherLogin from "./components/TeacherLogin/TeacherLogin"; 
+import PublicRoute22 from "./Utils/PublicRoute22";
+import UserDashboardMain from "./components/UserDashboard/UserDashboardMain";
+import LoginDashboard from "./components/LoginSignup/LoginDashboard";
+import some from "./components/VideoChat/Call";
+import some2 from "./components/VideoChat/ChannelForm";
+import video from "./components/VideoChat/VideoStyle";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -52,8 +55,6 @@ function App() {
     return <div className="content">Checking Authentication...</div>;
   }
 
- 
-
   return (
     <div>
       <BrowserRouter>
@@ -63,6 +64,11 @@ function App() {
             <Switch>
               <Route exact path="/" component={HomeFinal} />
               <PublicRoute exact path="/login" component={Login} />
+              <PublicRoute
+                exact
+                path="/loginDashboard"
+                component={LoginDashboard}
+              />
               <Route exact path="/search" component={SearchPage} />
               <PublicRoute exact path="/search2" component={search2} />
               <PublicRoute exact path="/TeachersProfile" component={TP} />
@@ -76,6 +82,13 @@ function App() {
                 path="/TeacherDashboard"
                 component={DashboardMain}
               />
+              <PrivateRoute
+                exact
+                path="/UserDashboardMain"
+                component={UserDashboardMain}
+              />
+              <Route exact path="/VideoStyle" component={video} />
+              {/* <Route exact path="/VideoStyle" component={some2} /> */}
               <PrivateRouteTeacher exact path="/messages" component={Final} />
               <PublicRouteTeacher
                 exact
@@ -83,8 +96,8 @@ function App() {
                 component={TeacherLogin}
               />
               <PrivateRoute path="/dashboard" component={Dashboard} />
-              <PublicRoute exact path="/call" component={Call} />
-              <PublicRoute exact path="/channel" component={ChannelForm} />
+
+              <Route exact path="/2" component={App2} />
             </Switch>
           </div>
         </div>

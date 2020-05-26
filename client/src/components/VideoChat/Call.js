@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import AgoraRTC from "agora-rtc-sdk";
+import "./style.css";
 let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
 
 const USER_ID = Math.floor(Math.random() * 1000000001);
-const APP_ID = "aed1787f4f1d41a0baf205dc0193f586";
+const APP_ID = "f7b4d8232d924ebd9c403be54649eb81";
 
 export default class Call extends Component {
   localStream = AgoraRTC.createStream({
@@ -150,18 +151,33 @@ export default class Call extends Component {
   render() {
     return (
       <div>
-        <div id="agora_local" style={{ width: "400px", height: "400px" }} />
-        {Object.keys(this.state.remoteStreams).map(key => {
-          let stream = this.state.remoteStreams[key];
-          let streamId = stream.getId();
-          return (
+        <div class="videobox">
+          <div class="remoteuserbox">
             <div
-              key={streamId}
-              id={`agora_remote ${streamId}`}
-              style={{ width: "400px", height: "400px" }}
+              id="agora_local"
+              style={{
+                width: "200px",
+                height: "200px",
+              }}
             />
-          );
-        })}
+          </div>
+          {Object.keys(this.state.remoteStreams).map((key) => {
+            let stream = this.state.remoteStreams[key];
+            let streamId = stream.getId();
+            return (
+              <div class="siteuserbox">
+                <div
+                  key={streamId}
+                  id={`agora_remote ${streamId}`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

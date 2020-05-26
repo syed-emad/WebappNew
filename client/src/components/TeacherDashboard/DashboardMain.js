@@ -13,6 +13,12 @@ import "../TeacherProfile/Styling/aos.css";
 
 function DashboardMain(props) {
   var buttonid;
+  var buttonid2;
+  var subject;
+  var dayy;
+  var datee;
+  var timee;
+  var pricee;
 const Teacher = getUser();
 var url_string = window.location.href;
 var url = new URL(url_string);
@@ -52,6 +58,29 @@ const [searchedday, setDay] = useState("");
     refreshPage();
   }
 
+  async function cancelClass(id,subj,day,date,time,price){
+    buttonid2=id;
+    subject=subj;
+    dayy=day;
+    datee=date;
+    timee=time;
+    pricee=price;
+    cancel();
+    refreshPage();
+  }
+
+  async function cancel(){
+    try {
+      const response = await axios.put(
+        `/api/teachers/cancel?id=${id}&buttonid=${buttonid2}&subject=${subject}&day=${dayy}&date=${datee}&time=${timee}&price=${pricee}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
   async function deleteSchedule(){
     try {
       const response = await axios.delete(
@@ -316,7 +345,7 @@ const [searchedday, setDay] = useState("");
                             
                              <a
                               className="newbutton4"
-                               style={{ color: "white" }}
+                               style={{ color: "white" , padding:"15px"}}
                                onClick={() => {
                                 getSomething2();
                                }}
@@ -334,7 +363,7 @@ const [searchedday, setDay] = useState("");
         </div>
       </FadeIn>
       </div>    
-          <div className="section" id="table">
+          <div className="" id="table">
           
                         
                             {" "}
@@ -428,38 +457,8 @@ const [searchedday, setDay] = useState("");
                                                      Delete
                                                     </button>
                                             </td>
-                                            {/* <td className="cell100 column5">
-                                              {data2.Status}
-                                            </td> */}
-                                            {/* <td className="cell100 column5 ">
-                                              <Link
-                                                to={`/Checkout?userid=${"123"}&bookingid=${data2._id}&index=${index}&teacherid=${id}&Subject=${data2.Subject}&Date=${data2.Date}&Time=${data2.Time}&Day=${data2.Day}`}
-                                              >
                                             
-                                                <a
-                                                  className="newbutton2"
-                                                  style={{ color: "white" }}
-                                                  // onClick={() => {
-                                                  //   call2functions(index, data2._id);
-                                                  // }}
-                                                >
-                                                  {data2.Status}
-                                                </a>{" "}
-                                                
-                                              </Link>
-                                            </td> */}
-                                            {/* <td className="cell100 column5 ">
-                                              {" "}
-                                              used this too add details to schedule
-                                              <a
-                                                className="newbutton2"
-                                                style={{ color: "white" }}
-                                                onClick={bookfunction}
-                                              >
-                                                Bookxx
-                                                {data2.Status}
-                                              </a>
-                                            </td> */}
+                                       
                                           </tr>
                                         </tbody>
                                       </table>
@@ -471,62 +470,90 @@ const [searchedday, setDay] = useState("");
                        
              
               {/* <Table /> */}
-    <div id="bookings" className="bookings" >
-    
-          {/* // {" "}
-          // {/* <div
-          //     class="  "
-          //     style={{
-          //       paddingLeft: "100px",
-          //       paddingRight: "100px",
-          //       paddingTop: "60px",
-          //     }} */} 
-            <h3 className=" text-center" style={{ margin: "30px" }}>
-              My Bookings
-            </h3>
+              <div id="bookings" className="bookings">
+                      <h3 className=" text-center" style={{ margin: "30px" }}>
+                        My Bookings
+                      </h3>
 
-              
-            <div className="table100 ver1 m-b-110">
-              <div className="table100-head">
-                <table>
-                  <thead>
-                    <tr className="row100 head">
-                      <th className="cell100 column1">Student name</th>
-                      <th className="cell100 column2">Subject</th>
-                      <th className="cell100 column3">Time</th>
-                      <th className="cell100 column4">Day</th>
-                      <th className="cell100 column5">Date</th>
-                      <th className="cell100 column6">Price</th>
-                      <th className="cell100 column7">Status</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-              <div className="table100-body js-pscroll">
-              {data.bookings &&
-          data.bookings.map((data2) => {
-            return (
-                <table>
-                  <tbody>
-                    <tr className="row100 body">
-                      <td className="cell100 column1">{data2.Username}</td>
-                      <td className="cell100 column2">{data2.Subject}</td>
-                      <td className="cell100 column3">{data2.Time}</td>
-                      <td className="cell100 column4">{data2.Day}</td>
-                      <td className="cell100 column5">{data2.Date}</td>
-                      <td className="cell100 column6">{data2.Price}</td>
-                      <td className="cell100 column7">{data2.Status}</td>
-                    </tr>
-                   
-                  </tbody>
-                </table>
-                );  
-              })}
-              </div>
-            </div>
-            
-      
-    </div>
+                      <div className="table100 ver1 m-b-110">
+                        <div className="table100-head">
+                          <table>
+                            <thead>
+                              <tr className="row100 head">
+                                <th className="cell100 column1">
+                                  Student name
+                                </th>
+                                <th className="cell100 column3">Subject</th>
+                                <th className="cell100 column2">Time</th>
+                                {/* <th className="cell100 column4">Day</th> */}
+                                <th className="cell100 column5">Date</th>
+                                <th className="cell100 column5"> Price</th>
+                                <th className="cell100 column2">
+                                  {" "}
+                                  ClassID
+                                </th>{" "}
+                                <th className="cell100 column2"> </th>
+                                <th className="cell100 column2"> </th>
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
+                        <div className="table100-body js-pscroll">
+                          {data.bookings &&
+                            data.bookings.map((data2) => {
+                              return (
+                                <table>
+                                  <tbody>
+                                    <tr className="row100 body">
+                                      <td className="cell100 column1">
+                                        {data2.Username}
+                                      </td>
+                                      <td className="cell100 column3">
+                                        {data2.Subject}
+                                      </td>
+                                      <td className="cell100 column2">
+                                        {data2.Time}
+                                      </td>
+                                      {/* <td className="cell100 column4">
+                                        {data2.Day}
+                                      </td> */}
+                                      <td className="cell100 column2">
+                                        {data2.Date}({data2.Day})
+                                      </td>{" "}
+                                      <td className="cell100 column8">
+                                        {data2.Price}
+                                      </td>{" "}
+                                      <td className="cell100 column2">
+                                        {data2.Classid}
+                                      </td>
+                                      <td className="cell100 column3">
+                                        <Link
+                                          to={`./VideoStyle?username=${name}`}
+                                        >
+                                          <button class="newbuttonx">
+                                            Start Class
+                                          </button>
+                                        </Link>
+                                      </td>
+                                      <td className="cell100 column3">
+                                        {/* {data2.Status} */}
+                                        <button 
+                                        class="newbutton2"
+                                        onClick={() => {
+                                          cancelClass(data2._id,data2.Subject,data2.Day,data2.Time,data2.Date,data2.Price);
+                                         }}
+                                        >
+                                          Cancel
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    </div>
             </div>
           </div>
         </div>

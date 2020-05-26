@@ -255,6 +255,7 @@ router.put("/nottoube", function (req, res) {
    });
  });
 
+ //delete a schedule slot
  router.delete("/delete", function (req, res) {
   var id = req.query.id;
  var buttonid=req.query.buttonid;  //schedule to be deleted obj id
@@ -276,6 +277,60 @@ router.put("/nottoube", function (req, res) {
     }
   );
 });
+
+//cancel class---status changes (in booking: booked to cancel, in schedule: booked to book)
+router.put("/cancel",function(req,res){
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+  var subject=req.query.subject;
+  console.log("hiii");
+  console.log(buttonid);
+  Teacher.findOne(
+    {   "bookings._id": buttonid} ,
+    
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+        if(foundObject.bookings._id=buttonid){
+          console.log(foundObject.bookings._id,"---------");
+           
+          var data = {
+            _id: new ObjectId(),
+            Subject: req.query.subject,
+            Day: req.query.day,
+            Date: req.query.date,
+            Time:req.query.time,
+            Price:req.query.price,
+            Status: "Book",
+          };
+            console.log(data);
+
+         Teacher.updateOne(
+           { _id: new ObjectId(id),"bookings._id": new ObjectId(buttonid) },
+           { $push: { schedule:data }, $set: { "bookings.$.Status": "Cancelled" }},         
+          
+           function (err, updatedObj) {
+             if (err) {
+               console.log(err);
+             } else {
+               console.log("Success");
+             }
+           }
+         );
+         
+        }
+      }
+    }
+  );
+
+})
+
+
+
 //Confirm button
 router.put("/booked", function (req, res) {
   var id = req.query.id;

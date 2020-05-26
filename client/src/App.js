@@ -30,6 +30,8 @@ import LoginDashboard from "./components/LoginSignup/LoginDashboard";
 import some from "./components/VideoChat/Call";
 import some2 from "./components/VideoChat/ChannelForm";
 import video from "./components/VideoChat/VideoStyle";
+import chat from "./components/VideoChat/Chat/Chat/Chat";
+import join from "./components/VideoChat/Chat/Join/Join";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -88,6 +90,8 @@ function App() {
                 component={UserDashboardMain}
               />
               <Route exact path="/VideoStyle" component={video} />
+              <Route exact path="/join" component={join} />
+              <Route exact path="/chat" component={chat} />
               {/* <Route exact path="/VideoStyle" component={some2} /> */}
               <PrivateRouteTeacher exact path="/messages" component={Final} />
               <PublicRouteTeacher

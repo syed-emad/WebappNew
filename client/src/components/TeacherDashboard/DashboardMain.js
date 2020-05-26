@@ -236,7 +236,7 @@ function DashboardMain(props) {
                     <br></br>
                     <hr></hr>
                     <div id="schedule" className="schedule">
-                      {/* add schedule bar */}
+                      
                       <FadeIn>
                         <div className="home2">
                           <div
@@ -371,14 +371,7 @@ function DashboardMain(props) {
                       </FadeIn>
                     </div>
                     <div className=" " id="table">
-                      {" "}
-                      {/* <div
-              class="  "
-              style={{
-                paddingLeft: "100px",
-                paddingRight: "100px",
-                paddingTop: "60px",
-              }} */}
+                     
                       <h3 className=" text-center" style={{ margin: "30px" }}>
                         My Schedule
                       </h3>
@@ -432,38 +425,7 @@ function DashboardMain(props) {
                                           Delete
                                         </button>
                                       </td>
-                                      {/* <td className="cell100 column5">
-                                              {data2.Status}
-                                            </td> */}
-                                      {/* <td className="cell100 column5 ">
-                                              <Link
-                                                to={`/Checkout?userid=${"123"}&bookingid=${data2._id}&index=${index}&teacherid=${id}&Subject=${data2.Subject}&Date=${data2.Date}&Time=${data2.Time}&Day=${data2.Day}`}
-                                              >
-                                            
-                                                <a
-                                                  className="newbutton2"
-                                                  style={{ color: "white" }}
-                                                  // onClick={() => {
-                                                  //   call2functions(index, data2._id);
-                                                  // }}
-                                                >
-                                                  {data2.Status}
-                                                </a>{" "}
-                                                
-                                              </Link>
-                                            </td> */}
-                                      {/* <td className="cell100 column5 ">
-                                              {" "}
-                                              used this too add details to schedule
-                                              <a
-                                                className="newbutton2"
-                                                style={{ color: "white" }}
-                                                onClick={bookfunction}
-                                              >
-                                                Bookxx
-                                                {data2.Status}
-                                              </a>
-                                            </td> */}
+                                   
                                     </tr>
                                   </tbody>
                                 </table>
@@ -531,7 +493,7 @@ function DashboardMain(props) {
                                       </td>
                                       <td className="cell100 column2">
                                         <Link
-                                          to={`./VideoStyle?username=${name}`}
+                                          to={`./VideoStyle?name=${name}&room=${data2.Classid}`}
                                         >
                                           <button class="newbuttonx">
                                             Start Class

@@ -282,7 +282,7 @@ function UserDashboardMain(props) {
                                       </td>
                                       <td className="cell100 column2">
                                         <Link
-                                          to={`./VideoStyle?username=${name}`}
+                                          to={`./VideoStyle?name=${name}&room=${data2.Classid}`}
                                         >
                                           <button class="newbuttonx">
                                             Start Class

@@ -11,12 +11,9 @@ const jwt = require("jsonwebtoken");
 //decaling models variables.Will use them below
 const items = require("./routes/api/items");
 const teachers = require("./routes/api/teachers");
-
 const users = require("./routes/api/users");
 const users2 = require("./routes/api/users2");
-
 //const teachers2 = require("./routes/api/teachers2");
-
 const auth = require("./routes/api/auth");
 const app = express();
 require("dotenv").config();
@@ -33,16 +30,6 @@ const Users = require("./models/Users");
 const Teachers = require("./models/Teachers");
 //DB Config
 const db = config.get("mongoURI");
-// static user details
-// static user details
-const userData = {
-  Id: "789789",
-  password: "123456",
-  name: "Clue Mediator",
-  email: "cluemediator",
-  isAdmin: true,
-};
-
 //Connect to Mongo
 mongoose
   .connect(db, {
@@ -53,16 +40,14 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 const getDB = () => db;
+
 //Use Routes
 app.use("/api/items", items);
 app.use("/api/teachers", teachers);
 app.use("/api/users", users);
 app.use("/api/users2", users2);
 app.use("/api/auth", auth);
-//app.use("/api/teachers",teachers2);
-app.use("/admin", require("./admin")); //for the admin panel
-//middleware that checks if JWT token exists and verifies it if it does exist.
-//In all future routes, this helps to know if the request is authenticated or not.
+app.use("/admin", require("./admin"));  
 app.use(function (req, res, next) {
   // check header or url parameters or post parameters for token
   var token = req.headers["authorization"];
@@ -82,13 +67,7 @@ app.use(function (req, res, next) {
   });
 });
 // request handlers
-app.get("/", (req, res) => {
-  if (!req.user)
-    return res
-      .status(401)
-      .json({ success: false, message: "Invalid user to access it." });
-  res.send("Welcome to the Node.js Tutorial! - " + req.user.name);
-});
+ 
 // validate the user credentials
 app.post("/users/signin", function (req, res) {
   const user = req.body.email;
@@ -120,19 +99,18 @@ app.post("/users/signin", function (req, res) {
 app.post("/x/signin", (req, res) => {
   const { email, password } = req.body;
 
-  //validation
+  
   if (!email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
   }
-  //Check for exsisting user
+  
   Users.findOne({ email })
     .exec()
     .then((user) => {
       if (!user) {
         return res.status(400).json({ msg: "user does not exist" });
       }
-
-      //validating password
+ 
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
           return res.status(404).json({
@@ -167,12 +145,7 @@ app.post("/x/signin", (req, res) => {
         });
       });
     })
-    // // generate token
-    // const token = utils.generateToken(user);
-    // // get basic user details
-    // const userObj = utils.getCleanUser(user);
-    // // return the token along with user details
-    // return res.json({ user: userObj, token });
+     
     .catch((err) => {
       console.log(err);
       res.status(500).json({
@@ -182,12 +155,10 @@ app.post("/x/signin", (req, res) => {
 });
 app.post("/x/signin/teachers", (req, res) => {
   const { email, password } = req.body;
-
-  //validation
   if (!email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
   }
-  //Check for exsisting user
+  
   Teachers.findOne({ email })
     .exec()
     .then((user) => {
@@ -214,14 +185,8 @@ app.post("/x/signin/teachers", (req, res) => {
 
         token: token,
       });
-      //validating password
+      
     })
-    // // generate token
-    // const token = utils.generateToken(user);
-    // // get basic user details
-    // const userObj = utils.getCleanUser(user);
-    // // return the token along with user details
-    // return res.json({ user: userObj, token });
     .catch((err) => {
       console.log(err);
       res.status(500).json({
@@ -259,6 +224,76 @@ app.get("/verifyToken", function (req, res) {
     return res.json({ user: userObj, token });
   });
 });
+
+
+const http = require("http");
+ 
+const socketio = require("socket.io");
+ 
+
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./routes/api/userfunctions");
+
+const router = require("./router");
+
+ 
+const server = http.createServer(app);
+const io = socketio(server);
+
+app.use(cors());
+app.use(router);
+
+io.on("connect", (socket) => {
+  socket.on("join", ({ name, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room });
+
+    if (error) return callback(error);
+
+    socket.join(user.room);
+
+    socket.emit("message", {
+      user: "admin",
+      text: `Hello,${user.name}, Welcome to room Professor.`,
+    });
+    socket.broadcast
+      .to(user.room)
+      .emit("message", { user: "admin", text: `${user.name} has joined!` });
+
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
+
+    callback();
+  });
+
+  socket.on("sendMessage", (message, callback) => {
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit("message", { user: user.name, text: message });
+
+    callback();
+  });
+
+  socket.on("disconnect", () => {
+    const user = removeUser(socket.id);
+
+    if (user) {
+      io.to(user.room).emit("message", {
+        user: "Admin",
+        text: `${user.name} has left.`,
+      });
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
+    }
+  });
+});
+
+server.listen(process.env.PORT || 50001, () =>
+  console.log(`Server has started.`)
+);
+
 //Port
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server started on Port ${port}`));

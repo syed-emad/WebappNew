@@ -365,9 +365,9 @@ function TeachersProfile() {
                                               <Link
                                                 to={`/Login?userid=${"None"}&bookingid=${
                                                   data2._id
-                                                }&index=${index}&teacherid=${id}&Subject=${
+                                                }&index=${index}&teacherid=${id}&Username=${data2.Username}&Subject=${
                                                   data2.Subject
-                                                }&Date=${data2.Date}&Time=${
+                                                }&Price=${data2.Price}&Date=${data2.Date}&Time=${
                                                   data2.Time
                                                 }&Day=${data2.Day}`}
                                               >

@@ -17,6 +17,8 @@ var subject = url.searchParams.get("Subject");
 var day = url.searchParams.get("Day");
 var datenew = url.searchParams.get("Date");
 var time = url.searchParams.get("Time");
+var price= url.searchParams.get("Price");
+var username=url.searchParams.get("username");
 const [CardName, setCardName] = useState("");
 const [CardNumber, setCardNumber] = useState("");
 const [ExpiryMonth, setCardExpiryMonth] = useState("");
@@ -65,7 +67,7 @@ console.error(error);
 } async function confirmbook() {
 try {
 const response = await axios.put(
-`/api/teachers/booked?id=${id}&index=${"1"}&buttonid=${bookingid}&Subject=${subject}&Day=${day}&Date=${datenew}&Time=${time}`
+`/api/teachers/booked?id=${id}&index=${"1"}&buttonid=${bookingid}&Username=${username}&Subject=${subject}&Price=${price}&Day=${day}&Date=${datenew}&Time=${time}`
 );
 setValue(response.data);
 console.log(response.data);

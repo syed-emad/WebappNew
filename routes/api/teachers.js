@@ -278,15 +278,15 @@ router.put("/nottoube", function (req, res) {
   );
 });
 
-//cancel class---status changes (in booking: booked to cancel, in schedule: booked to book)
+//cancel class---status changes (in booking: booked to cancel)
 router.put("/cancel",function(req,res){
   var id = req.query.id;
   var buttonid = req.query.buttonid;
-  var subject=req.query.subject;
   console.log("hiii");
   console.log(buttonid);
-  Teacher.findOne(
+  Teacher.updateOne(
     {   "bookings._id": buttonid} ,
+    { $set: { "bookings.$.Status": "Cancelled" }}, 
     
 
     function (err, foundObject) {
@@ -295,40 +295,35 @@ router.put("/cancel",function(req,res){
       } else {
         //  console.log(foundObject,"ans");
         // console.log("statusupdates");
-        if(foundObject.bookings._id=buttonid){
-          console.log(foundObject.bookings._id,"---------");
-           
-          var data = {
-            _id: new ObjectId(),
-            Subject: req.query.subject,
-            Day: req.query.day,
-            Date: req.query.date,
-            Time:req.query.time,
-            Price:req.query.price,
-            Status: "Book",
-          };
-            console.log(data);
-
-         Teacher.updateOne(
-           { _id: new ObjectId(id),"bookings._id": new ObjectId(buttonid) },
-           { $push: { schedule:data }, $set: { "bookings.$.Status": "Cancelled" }},         
-          
-           function (err, updatedObj) {
-             if (err) {
-               console.log(err);
-             } else {
-               console.log("Success");
-             }
-           }
-         );
-         
-        }
+       
       }
     }
   );
 
 })
+//cancel class---status changes ( in schedule: booked to book)
+router.put("/book",function(req,res){
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+  console.log("hiii");
+  console.log(buttonid);
+  Teacher.updateOne(
+    {   "schedule._id": new ObjectId(buttonid)} ,
+    { $set: { "schedule.$.Status": "Book" }}, 
+    
 
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+       
+      }
+    }
+  );
+
+})
 
 
 //Confirm button
@@ -356,6 +351,8 @@ router.put("/booked", function (req, res) {
             Date: req.query.Date,
             Time:req.query.Time,
             Status: "Booked",
+            Price: req.query.Price,
+            Username:req.query.Username
           };
        Teacher.updateOne(
          { _id: new ObjectId(id) },

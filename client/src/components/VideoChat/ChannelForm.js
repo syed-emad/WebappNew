@@ -5,10 +5,18 @@ import "./style.css"
 export default class ChannelForm extends Component {
   constructor(props) {
     super(props);
+var url_string = window.location.href;
+var url = new URL(url_string);
+var name = url.searchParams.get("name");
+var id = url.searchParams.get("id");
+var bookingid = url.searchParams.get("bookingid");
+console.log(name);
+console.log(id);
     this.state = {
       channel: ""
     };
   }
+
   onChange = e => {
     let { name, value } = e.target;
     this.setState({ [name]: value });
@@ -44,6 +52,9 @@ export default class ChannelForm extends Component {
               type="submit"
               value="Join Channel"
               style={{ color: "white" }}
+              // onClick={() => {
+              //   endClass(data2._id);
+              //  }}
             >
               End Class
             </button>

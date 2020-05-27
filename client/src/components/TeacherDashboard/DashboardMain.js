@@ -10,16 +10,12 @@ import FadeIn from "react-fade-in";
 import "../TeacherProfile/Styling/main.css";
 import "../TeacherProfile/Styling/bootstrap.min.css";
 import "../TeacherProfile/Styling/aos.css";
+const { If, Then, Else } = require("react-if");
 
 function DashboardMain(props) {
   var buttonid;
   var buttonid2;
-  var subject;
-  var dayy;
-  var datee;
-  var timee;
-  var pricee;
-const Teacher = getUser();
+  
 var url_string = window.location.href;
 var url = new URL(url_string);
 var name = url.searchParams.get("name");
@@ -29,6 +25,8 @@ const [searcheddate, setDate] = useState("");
 const [searchedprice, setPrice] = useState("");
 const [searchedtime, setTime] = useState("");
 const [searchedday, setDay] = useState("");
+
+const Teacher = getUser();
 
 
   console.log(name);
@@ -47,32 +45,29 @@ const [searchedday, setDay] = useState("");
       console.error(error);
     }
   }
-  async function getSomething2() {
+  function getSomething2() {
     bookfunction();
     refreshPage();
     
   }
-  async function deleteRecord(id){
+  function deleteRecord(id){
     buttonid=id;
     deleteSchedule();
     refreshPage();
   }
 
-  async function cancelClass(id,subj,day,date,time,price){
+  function cancelClass(id){
     buttonid2=id;
-    subject=subj;
-    dayy=day;
-    datee=date;
-    timee=time;
-    pricee=price;
+    
     cancel();
+    book();
     refreshPage();
   }
 
   async function cancel(){
     try {
       const response = await axios.put(
-        `/api/teachers/cancel?id=${id}&buttonid=${buttonid2}&subject=${subject}&day=${dayy}&date=${datee}&time=${timee}&price=${pricee}`
+        `/api/teachers/cancel?id=${id}&buttonid=${buttonid2}`
       );
       setValue(response.data);
       console.log(response.data);
@@ -80,6 +75,17 @@ const [searchedday, setDay] = useState("");
       console.error(error);
     }
 
+  }
+  async function book(){
+    try {
+      const response = await axios.put(
+        `/api/teachers/book?id=${id}&buttonid=${buttonid2}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
   async function deleteSchedule(){
     try {
@@ -518,7 +524,7 @@ const [searchedday, setDay] = useState("");
                                         {data2.Day}
                                       </td> */}
                                       <td className="cell100 column2">
-                                        {data2.Date}({data2.Day})
+                                        {data2.Date} ({data2.Day})
                                       </td>{" "}
                                       <td className="cell100 column8">
                                         {data2.Price}
@@ -527,24 +533,51 @@ const [searchedday, setDay] = useState("");
                                         {data2.Classid}
                                       </td>
                                       <td className="cell100 column3">
+                                      <If
+                                           condition={
+                                            data2.Status == "Booked"
+                                            }
+                                        >
+                                          <Then>
                                         <Link
-                                          to={`./VideoStyle?username=${name}`}
+                                          to={`./VideoStyle?username=${name}&bookingid=${data2._id}&teacherid=${id}`}
                                         >
                                           <button class="newbuttonx">
                                             Start Class
                                           </button>
                                         </Link>
+                                        </Then>
+                                        <Else>
+                                        {/* <button class="newbuttonx" disabled> 
+                                            Start Class
+                                          </button> */}
+                                        </Else>
+                                        </If>
                                       </td>
                                       <td className="cell100 column3">
                                         {/* {data2.Status} */}
+
+                                        <If
+                                           condition={
+                                            data2.Status == "Booked"
+                                            }
+                                        >
+                                          <Then>
                                         <button 
                                         class="newbutton2"
                                         onClick={() => {
-                                          cancelClass(data2._id,data2.Subject,data2.Day,data2.Time,data2.Date,data2.Price);
+                                          cancelClass(data2._id);
                                          }}
                                         >
                                           Cancel
                                         </button>
+                                        </Then>
+                                        <Else>
+                                        <button class="newbutton2" disabled> 
+                                        {data2.Status}
+                                          </button>
+                                        </Else>
+                                        </If>
                                       </td>
                                     </tr>
                                   </tbody>

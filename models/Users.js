@@ -10,8 +10,7 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
-    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    unique: true
   },
   password: {
     type: String,
@@ -20,7 +19,8 @@ const UserSchema = new Schema({
   register_date: {
     type: Date,
     default: Date.now
-  }
+  },
+  mybookings:[]
 });
 
 module.exports = User = mongoose.model("user", UserSchema);

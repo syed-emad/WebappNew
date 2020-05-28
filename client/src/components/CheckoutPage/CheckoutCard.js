@@ -1,4 +1,3 @@
-
 import "./Checkout.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,19 +11,22 @@ var month = new Date().getMonth() + 1;
 var year = new Date().getFullYear();  
 var finaldate = date + "-" + month + "-" + year;
 var id = url.searchParams.get("teacherid");
+var userid = url.searchParams.get("userid");
+var username = url.searchParams.get("username");
 var bookingid = url.searchParams.get("bookingid");
 var subject = url.searchParams.get("Subject");
 var day = url.searchParams.get("Day");
 var datenew = url.searchParams.get("Date");
 var time = url.searchParams.get("Time");
+var teachername = url.searchParams.get("teachername");
 var price= url.searchParams.get("Price");
-var username=url.searchParams.get("username");
 const [CardName, setCardName] = useState("");
 const [CardNumber, setCardNumber] = useState("");
 const [ExpiryMonth, setCardExpiryMonth] = useState("");
 const [ExpiryYear, setCardExpiryYear] = useState("");
 const [CvvNumber, setCardCvv] = useState("");
 const [value, setValue] = useState(null);
+const classid = Math.floor(10000 + Math.random() * 90000);
 
  const user = getUser();
 
@@ -51,7 +53,9 @@ console.error(error);
 function call2functions(){
 bookfunction2();
 confirmbook();
+userbooking();
 handleLogout();
+
 }
 async function bookfunction2() {
 try {
@@ -64,10 +68,11 @@ window.location.reload();
 } catch (error) {
 console.error(error);
 }
-} async function confirmbook() {
+}
+ async function confirmbook() {
 try {
 const response = await axios.put(
-`/api/teachers/booked?id=${id}&index=${"1"}&buttonid=${bookingid}&Username=${username}&Subject=${subject}&Price=${price}&Day=${day}&Date=${datenew}&Time=${time}`
+`/api/teachers/booked?id=${id}&index=${"1"}&buttonid=${bookingid}&Subject=${subject}&Price=${price}&Day=${day}&Date=${datenew}&Time=${time}&userid=${userid}&username=${username}&classid=${classid}`
 );
 setValue(response.data);
 console.log(response.data);
@@ -75,6 +80,18 @@ window.location.reload();
 } catch (error) {
 console.error(error);
 }
+}
+async function userbooking() {
+  try {
+    const response = await axios.put(
+      `/api/users/classbooked?id=${id}&buttonid=${bookingid}&teachername=${teachername}&Price=${price}&Subject=${subject}&Day=${day}&Date=${datenew}&Time=${time}&userid=${userid}&username=${username}&classid=${classid}`
+    );
+    setValue(response.data);
+    console.log(response.data);
+    window.location.reload();
+  } catch (error) {
+    console.error(error);
+  }
 }
 useEffect(() => {
 getSomething();

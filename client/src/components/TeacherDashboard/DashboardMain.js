@@ -59,15 +59,28 @@ const Teacher = getUser();
   function cancelClass(id){
     buttonid2=id;
     
-    cancel();
+    cancelTeacher();
+    cancelStudent();
     book();
     refreshPage();
   }
 
-  async function cancel(){
+  async function cancelTeacher(){
     try {
       const response = await axios.put(
         `/api/teachers/cancel?id=${id}&buttonid=${buttonid2}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+  async function cancelStudent(){
+    try {
+      const response = await axios.put(
+        `/api/users/cancel2?id=${id}&buttonid=${buttonid2}`
       );
       setValue(response.data);
       console.log(response.data);

@@ -38,7 +38,7 @@ const Teachers = require("./models/Teachers");
 //DB Config
 const db = config.get("mongoURI");
 // static user details
-// static user details
+
 const userData = {
   Id: "789789",
   password: "123456",
@@ -137,27 +137,39 @@ app.post("/x/signin/teachers", (req, res) => {
       if (!user) {
         return res.status(400).json({ msg: "user does not exist" });
       }
-      const token = jwt.sign(
-        {
-          email: user.email,
-          userId: user._id,
-        },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "1h",
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) {
+          return res.status(404).json({
+            message: "auth failed"
+          });
         }
-      );
-      return res.status(200).json({
-        message: "Auth successful",
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-        },
-
-        token: token,
-      });
-      //validating password
+        if (result) {
+          const token = jwt.sign(
+            {
+              email: user.email,
+              userId: user._id,
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "1h",
+            }
+          );
+          return res.status(200).json({
+            message: "Auth successful",
+            user: {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+            },
+    
+            token: token,
+          });
+        }
+        res.status(401).json({
+          message: "Auth failed,incorrect password"
+        });
+      })
+      
     })
     // // generate token
     // const token = utils.generateToken(user);
@@ -268,19 +280,6 @@ app.get("/verifyToken", function(req, res) {
   });
 });
 
-// app.use((error, req, res, next) => {
-//   if (req.file) {
-//     fs.unlink(req.file.path, err => {
-//       console.log(err);
-//       console.log('neha');
-//     });
-//   }
-//   if (res.headerSent) {
-//     return next(error);
-//   }
-//   res.status(error.code || 500);
-//   res.json({ message: error.message || 'An unknown error occurred!' });
-// });
 
 //Port
 const port = process.env.PORT || 5000;

@@ -489,7 +489,7 @@ export class TeacherSignup extends Component {
       return null
     } 
     return(
-      <React.Fragment>
+      
       <div className="form-group mb-10px ">
         <h2 style={{ fontFamily: "Montserrat"}}>Choose your timetable</h2>
         <label className="mb-3" >Select days and time that you prefer to teach</label>
@@ -540,11 +540,12 @@ export class TeacherSignup extends Component {
       </div>  
 
       </div>
+      <button className="login100-form-btn" onSubmit={props.handleSubmit}>Sign up</button>
       </div>
       
-      <button className="login100-form-btn" onSubmit={props.handleSubmit}>Sign up</button>
       
-      </React.Fragment>
+      
+      
     );
   }
 

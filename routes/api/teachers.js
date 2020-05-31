@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const ObjectId = require("mongodb").ObjectID;
 const db = require("../../server").getDB;
-
+const bcrypt = require("bcryptjs");
+const config = require("config");
+const jwt = require("jsonwebtoken");
+const fileUpload = require('../../middleware/file-upload');
 //item model
 const Teacher = require("../../models/Teachers");
 
@@ -110,12 +113,34 @@ router.get("/search2", (req, res) => {
 });
 
 //Post method teac
+// router.post("/", (req, res) => {
+//   console.log(req.body);
+//   var data = {
+//     username: "emad",
+//     amount: 0,
+//   };
+//   const newTeacher = new Teacher({
+//     name: req.body.name,
+//     Qualification: req.body.Qualification,
+//     Qualification2: req.body.Qualification,
+//     Rating: req.body.Rating,
+//     About: req.body.About,
+//     Price: req.body.Price,
+//     DayTime: req.body.DayTime,
+//     Day: req.body.Day,
+//     Time: req.body.Time,
+//     email: req.body.email,
+//     password: req.body.password,
+//     bookings: data,
+//   });
+
+//   newTeacher.save().then((teacher) => res.json(teacher));
+// }); 
+
 router.post("/", (req, res) => {
+  const { name, email, password } = req.body;
   console.log(req.body);
-  var data = {
-    username: "emad",
-    amount: 0,
-  };
+  
   const newTeacher = new Teacher({
     name: req.body.name,
     Qualification: req.body.Qualification,
@@ -126,14 +151,100 @@ router.post("/", (req, res) => {
     DayTime: req.body.DayTime,
     Day: req.body.Day,
     Time: req.body.Time,
+    age:req.body.age,
     email: req.body.email,
     password: req.body.password,
-    bookings: data,
+    subjects: req.body.subjects,
+    bookings: [
+      {
+        Day:req.body.bookings[0].Day,
+        Date: req.body.bookings[0].Date,
+        Time: req.body.bookings[0].Time,
+        Subject: req.body.bookings[0].Subject,
+       Price: req.body.bookings[0].Price,
+       Username: req.body.bookings[0].Username,
+       Status: req.body.bookings[0].Status
+      }
+    ],
+    schedule:[
+      {
+        Day:req.body.schedule[0].Day,
+        Date: req.body.schedule[0].Date,
+        Time: req.body.schedule[0].Time,
+        Subject: req.body.schedule[0].Subject,
+       Price: req.body.schedule[0].Price
+      }
+    ],
+    work: [
+      {
+        title: req.body.work[0].title,
+        startDate: req.body.work[0].startDate,
+        endDate: req.body.work[0].endDate,
+        details: req.body.work[0].details
+      }
+    ],
+    education:[
+      {
+        level: req.body.education[0].level,
+        institute:  req.body.education[0].institute,
+        startDate:  req.body.education[0].startDate,
+        endDate:  req.body.education[0].endDate,
+        field:  req.body.education[0].field
+      }
+    ],
   });
+  if (!name || !email || !password) {
+    return res.status(404).json({ msg: "please enter everthing" });
+  }
+  Teacher.findOne({ email })
+  .then(teacher => {
+    if (teacher) {
+      return res.status(400).json({ 
+        msg: "teacher already exist" 
+      });
+    }
 
-  newTeacher.save().then((teacher) => res.json(teacher));
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newTeacher.password, salt, (err, hash) => {
+        if (err) {
+          return res.status(500).json({
+            error: err
+          });
+        }
+        newTeacher.password = hash;
+        newTeacher.save().then(teacher =>{
+          jwt.sign(
+            {
+              id: teacher.id
+            },
+            config.get("jwtSecret"),
+            //{ expiresIn: 3600 },
+            (err, token) => {
+              if (err) throw err;
+              res.json({
+                token,
+                teacher: {
+                  id: teacher.id,
+                  name: teacher.name,
+                  email: teacher.email,
+                  
+                }
+              });
+            }
+          );
+        })
+      });
+    })
+  }) //.then ends
+
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  });   //.catch ends
+
 }); 
-
 //Add teacher schedule details to database
 router.put("/ids", function (req, res) {
   var id = req.query.id;
@@ -335,7 +446,7 @@ router.delete("/delete", function (req, res) {
   );
 });
 
-//Cancel
+//Cancel booking
 router.put("/cancel", function (req, res) {
   var id = req.query.id;
   var buttonid = req.query.buttonid;
@@ -357,7 +468,7 @@ router.put("/cancel", function (req, res) {
   );
 });
 
-//cancel from userside
+//cancel booking from userside
 router.put("/cancel2", function (req, res) {
   var classid = req.query.id;  //classid or teacher booking id
   var buttonid = req.query.buttonid;
@@ -378,7 +489,7 @@ router.put("/cancel2", function (req, res) {
     }
   );
 });
-//Book
+//Book 
 router.put("/book", function (req, res) {
   var id = req.query.id;
   var buttonid = req.query.buttonid;

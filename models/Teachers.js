@@ -41,6 +41,11 @@ const ScheduleSchema = new Schema ({
   Subject: String,
   Price:String
 });
+
+const AccountSchema= new Schema({
+  totalAmount: Number,
+  amount: Number
+})
 // subject schema
 
 // const SubjectSchema = new Schema({
@@ -110,11 +115,15 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
-  bookings: [],
-  education: [],
-  work: [],
-  schedule: []
-
+  profileImage:{
+    type: String,
+    required: false,
+  },
+  bookings: [BookingSchema],
+  education: [EducationScehma],
+  work: [WorkSchema],
+  schedule: [ScheduleSchema],
+  account:[]
 });
 
 module.exports = Teacher = mongoose.model("teacher", TeacherSchema);

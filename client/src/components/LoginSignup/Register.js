@@ -1,5 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
+
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
+const validateForm = errors => {
+  let valid = true;
+  Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+  return valid;
+};
+
 export default class RegisterNew extends Component {
   constructor(props) {
     super(props);
@@ -8,38 +18,73 @@ export default class RegisterNew extends Component {
       name: "",
       email: "",
       password: "",
-
+      errors: {
+        name: '',
+        email: '',
+        password: '',
+      },
       success: true
     };
   }
   handleInputChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    let errors = this.state.errors;
+    switch (name) {
+      case 'name': 
+        errors.name = 
+          value.length < 5
+            ? 'Full Name must be at least 5 characters long!'
+            : '';
+        break;
+      case 'email': 
+        errors.email = 
+          validEmailRegex.test(value)
+            ? ''
+            : 'Email is not valid!';
+        break;
+      case 'password': 
+        errors.password = 
+          value.length < 8
+            ? 'Password must be at least 8 characters long!'
+            : '';
+        break;
+      default:
+        break;
+    }
+    this.setState({errors, [name]: value});
   };
   handleSubmit = e => {
     e.preventDefault();
 
     const { name, email, password, date } = this.state;
 
-    const User = {
-      name,
-      email,
-      password,
-      date
-    };
+    if(validateForm(this.state.errors)) {
+      console.log('Valid Form');
+      const User = {
+        name,
+        email,
+        password,
+        date
+      };
+  
+      axios
+        .post("/api/users", User)
+        .then(() => {
+          console.log("User Created");
+          window.location = "/login";
+        })
+        .catch(err => {
+          console.error(err);
+        });
 
-    axios
-      .post("/api/users", User)
-      .then(() => {
-        console.log("User Created");
-        window.location = "/login";
-      })
-      .catch(err => {
-        console.error(err);
-      });
+
+    }else{
+      console.log('Invalid Form')
+    }
+    
   };
   render() {
+    const {errors} = this.state;
     return (
       <div>
         <div className="limiter">
@@ -64,10 +109,13 @@ export default class RegisterNew extends Component {
                     placeholder="Username"
                     onChange={this.handleInputChange}
                   />
+                  
                   <span className="focus-input100" />
                   <span className="symbol-input100">
                     <i className="fa fa-envelope" aria-hidden="true" />
                   </span>
+                  {errors.name.length > 0 && 
+                <span className='error'>{errors.name}</span>}
                 </div>
                 <div
                   className="wrap-input100 validate-input"
@@ -80,6 +128,8 @@ export default class RegisterNew extends Component {
                     placeholder="Email"
                     onChange={this.handleInputChange}
                   />
+                  {errors.email.length > 0 && 
+                <span className='error'>{errors.email}</span>}
                   <span className="focus-input100" />
                   <span className="symbol-input100">
                     <i className="fa fa-envelope" aria-hidden="true" />
@@ -96,6 +146,8 @@ export default class RegisterNew extends Component {
                     placeholder="Password"
                     onChange={this.handleInputChange}
                   />
+                  {errors.password.length > 0 && 
+                <span className='error'>{errors.password}</span>}
                   <span className="focus-input100" />
                   <span className="symbol-input100">
                     <i className="fa fa-lock" aria-hidden="true" />

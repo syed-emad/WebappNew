@@ -40,7 +40,7 @@ router.post("/",fileUpload.single('profileImage'), (req, res) => {
   }
   //if (!req.file) return res.send('Please upload a file')
   //Check for exsisting teacher
-  Teacher.findOne({ email })
+  Teacher2.findOne({ email })
   .then(teacher => {
     if (teacher) {
       return res.status(400).json({ 

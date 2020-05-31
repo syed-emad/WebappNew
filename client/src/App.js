@@ -27,6 +27,7 @@ import TeacherLogin from "./components/TeacherLogin/TeacherLogin";
 import PublicRoute22 from "./Utils/PublicRoute22";
 import UserDashboardMain from "./components/UserDashboard/UserDashboardMain";
 import LoginDashboard from "./components/LoginSignup/LoginDashboard";
+import TeacherFinal from "./components/teacherSignUp/teacherfinal";
 import some from "./components/VideoChat/Call";
 import some2 from "./components/VideoChat/ChannelForm";
 import video from "./components/VideoChat/VideoStyle";
@@ -76,7 +77,7 @@ function App() {
               <PublicRoute22 exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
-              
+              <PublicRoute exact path="/TeacherFinal" component={TeacherFinal} />
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"

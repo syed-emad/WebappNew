@@ -12,7 +12,7 @@ export default class Header extends Component {
         {/* Header */}
         <header className="header" style={{ backgroundColor: "#360f64" }}>
           <div className="header_overlay" />
-          <div className="header_content d-flex flex-row align-items-center justify-content-start" style={{height:"100px"}}>
+          <div className="header_content d-flex flex-row align-items-center justify-content-start">
             {/* Logo */}
             <div className="logo">
               <img src="images/logo.png" alt="" />

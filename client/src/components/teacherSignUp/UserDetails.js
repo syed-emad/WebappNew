@@ -23,7 +23,7 @@ export class UserDetails extends Component {
         </div>
           
     <br /><br /><br /><br />
-     <div className="form-group mb-10px" style={{padding:"40px",border: "2px solid lightgrey", height:""}}>
+     <div className="form-group mb-10px" style={{padding:"40px",border: "2px solid lightgrey", height:"", marginLeft:"100px",marginRight:"100px"}}>
             <h1 style={{ fontFamily: "Montserrat",fontSize:"30px"}}>Basic Details (Step {this.props.step})</h1>
             <br />
             <div className="row"  >

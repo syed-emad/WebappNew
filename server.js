@@ -63,7 +63,7 @@ app.use("/api/teachers", teachers);
 app.use("/api/users", users);
 app.use("/api/users2", users2);
 app.use("/api/auth", auth);
-app.use("/admin", require("./admin")); //for the admin panel
+//app.use("/admin", require("./admin")); //for the admin panel
 // app.use('/uploads',express.static('uploads'));
 
 //middleware that checks if JWT token exists and verifies it if it does exist.

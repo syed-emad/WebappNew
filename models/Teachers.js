@@ -119,10 +119,10 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
-  bookings: [BookingSchema],
-  education: [EducationScehma],
-  work: [WorkSchema],
-  schedule: [ScheduleSchema],
+  bookings: [],
+  education: [],
+  work: [],
+  schedule: [],
   account:[]
 });
 

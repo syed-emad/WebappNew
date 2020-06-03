@@ -23,24 +23,25 @@ export class UserDetails extends Component {
         </div>
           
     <br /><br /><br /><br />
-     <div className="form-group mb-10px" style={{padding:"40px",border: "2px solid lightgrey", height:""}}>
-            <h1 style={{ fontFamily: "Montserrat",fontSize:"30px"}}>Basic Details (Step {this.props.step})</h1>
+     <div className="form-group mb-10px" style={{padding:"40px",border: "2px solid lightgrey", height:"", marginLeft:"100px",marginRight:"100px"}}>
+            <h1 style={{ fontFamily: "Montserrat",fontSize:"30px"}}>Basic Details (Step {this.props.step} of 5)</h1>
             <br />
             <div className="row"  >
-                <div className="col-md-6 ">
+                <div className="col-md-12">
                     <div className="wrap-input100 validate-input">
-                        <label className=" label100 ml-3" htmlFor="firstname">First name:</label>
-                            <input
-                            className="input100x"
-                            id="firstname"
-                            name="firstname"
-                            type="text"
-                            placeholder="Enter first name"
-                            value={values.firstName}
-                            onChange={handleChange('firstName')}
-                            />
-                    </div>
-                    
+                              <label className=" label100 ml-3" htmlFor="name">Full name:</label>
+                                  <input
+                                  className="input100x"
+                                  id="name"
+                                  name="name"
+                                  type="text"
+                                  placeholder="Enter your full name (e.g John Doe)"
+                                  value={values.name}
+                                  onChange={handleChange('name')}
+                                  />
+                      </div>
+                </div>
+                <div className="col-md-6 ">  
                     <div className="wrap-input100 validate-input">
                     <label className=" ml-3" htmlFor="email">Email:</label>
                             <input
@@ -69,7 +70,7 @@ export class UserDetails extends Component {
                 </div>
                 
                 <div className="col-md-6 ">
-                <div className="wrap-input100 validate-input">
+                {/* <div className="wrap-input100 validate-input">
                     <label className=" ml-3" htmlFor="lastname">Last name:</label>
                         <input
                         className="input100x"
@@ -80,7 +81,7 @@ export class UserDetails extends Component {
                         value={values.lastName}
                         onChange={handleChange('lastName')}
                         />
-                </div>
+                </div> */}
                 <div className="wrap-input100 validate-input">
                 <label className=" ml-3" htmlFor="password">Password:</label>
                         <input

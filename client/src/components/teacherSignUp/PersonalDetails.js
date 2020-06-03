@@ -19,8 +19,8 @@ export class PersonalDetails extends Component {
                 <h1 >Teacher Sign-up</h1>
                 </div>
                 <br /><br /><br /><br />
-                <div className="form-group mb-10px" style={{padding:"40px",border: "2px solid lightgrey", height:""}}>
-                    <h1 style={{ fontFamily: "Montserrat",fontSize:"30px"}}>Personal Details (Step {this.props.step})</h1>
+                <div className="form-group mb-10px" style={{padding:"40px",border: "2px solid lightgrey", height:"", marginLeft:"100px",marginRight:"100px"}}>
+                    <h1 style={{ fontFamily: "Montserrat",fontSize:"30px"}}>Personal Details (Step {this.props.step} of 5)</h1>
                     <br />
                     <div className="row"  >
                     <div className="wrap-input100 validate-input">
@@ -52,6 +52,22 @@ export class PersonalDetails extends Component {
                         placeholder="Major in subjects"
                         value={values.subjects}
                         onChange={handleChange('subjects')}
+                        />     
+                    </div>                  
+                    </div>
+                    <div className="col-md-4 ">
+                   <div className="wrap-input100 validate-input">
+                        <label className="ml-2">
+                        Price:
+                        </label>
+                        <input 
+                        className="input100x"
+                        type="text" 
+                        id="Price" 
+                        name="Price"
+                        placeholder="Price per class"
+                        value={values.Price}
+                        onChange={handleChange('Price')}
                         />     
                     </div>                  
                     </div>

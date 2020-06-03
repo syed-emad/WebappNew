@@ -137,7 +137,7 @@ router.get("/search2", (req, res) => {
 //   newTeacher.save().then((teacher) => res.json(teacher));
 // }); 
 
-router.post("/", (req, res) => {
+router.post("/asb", (req, res) => {
   const { name, email, password } = req.body;
   console.log(req.body);
   
@@ -155,43 +155,49 @@ router.post("/", (req, res) => {
     email: req.body.email,
     password: req.body.password,
     subjects: req.body.subjects,
-    bookings: [
-      {
-        Day:req.body.bookings[0].Day,
-        Date: req.body.bookings[0].Date,
-        Time: req.body.bookings[0].Time,
-        Subject: req.body.bookings[0].Subject,
-       Price: req.body.bookings[0].Price,
-       Username: req.body.bookings[0].Username,
-       Status: req.body.bookings[0].Status
-      }
-    ],
-    schedule:[
-      {
-        Day:req.body.schedule[0].Day,
-        Date: req.body.schedule[0].Date,
-        Time: req.body.schedule[0].Time,
-        Subject: req.body.schedule[0].Subject,
-       Price: req.body.schedule[0].Price
-      }
-    ],
-    work: [
-      {
-        title: req.body.work[0].title,
-        startDate: req.body.work[0].startDate,
-        endDate: req.body.work[0].endDate,
-        details: req.body.work[0].details
-      }
-    ],
-    education:[
-      {
-        level: req.body.education[0].level,
-        institute:  req.body.education[0].institute,
-        startDate:  req.body.education[0].startDate,
-        endDate:  req.body.education[0].endDate,
-        field:  req.body.education[0].field
-      }
-    ],
+
+    bookings:req.body.bookings,
+    schedule:req.body.schedule,
+    education: req.body.education,
+    work:req.body.work
+    // bookings: [
+    //   // {
+    //   //   Day:req.body.bookings[0].Day,
+    //   //   Date: req.body.bookings[0].Date,
+    //   //   Time: req.body.bookings[0].Time,
+    //   //   Subject: req.body.bookings[0].Subject,
+    //   //  Price: req.body.bookings[0].Price,
+    //   //  Username: req.body.bookings[0].Username,
+    //   //  Status: req.body.bookings[0].Status
+    //   // }
+    // ],
+    // schedule:[
+    //   // {
+    //   //   Day:req.body.schedule[0].Day,
+    //   //   Date: req.body.schedule[0].Date,
+    //   //   Time: req.body.schedule[0].Time,
+    //   //   Subject: req.body.schedule[0].Subject,
+    //   //  Price: req.body.schedule[0].Price
+    //   // }
+    // ],
+    // work: [
+    //   // {
+    //   //   title: req.body.work[0].title,
+    //   //   startDate: req.body.work[0].startDate,
+    //   //   endDate: req.body.work[0].endDate,
+    //   //   details: req.body.work[0].details
+    //   // }
+    // ],
+    // education: [],
+    // //[
+    //   //{
+    //     // level: req.body.education[0].level,
+    //     // institute:  req.body.education[0].institute,
+    //     // startDate:  req.body.education[0].startDate,
+    //     // endDate:  req.body.education[0].endDate,
+    //     // field:  req.body.education[0].field
+    //   //}
+    // //],
   });
   if (!name || !email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
@@ -213,6 +219,7 @@ router.post("/", (req, res) => {
         }
         newTeacher.password = hash;
         newTeacher.save().then(teacher =>{
+          console.log("hello im new");
           jwt.sign(
             {
               id: teacher.id
@@ -245,6 +252,13 @@ router.post("/", (req, res) => {
   });   //.catch ends
 
 }); 
+
+router.post("/newapi", (req, res) =>{
+  const name=req.query.name; 
+console.log(name);
+console.log("emad bad");
+})
+ 
 //Add teacher schedule details to database
 router.put("/ids", function (req, res) {
   var id = req.query.id;

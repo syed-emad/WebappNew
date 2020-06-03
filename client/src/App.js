@@ -21,13 +21,13 @@ import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
 import PublicRouteDashboard from "./Utils/PublicRouteDashboard"
 import search2 from "./components/SearchResult/search2";
 import TP from "./components/TeacherProfile/TeachersProfile";
-
+import TeacherFinal from "./components/teacherSignUp/teacherfinal";
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
 import TeacherLogin from "./components/TeacherLogin/TeacherLogin"; 
 import PublicRoute22 from "./Utils/PublicRoute22";
 import UserDashboardMain from "./components/UserDashboard/UserDashboardMain";
 import LoginDashboard from "./components/LoginSignup/LoginDashboard";
-import TeacherFinal from "./components/teacherSignUp/teacherfinal";
+
 import some from "./components/VideoChat/Call";
 import some2 from "./components/VideoChat/ChannelForm";
 import video from "./components/VideoChat/VideoStyle";
@@ -97,7 +97,7 @@ function App() {
                 component={TeacherLogin}
               />
               <PrivateRoute path="/dashboard" component={Dashboard} />
-
+              
               <Route exact path="/2" component={App2} />
             </Switch>
           </div>

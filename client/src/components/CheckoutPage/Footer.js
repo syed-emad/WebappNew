@@ -9,15 +9,16 @@ export default class Footer extends Component {
             <div className="logo">
               <img src="images/logo.png" alt="" />
               <a
-                href="#"
+                href="./"
                 style={{ fontFamily: "Montserrat", marginLeft: "5px" }}
               >
                 PROFESSOR
               </a>
             </div>
             <p className="footer-links">
-              <a href="#">Home</a>·<a href="#">Blog</a>·<a href="#">Pricing</a>·
-              <a href="#">About</a>·<a href="#">Faq</a>·<a href="#">Contact</a>
+              <a href="1">Home</a>·<a href="1">>Blog</a>·
+              <a href="1">>Pricing</a>·<a>About</a>·<a href="1">>Faq</a>·
+              <a href="1">>Contact</a>
             </p>
             <p className="footer-company-name">webdevtrick © 2019</p>
           </div>
@@ -46,16 +47,16 @@ export default class Footer extends Component {
               developers &amp; SEO Learner.
             </p>
             <div className="footer-icons">
-              <a href="#">
+              <a>
                 <i className="fa fa-facebook" />
               </a>
-              <a href="#">
+              <a>
                 <i className="fa fa-twitter" />
               </a>
-              <a href="#">
+              <a>
                 <i className="fa fa-linkedin" />
               </a>
-              <a href="#">
+              <a>
                 <i className="fa fa-github" />
               </a>
             </div>

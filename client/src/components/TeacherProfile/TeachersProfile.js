@@ -9,7 +9,7 @@ import Header from "./Header";
 import Table from "./table";
 import { Link } from "react-router-dom";
 import { getUser, removeUserSession } from "../../Utils/Common";
-import Footer from "../CheckoutPage/Footer"
+import Footer from "../CheckoutPage/Footer";
 const { If, Then, Else } = require("react-if");
 
 function TeachersProfile() {
@@ -27,24 +27,24 @@ function TeachersProfile() {
   //console.log("aaaa");
   //   console.log(name);
   const [value, setValue] = useState(null);
-     const user = getUser();
-     var loginbutton;
-     var name;
-     if (!!user && !!user.name) {
-       name = user.name;
-     } else {
-       name = "a";
-     }
-     
+  const user = getUser();
+  var loginbutton;
+  var name;
+  if (!!user && !!user.name) {
+    name = user.name;
+  } else {
+    name = "a";
+  }
+
   function call2functions(val, id) {
     day = val;
     butttonid = id;
     bookfunction2();
     refreshPage();
-  } 
+  }
   function refreshPage() {
-      window.location.reload(false);
-    }
+    window.location.reload(false);
+  }
   async function getSomething() {
     try {
       const response = await axios.get(`/api/teachers/searchbyid?id=${id}`);
@@ -296,22 +296,28 @@ function TeachersProfile() {
                                     className="cell100 column2"
                                     style={{ backgroundColor: "#360f64" }}
                                   >
-                                    Day
+                                    Price
                                   </th>
                                   <th
                                     className="cell100 column3"
                                     style={{ backgroundColor: "#360f64" }}
                                   >
-                                    Time
+                                    Day
                                   </th>
                                   <th
                                     className="cell100 column4"
                                     style={{ backgroundColor: "#360f64" }}
                                   >
-                                    Date
+                                    Time
                                   </th>
                                   <th
                                     className="cell100 column5"
+                                    style={{ backgroundColor: "#360f64" }}
+                                  >
+                                    Date
+                                  </th>
+                                  <th
+                                    className="cell100 column6"
                                     style={{ backgroundColor: "#360f64" }}
                                   ></th>
                                 </tr>
@@ -331,25 +337,22 @@ function TeachersProfile() {
                                           {data2.Subject}
                                         </td>
                                         <td className="cell100 column2">
-                                          {data2.Day}
+                                          {data2.Price}
                                         </td>
                                         <td className="cell100 column3">
-                                          {data2.Time}
+                                          {data2.Day}
                                         </td>
                                         <td className="cell100 column4">
+                                          {data2.Time}
+                                        </td>
+                                        <td className="cell100 column5">
                                           {data2.Date}
                                         </td>
-                                        <td className="cell100 column5 ">
+                                        <td className="cell100 column6 ">
                                           <If condition={name != "a"}>
                                             <Then>
                                               <Link
-                                                to={`/Checkout?userid=${"123"}&bookingid=${
-                                                  data2._id
-                                                }&index=${index}&teacherid=${id}&Subject=${
-                                                  data2.Subject
-                                                }&Date=${data2.Date}&Time=${
-                                                  data2.Time
-                                                }&Day=${data2.Day}`}
+                                                to={`/Checkout?bookingid=${data2._id}&index=${index}&teacherid=${id}&teachername=${data.name}&Subject=${data2.Subject}&Date=${data2.Date}&Price=${data2.Price}&Time=${data2.Time}&Day=${data2.Day}`}
                                               >
                                                 <a
                                                   className="newbutton2"
@@ -366,11 +369,15 @@ function TeachersProfile() {
                                               <Link
                                                 to={`/Login?userid=${"None"}&bookingid=${
                                                   data2._id
-                                                }&index=${index}&teacherid=${id}&Subject=${
+                                                }&index=${index}&teacherid=${id}&Price=${
+                                                  data2.Price
+                                                }&Subject=${
                                                   data2.Subject
                                                 }&Date=${data2.Date}&Time=${
                                                   data2.Time
-                                                }&Day=${data2.Day}&teachername=${data.name}`}
+                                                }&Day=${
+                                                  data2.Day
+                                                }&teachername=${data.name}`}
                                               >
                                                 <If
                                                   condition={
@@ -383,7 +390,7 @@ function TeachersProfile() {
                                                       disabled
                                                       class="newbutton3"
                                                     >
-                                                     Booked
+                                                      Booked
                                                     </button>
                                                   </Then>
                                                   <Else>
@@ -574,7 +581,9 @@ function TeachersProfile() {
                       </div> */}
                     </div>
                   </div>
-                  <div><Footer></Footer></div>
+                  <div>
+                    <Footer></Footer>
+                  </div>
                 </div>
               </div>
             </div>

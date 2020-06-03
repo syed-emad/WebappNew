@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const ObjectId = require("mongodb").ObjectID;
 const db = require("../../server").getDB;
-
+const bcrypt = require("bcryptjs");
+const config = require("config");
+const jwt = require("jsonwebtoken");
 //item model
 const Teacher = require("../../models/Teachers");
 
@@ -331,5 +333,186 @@ router.delete("/delete", function (req, res) {
       }
     }
   );
+});
+
+//Cancel
+router.put("/cancel", function (req, res) {
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+  console.log("emad");
+  console.log(buttonid);
+  Teacher.updateOne(
+    { "bookings._id": buttonid },
+    { $set: { "bookings.$.Status": "Cancelled" } },
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+      }
+    }
+  );
+});
+//Book
+router.put("/book", function (req, res) {
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+  console.log("neha");
+  console.log(buttonid);
+  Teacher.updateOne(
+    { "schedule._id": new ObjectId(buttonid) },
+    { $set: { "schedule.$.Status": "Book" } },
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+      }
+    }
+  );
+});
+
+//end
+// end class ----status change (in bookings: booked to completed)
+router.put("/end",function(req,res){
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+  console.log("hiii2");
+  console.log(buttonid);
+  Teacher.updateOne(
+    {   "bookings._id": buttonid} ,
+    { $set: { "bookings.$.Status": "Completed" }}, 
+    
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+       
+      }
+    }
+  );
+
+})
+
+
+router.post("/asb", (req, res) => {
+  const { name, email, password } = req.body;
+  console.log(req.body);
+
+  const newTeacher = new Teacher({
+    name: req.body.name,
+    // Qualification: req.body.Qualification,
+    // Qualification2: req.body.Qualification,
+    // Rating: req.body.Rating,
+    About: req.body.About,
+    Price: req.body.Price,
+    // DayTime: req.body.DayTime,
+    // Day: req.body.Day,
+    // Time: req.body.Time,
+    age: req.body.age,
+    email: req.body.email,
+    password: req.body.password,
+    subjects: req.body.subjects,
+
+    bookings: req.body.bookings,
+    schedule: req.body.schedule,
+    education: req.body.education,
+    work: req.body.work,
+    // bookings: [
+    //   // {
+    //   //   Day:req.body.bookings[0].Day,
+    //   //   Date: req.body.bookings[0].Date,
+    //   //   Time: req.body.bookings[0].Time,
+    //   //   Subject: req.body.bookings[0].Subject,
+    //   //  Price: req.body.bookings[0].Price,
+    //   //  Username: req.body.bookings[0].Username,
+    //   //  Status: req.body.bookings[0].Status
+    //   // }
+    // ],
+    // schedule:[
+    //   // {
+    //   //   Day:req.body.schedule[0].Day,
+    //   //   Date: req.body.schedule[0].Date,
+    //   //   Time: req.body.schedule[0].Time,
+    //   //   Subject: req.body.schedule[0].Subject,
+    //   //  Price: req.body.schedule[0].Price
+    //   // }
+    // ],
+    // work: [
+    //   // {
+    //   //   title: req.body.work[0].title,
+    //   //   startDate: req.body.work[0].startDate,
+    //   //   endDate: req.body.work[0].endDate,
+    //   //   details: req.body.work[0].details
+    //   // }
+    // ],
+    // education: [],
+    // //[
+    //   //{
+    //     // level: req.body.education[0].level,
+    //     // institute:  req.body.education[0].institute,
+    //     // startDate:  req.body.education[0].startDate,
+    //     // endDate:  req.body.education[0].endDate,
+    //     // field:  req.body.education[0].field
+    //   //}
+    // //],
+  });
+  if (!name || !email || !password) {
+    return res.status(404).json({ msg: "please enter everthing" });
+  }
+  Teacher.findOne({ email })
+    .then((teacher) => {
+      if (teacher) {
+        return res.status(400).json({
+          msg: "teacher already exist",
+        });
+      }
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newTeacher.password, salt, (err, hash) => {
+          if (err) {
+            return res.status(500).json({
+              error: err,
+            });
+          }
+          newTeacher.password = hash;
+          newTeacher.save().then((teacher) => {
+            console.log("hello im new");
+            jwt.sign(
+              {
+                id: teacher.id,
+              },
+              config.get("jwtSecret"),
+              //{ expiresIn: 3600 },
+              (err, token) => {
+                if (err) throw err;
+                res.json({
+                  token,
+                  teacher: {
+                    id: teacher.id,
+                    name: teacher.name,
+                    email: teacher.email,
+                  },
+                });
+              }
+            );
+          });
+        });
+      });
+    }) //.then ends
+
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    }); //.catch ends
 });
 module.exports = router;

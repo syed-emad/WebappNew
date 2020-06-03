@@ -28,6 +28,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 const Users = require("./models/Users");
 const Teachers = require("./models/Teachers");
+const usersession=require("./models/UserSession");
 //DB Config
 const db = config.get("mongoURI");
 //Connect to Mongo
@@ -144,6 +145,9 @@ app.post("/x/signin", (req, res) => {
           message: "Auth failed,incorrect password",
         });
       });
+      const  session = new usersession({ name: user.name,email:user.email,isSession:true });
+      session.save().then((X) => res.json(X));
+
     })
      
     .catch((err) => {

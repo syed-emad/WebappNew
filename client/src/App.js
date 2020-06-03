@@ -32,6 +32,7 @@ import some2 from "./components/VideoChat/ChannelForm";
 import video from "./components/VideoChat/VideoStyle";
 import chat from "./components/VideoChat/Chat/Chat/Chat";
 import join from "./components/VideoChat/Chat/Join/Join";
+import TeacherFinal from "./components/teacherSignUp/teacherfinal";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -79,6 +80,7 @@ function App() {
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
               <PublicRoute exact path="/TF" component={TF} />
+              <PublicRoute exact path="/teachersignup" component={TeacherFinal} />
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"

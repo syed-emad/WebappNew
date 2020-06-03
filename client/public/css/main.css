@@ -271,7 +271,19 @@ iframe {
   border-radius: 25px;
   padding: 0 30px 0 68px;
 }
+.input100x {
 
+  font-size: 15px;
+  line-height: 1.5;
+  color: #666666;
+
+  display: block;
+  width: 100%;
+  background: #e6e6e6;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0 20px 0 35px;
+}
 
 /*------------------------------------------------------------------
 [ Focus ]*/
@@ -347,7 +359,7 @@ iframe {
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   padding-top: 20px;
 }
 
@@ -376,11 +388,38 @@ iframe {
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
+.login100-form-btnx {
 
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+  
+  width: 20%;
+  height: 50px;
+  border-radius: 25px;
+  background: #360f64;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  display:inline-block;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+  
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
 .login100-form-btn:hover {
   background: #333333;
 }
-
+.login100-form-btnx:hover {
+  background: #333333;
+}
 
 
 /*------------------------------------------------------------------

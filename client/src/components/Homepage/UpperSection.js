@@ -1,40 +1,101 @@
-import React, { useState } from "react";
+
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+import { setUserSession } from "../../Utils/Common";
+import { getUser, removeUserSession } from "../../Utils/Common";
+import UserProfile from "../UserProfile/UserProfile";
+import Session from "../UserProfile/Session";
+import axios from "axios";
 import "../Styling/styles/bootstrap-4.1.2/bootstrap.min.css";
 import "../Styling/plugins/OwlCarousel2-2.3.4/owl.carousel.css";
 import "../Styling/plugins/OwlCarousel2-2.3.4/owl.theme.default.css";
 import "../Styling/plugins/OwlCarousel2-2.3.4/animate.css";
 import "../Styling/styles/main_styles.css";
 import "../Styling/styles/responsive.css";
-import axios from "axios";
-
-import { getUser, removeUserSession } from "../../Utils/Common";
+import "./loginstyle.css";
 const { If, Then, Else } = require("react-if");
 
 function UpperSection(props) {
-  // handle click event of logout button
-  // handle click event of logout button
-  const handleLogout = () => {
-    removeUserSession();
-    props.history.push("/");
-  };
-  function refreshPage() {
-    window.location.reload(false);
-  }
+  
   const [searchedsubject, setName] = useState("");
   const user = getUser();
   var loginbutton;
   var name;
-  if (!!user && !!user.name) {
-    name = user.name;
-  } else {
-    name = "a";
+  const email = useFormInput("");
+  const password = useFormInput("");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [value, setValue] = useState(null); 
+  //Logout
+  const handleLogout = () => {
+    removeUserSession();
+    props.history.push("/");
+  };
+  //Pagerefresh
+  function refreshPage() {
+    window.location.reload(false);
   }
-  if (user) {
-    loginbutton = user.name;
-  } else {
-    loginbutton = "login";
+ 
+  //LoginCondition
+  if (!!user && !!user.name) 
+  {
+        name = user.name;
+      } 
+  else 
+  {
+        name = "a";
+      }
+  //Call2functions
+  function callfunctions() {
+  handleClose();
+  handleLogin();
   }
+  //LoginApi
+  const handleLogin = () => {
+    setError(null);
+    setLoading(true);
+    axios
+      .post("/x/signin", {
+        email: email.value,
+        password: password.value,
+      })
+      .then((response) => {
+        setLoading(false);
+        setUserSession(response.data.token, response.data.user);
+        console.log(response.data.user.id);
+        UserProfile.setName(response.data.user.name);
+        Session.setSession("true" );
+        console.log(Session.getSession(),"EMAD");
+        console.log(UserProfile.getName())
+      
+      })
+      .catch((error) => {
+        setLoading(false);
+        if (error.response.status === 401) setError(error.response.data.message);
+        else setError("Something went wrong. Please try again later.");
+      });
+  };
+  //CheckingSession
+  async function checkSession() {
+    try {
+      const response = await axios.get(
+        `/api/users/session?sessionValue=${Session.getSession()}&id=${Session.getId()}`
+      );
+      
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    checkSession();
+  }, []);
   return (
     <div>
       <div>
@@ -103,7 +164,7 @@ function UpperSection(props) {
                     <Then>
                       <span className="ok">
                         <li>
-                          <a> Welcome {name}!</a>
+                          <a> Welcome {UserProfile.getName()}!</a>
                         </li>
                         <li>
                           <a onClick={removeUserSession()}>Logout</a>
@@ -113,10 +174,97 @@ function UpperSection(props) {
                     <Else>
                       <ul className="d-flex flex-row align-items-center justify-content-start">
                         <li>
-                          <a href="/Login">Login </a>
+                          <button className="buttonlogin" onClick={handleShow}>
+                            <a>Login</a>
+                          </button>
+                          <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                              <Modal.Title class="center"> Login</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <form className="login100-form2 validate-form">
+                                <div
+                                  className="wrap-input100 validate-input"
+                                  data-validate="Valid email is required: ex@abc.xyz"
+                                >
+                                  <input
+                                    className="input100"
+                                    name="email"
+                                    placeholder="Email"
+                                    type="text"
+                                    {...email}
+                                    autoComplete="new-password"
+                                  />
+                                  <span className="focus-input100" />
+                                  <span className="symbol-input100">
+                                    <i
+                                      className="fa fa-envelope"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                </div>
+                                <div
+                                  className="wrap-input100 validate-input"
+                                  data-validate="Password is required"
+                                >
+                                  <input
+                                    className="input100"
+                                    name="pass"
+                                    placeholder="Password"
+                                    type="password"
+                                    {...password}
+                                    autoComplete="new-password"
+                                  />
+                                  <span className="focus-input100" />
+                                  <span className="symbol-input100">
+                                    <i
+                                      className="fa fa-lock"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                </div>
+
+                                <div className="text-center p-t-12">
+                                  <span className="txt1">Forgot &nbsp;</span>
+                                  <a className="txt2">Username / Password?</a>
+                                </div>
+                                <div className="text-center p-t-13">
+                                  <a className="txt2" href="\Register">
+                                    Create your Account
+                                    <i
+                                      className="fa fa-long-arrow-right m-l-5"
+                                      aria-hidden="true"
+                                    />
+                                  </a>
+                                </div>
+                              </form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <div className="container-login100-form-btn">
+                                <button
+                                  className="login100-form-btn"
+                                  value={loading ? "Loading..." : "Login"}
+                                  
+                                  disabled={loading}
+                                   
+                                  onClick={() => {
+                                                       callfunctions();
+                                                       }}
+                                >
+                                  Login
+                                </button>
+                              </div>
+                            </Modal.Footer>
+                          </Modal>
                         </li>
                         <li>
-                          <a href="/Register">Register</a>
+                          {" "}
+                          <button
+                            className="buttonlogin"
+                            style={{ fontSize: "10px" }}
+                          >
+                            <a href="/Register">Register</a>
+                          </button>
                         </li>
                       </ul>
                     </Else>
@@ -370,5 +518,15 @@ function UpperSection(props) {
     </div>
   );
 }
+const useFormInput = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
 
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+  return {
+    value,
+    onChange: handleChange,
+  };
+};
 export default UpperSection;

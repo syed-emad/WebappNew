@@ -1,5 +1,6 @@
 import React from "react";
 import { getUser, removeUserSession } from "../../Utils/Common";
+import UserProfile from "../UserProfile/UserProfile";
 const { If, Then, Else } = require("react-if");
 function Header(props) {
   const user = getUser();
@@ -57,7 +58,7 @@ if (!!user && !!user.name) {
                 <Then>
                   <span className="ok">
                     <li>
-                      <a> Welcome {name}!</a>
+                      <a> Welcome {UserProfile.getName()}!</a>
                     </li>
                     <li>
                       <a onClick={removeUserSession()}>Logout</a>

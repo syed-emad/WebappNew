@@ -1,0 +1,18 @@
+.outerContainer {
+  
+ 
+  height: 100vh;
+ 
+}
+
+.containerchat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border-radius: 8px;
+  height: 82%;
+  width: 100%;
+}
+
+ 

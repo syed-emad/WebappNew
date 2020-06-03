@@ -1,0 +1,42 @@
+{
+  "name": "mern_shopping_list",
+  "version": "1.0.0",
+  "description": "Shopping List with MERN",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Syed Emad",
+  "license": "MIT",
+  "dependencies": {
+    "admin-bro": "^2.1.0-beta.15",
+    "admin-bro-expressjs": "^2.0.0",
+    "admin-bro-mongoose": "^0.4.2",
+    "agora-rtc-sdk": "^3.1.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "client": "file:client",
+    "concurrently": "^5.1.0",
+    "config": "^3.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-formidable": "^1.2.0",
+    "infinite-react-carousel": "^1.2.11",
+    "jsonwebtoken": "^8.5.1",
+    "material-ui": "^0.20.2",
+    "mongoose": "^5.9.4",
+    "react-bootstrap": "^1.0.1",
+    "react-fade-in": "^1.0.0",
+    "react-if": "^3.4.3",
+    "react-script-tag": "^1.1.2",
+    "react-transitions": "^1.0.0",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

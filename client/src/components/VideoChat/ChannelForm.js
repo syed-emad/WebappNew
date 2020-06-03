@@ -1,79 +1,84 @@
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
 import "./style.css"
-import axios from "axios";
+import axios from 'axios'
 
-function ChannelForm(props) {
-   
-     const [value, setValue] = useState(null);
-     const [name, setName]= useState("");
-     const [channel, setChannel]=useState("");
+
+export default class ChannelForm extends Component {
+  constructor(props) {
+    super(props);
+    this.buttonid="";
+    this.value = null;
     var url_string = window.location.href;
     var url = new URL(url_string);
-    var username = url.searchParams.get("username");
-    var id = url.searchParams.get("id");
-    var bookingid = url.searchParams.get("bookingid");
-    var buttonid;
+    this.id = url.searchParams.get("id");
+    this.state = {
+      channel: ""
+
+    };
+  }
   
-  
-  function onSubmit(e) {
-    e.preventDefault();
-    console.log("Submiting ", channel);
-    props.selectChannel(channel);
-    setChannel({ channel: "" });
-  };
+  endClass = (id) =>{ 
+    this.buttonid=id;
+    this.props.end();
+    this.props.book();
+    this.props.refreshPage();
+   };
+ 
+  end = async() =>{
+     try {
+       const response = await axios.put(
+         `/api/teachers/end?id=${this.id}&buttonid=${this.buttonid}`
+       );
+       this.setState(response.data);
+       console.log(response.data);
+     } catch (error) {
+       console.error(error);
+     }
+   };
 
-  function endClass(id){ 
-   buttonid=id;
-   end();
-   book();
-    refreshPage();
-  };
-
- async function end(){
-    try {
-      const response = await axios.put(
-        `/api/teachers/end?id=${id}&buttonid=${buttonid}`
-      );
-      setValue(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
- async function book (){
+  book = async () => {
     try {
       const response  = await axios.put(
-        `/api/teachers/book?id=${id}&buttonid=${buttonid}`
+        `/api/teachers/book?id=${this.id}&buttonid=${this.buttonid}`
       );
-      setValue(response.data);
+      this.setState(response.data);
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
- async function refreshPage() {
+  refreshPage= async()=> {
     window.location.reload(false);
   };
 
-
+  onChange = e => {
+    let { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+  onSubmit = e => {
+    e.preventDefault();
+    console.log("Submiting ", this.state.channel);
+    this.props.selectChannel(this.state.channel);
+    this.setState({ channel: "" });
+  };
+  render() {
+    const {endClass, end, book, refreshPage}=this.props;
     return (
       <div>
-        {value &&
-        value.map((data) => {
+        {this.value &&
+        this.value.map((data) => {
           return (
-        <form onSubmit={onSubmit}>
-           {data.schedule &&
+        <form onSubmit={this.onSubmit}>
+          {data.schedule &&
             data.schedule.map((data2) => {
             return (
           <div class="d-flex justify-content-start">
-         
             <input
               placeholder="Enter Class ID"
               name="channel"
-              value={channel}
-              onChange={(event) => setName(event.target.value)}
+              value={this.state.channel}
+              onChange={this.onChange}
               class="inpstyle"
             />
             <button
@@ -83,7 +88,7 @@ function ChannelForm(props) {
               style={{ color: "white" }}
             >
               Start Class
-            </button>
+            </button>{" "}
             <button
               class="newbutton4 "
               type="submit"
@@ -95,17 +100,15 @@ function ChannelForm(props) {
             >
               End Class
             </button>
-           
           </div>
-           );
+          );
 
-          })}
+        })}
         </form>
          );
 
         })}
       </div>
     );
- 
+  }
 }
-export default ChannelForm;

@@ -9,8 +9,10 @@ import Done from './Done';
 import axios from 'axios';
 
 export default class TeacherFinal extends Component {
+  constructor(props){
+    super(props);
   
-  state = {
+  this.state = {
     step: 1,
     name:'',
     email: '',
@@ -24,7 +26,7 @@ export default class TeacherFinal extends Component {
     education:[{level:'',institute:'',start:'',end:'', field:''}]
     
   };
- 
+}
   // Proceed to next step
   nextStep = () => {
     const { step } = this.state;
@@ -42,7 +44,7 @@ export default class TeacherFinal extends Component {
   };
 
 
-   handleForm = e =>{
+   handleSubmit = e => {
      e.preventDefault();
       const { name, email, password, About, age, Price, subjects, schedule, work, education, date } = this.state;
       console.log("NEHA HAWTY");
@@ -63,7 +65,8 @@ export default class TeacherFinal extends Component {
          .post("/api/teachers/asb",Teacher)
          .then(() => {
            console.log("Teacher Created");
-           window.location = "/login";
+          //  window.location = "/login";
+         this.nextStep();
          })
          .catch(err => {
            console.error(err);
@@ -141,7 +144,9 @@ export default class TeacherFinal extends Component {
       education
     })
   };
-
+  Gotohome = () => {
+    window.location = "/";
+  };
   render() {
     const { step } = this.state;
     const {schedule}=this.state;
@@ -168,8 +173,7 @@ export default class TeacherFinal extends Component {
             handleChange={this.handleChange}
             values={values}
             step={step}
-          />
-          
+          />         
         );
       case 3:
         return (
@@ -182,8 +186,7 @@ export default class TeacherFinal extends Component {
             schedule={schedule}
             addSchedule={this.addSchedule}
             deleteSchedule={this.deleteSchedule}
-          />
-          
+          />         
         );
       case 4:
         return (
@@ -214,7 +217,6 @@ export default class TeacherFinal extends Component {
         case 6:
         return (
         <Success
-
           nextStep={this.nextStep}
           prevStep={this.prevStep}
           values={values}
@@ -222,16 +224,17 @@ export default class TeacherFinal extends Component {
           values={values}
           schedule={schedule}
           work={work}
-          education={education}
-          
-        />
-        
+          education={education}  
+          handleSubmit={this.handleSubmit}   
+        />     
         )
         case 7:
         return (
-        <Done/>
+        <Done
+        Gotohome={this.Gotohome}
+        />
         )
-      default:
+        default:
         (console.log('This is a multi-step form built with React.'))
     }
   }

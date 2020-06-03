@@ -40,7 +40,7 @@ function Header(props) {
                   <a href="/">Home</a>
                 </li>
                 <li>
-                  <a href="#">Become a Tutor</a>
+                  <a href="/teachersignup">Become a Tutor</a>
                 </li>
               </ul>
             </nav>

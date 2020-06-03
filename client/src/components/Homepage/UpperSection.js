@@ -67,7 +67,7 @@ const UpperSection = () => {
                       </Link>
                       </li>
                       <li>
-                        <a href="/TeacherSignup">Become a Tutor</a>
+                        <a href="/teachersignup">Become a Tutor</a>
                       </li>
                     </ul>
                   </nav>

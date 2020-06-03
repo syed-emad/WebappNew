@@ -77,7 +77,7 @@ function App() {
               <PublicRoute22 exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
-              <PublicRoute exact path="/TeacherFinal" component={TeacherFinal} />
+              <PublicRoute exact path="/teachersignup" component={TeacherFinal} />
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"

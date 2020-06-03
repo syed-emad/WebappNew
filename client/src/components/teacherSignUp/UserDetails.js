@@ -49,7 +49,7 @@ export class UserDetails extends Component {
                             id="email"
                             type="text"
                             name="email"
-                            placeholder="Email"
+                            placeholder="Enter Email"
                             value={values.email}
                             onChange={handleChange('email')}
                             />

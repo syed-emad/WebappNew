@@ -59,7 +59,7 @@ export class UserDetails extends Component {
                         id="age"
                         name="age"
                         type="text"
-                        placeholder="Enter Age"
+                        placeholder="Enter your age"
                         value={values.age}
                         onChange={handleChange('age')}
                         />
@@ -89,6 +89,19 @@ export class UserDetails extends Component {
                         placeholder="Enter password"
                         value={values.password}
                         onChange={handleChange('password')}
+                        />
+                        
+                </div>
+                <div className="wrap-input100 validate-input">
+                <label className=" ml-3" htmlFor="City">City:</label>
+                        <input
+                        className="input100x"
+                        id="City"
+                        name="City"
+                        type="City"
+                        placeholder="Enter your city"
+                        value={values.City}
+                        onChange={handleChange('City')}
                         />
                         
                 </div>

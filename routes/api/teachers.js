@@ -277,16 +277,18 @@ router.put("/booked", function (req, res) {
       if(foundObject.schedule._id=buttonid){
         console.log(foundObject.schedule._id,"---------");
          
-          var data = {
-            _id: foundObject.schedule._id,
-            Subject: req.query.Subject,
-            Day: req.query.Day,
-            Date: req.query.Date,
-            Time: req.query.Time,
-            Status: "Booked",
-            Username: req.query.username,
-            Classid: req.query.classid,
-          };
+        var data = {
+          _id: foundObject.schedule._id,
+          Subject: req.query.Subject,
+          Day: req.query.Day,
+          Date: req.query.Date,
+          Time: req.query.Time,
+          Status: "Booked",
+          Price:req.query.Price,
+          Username: req.query.username,
+          Classid: req.query.classid,
+          Studentid:ObjectId(req.query.userid)
+        };
        Teacher.updateOne(
          { _id: new ObjectId(id) },
          { $push: { bookings:data } },
@@ -339,8 +341,28 @@ router.delete("/delete", function (req, res) {
 router.put("/cancel", function (req, res) {
   var id = req.query.id;
   var buttonid = req.query.buttonid;
-  console.log("emad");
-  console.log(buttonid);
+  // console.log("emad");
+  // console.log(buttonid);
+  Teacher.updateOne(
+    { "bookings._id": buttonid },
+    { $set: { "bookings.$.Status": "Cancelled" } },
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("cancel teacherrr");
+      }
+    }
+  );
+});
+
+//cancel booking from userside
+router.put("/cancel2", function (req, res) {
+  var classid = req.query.id;  //classid or teacher booking id
+  var buttonid = req.query.buttonid;
+  // console.log("cancel");
+  // console.log(buttonid);
   Teacher.updateOne(
     { "bookings._id": buttonid },
     { $set: { "bookings.$.Status": "Cancelled" } },
@@ -351,6 +373,7 @@ router.put("/cancel", function (req, res) {
       } else {
         //  console.log(foundObject,"ans");
         // console.log("statusupdates");
+        console.log("cancel2");
       }
     }
   );
@@ -376,6 +399,27 @@ router.put("/book", function (req, res) {
   );
 });
 
+//book 2
+router.put("/book2", function (req, res) {
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+  console.log("neha");
+  // console.log(buttonid);
+  Teacher.updateOne(
+    { "schedule._id": new ObjectId(buttonid) },
+    { $set: { "schedule.$.Status": "Book" } },
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+        console.log("book 2");
+      }
+    }
+  );
+});
 //end
 // end class ----status change (in bookings: booked to completed)
 router.put("/end",function(req,res){
@@ -413,6 +457,7 @@ router.post("/asb", (req, res) => {
     // Rating: req.body.Rating,
     About: req.body.About,
     Price: req.body.Price,
+    City: req.body.City,
     // DayTime: req.body.DayTime,
     // Day: req.body.Day,
     // Time: req.body.Time,

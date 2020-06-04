@@ -127,7 +127,7 @@ function TeachersProfile() {
                                 fontStretch: "1px",
                               }}
                             >
-                              Web Developer, Graphic Designer, Photographer
+                             {data.City}
                             </p>
                             <a className="newbutton" href="#table">
                               Free Demo
@@ -258,7 +258,7 @@ function TeachersProfile() {
                                   </strong>
                                 </div>
                                 <div className="col-sm-8">
-                                  English, German, French
+                                  English, Urdu
                                 </div>
                               </div>
                             </div>

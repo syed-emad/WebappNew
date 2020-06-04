@@ -1,15 +1,14 @@
 import React from "react";
 import { getUser, removeUserSession } from "../Utils/Common";
-
- 
-
+import Home from "./Home";
+import Card from "./TeacherPage/Card";
 function Dashboard(props) {
   const user = getUser();
 
   // handle click event of logout button
   const handleLogout = () => {
     removeUserSession();
-    props.history.push("/");
+    props.history.push("/login");
   };
 
   return (
@@ -23,7 +22,7 @@ function Dashboard(props) {
           {/* Logo */}
           <div className="logo">
             <img src="images/logo.png" alt="" />
-            <a href="\search" style={{ fontFamily: "Montserrat", marginLeft: "5px" }}>
+            <a href="#" style={{ fontFamily: "Montserrat", marginLeft: "5px" }}>
               PROFESSOR
             </a>
           </div>
@@ -36,7 +35,7 @@ function Dashboard(props) {
                   <a> Welcome {user.name}!</a>
                 </li>
                 <li>
-                  <a onClick={handleLogout}>Logoutxx</a>
+                  <a onClick={handleLogout}>Logout</a>
                 </li>
               </ul>
             </div>
@@ -52,6 +51,9 @@ function Dashboard(props) {
       <br />
 
       <p>-----------------------------------------</p>
+
+      <Home />
+      <Card />
     </div>
   );
 }

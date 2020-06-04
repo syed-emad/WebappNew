@@ -153,6 +153,7 @@ router.put("/classbooked", function (req, res) {
                 console.log(err);
               } else {
                 console.log("Success",data);
+                console.log("Succefully add booking to student");
               }
             }
           );
@@ -161,16 +162,61 @@ router.put("/classbooked", function (req, res) {
     }
   });
 });
-router.get("/session", (req, res) => {
-  let _id = req.query.id;
-  console.log(_id,"ID");
-  console.log("in session")
-  let sessionvalue=req.query.sessionValue; 
-  console.log(sessionvalue,"SV");
- if(sessionvalue=="true"){ 
-   UserSession.find({ _id })
-   .sort({ date: -1 })
-   .then((items) => res.json(items));}
-});
+// router.get("/session", (req, res) => {
+//   let _id = req.query.id;
+//   console.log(_id,"ID");
+//   console.log("in session")
+//   let sessionvalue=req.query.sessionValue; 
+//   console.log(sessionvalue,"SV");
+//  if(sessionvalue=="true"){ 
+//    UserSession.find({ _id })
+//    .sort({ date: -1 })
+//    .then((items) => res.json(items));}
+// });
+// end class ----status change (in bookings: booked to cancel)
+router.put("/cancel",function(req,res){
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+  console.log("hiii2");
+  console.log(buttonid);
+  Users.updateOne(
+    {   "mybookings._id": new ObjectId(buttonid)} ,
+    { $set: { "mybookings.$.Status": "Cancelled" }}, 
+    
 
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+        console.log("cancel userrrr");
+      }
+    }
+  );
+
+})
+//cancel from teacher side
+router.put("/cancel2",function(req,res){
+  var teacherid = req.query.id;
+  var buttonid = req.query.buttonid;
+  // console.log("hiii2");
+  // console.log(buttonid);
+  Users.updateOne(
+    {   "mybookings.classid": new ObjectId(buttonid)} ,
+    { $set: { "mybookings.$.Status": "Cancelled" }}, 
+    
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+       
+      }
+    }
+  );
+
+})
 module.exports = router;

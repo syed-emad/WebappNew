@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
 import UserDetails from './UserDetails';
 import PersonalDetails from './PersonalDetails';
 import Schedule from './Schedule';
@@ -10,8 +9,10 @@ import Done from './Done';
 import axios from 'axios';
 
 export default class TeacherFinal extends Component {
+  constructor(props){
+    super(props);
   
-  state = {
+  this.state = {
     step: 1,
     name:'',
     email: '',
@@ -20,12 +21,13 @@ export default class TeacherFinal extends Component {
     About: '',
     subjects:'',
     Price:'',
+    City:'',
     schedule: [ {Day:'', Time:''} ],
     work:[{title:'', place:'',startDate:'',endDate:'', details:''}],
     education:[{level:'',institute:'',start:'',end:'', field:''}]
     
   };
- 
+}
   // Proceed to next step
   nextStep = () => {
     const { step } = this.state;
@@ -43,9 +45,9 @@ export default class TeacherFinal extends Component {
   };
 
 
-   handleForm = e =>{
+   handleSubmit = e => {
      e.preventDefault();
-      const { name, email, password, About, age, Price, subjects, schedule, work, education, date } = this.state;
+      const { name, email, password, About, age, Price, City,subjects, schedule, work, education, date } = this.state;
       console.log("NEHA HAWTY");
       const Teacher = {
          name,
@@ -53,6 +55,7 @@ export default class TeacherFinal extends Component {
          password,
          About,
          age,
+         City,
          Price,
          subjects,
          schedule,
@@ -64,7 +67,8 @@ export default class TeacherFinal extends Component {
          .post("/api/teachers/asb",Teacher)
          .then(() => {
            console.log("Teacher Created");
-           window.location = "/login";
+          //  window.location = "/login";
+         this.nextStep();
          })
          .catch(err => {
            console.error(err);
@@ -142,14 +146,16 @@ export default class TeacherFinal extends Component {
       education
     })
   };
-
+  Gotohome = () => {
+    window.location = "/";
+  };
   render() {
     const { step } = this.state;
     const {schedule}=this.state;
     const {work}=this.state;
     const {education}=this.state;
-    const { name, email, password, age, About,subjects,Price } = this.state;
-    const values = { name, email, password,age, About,subjects,Price };
+    const { name, email, password, age, About,subjects,Price,City } = this.state;
+    const values = { name, email, password,age, About,subjects,Price,City };
    
     switch (step) {
       case 1:
@@ -169,8 +175,7 @@ export default class TeacherFinal extends Component {
             handleChange={this.handleChange}
             values={values}
             step={step}
-          />
-          
+          />         
         );
       case 3:
         return (
@@ -183,8 +188,7 @@ export default class TeacherFinal extends Component {
             schedule={schedule}
             addSchedule={this.addSchedule}
             deleteSchedule={this.deleteSchedule}
-          />
-          
+          />         
         );
       case 4:
         return (
@@ -215,7 +219,6 @@ export default class TeacherFinal extends Component {
         case 6:
         return (
         <Success
-
           nextStep={this.nextStep}
           prevStep={this.prevStep}
           values={values}
@@ -223,29 +226,19 @@ export default class TeacherFinal extends Component {
           values={values}
           schedule={schedule}
           work={work}
-          education={education}
-          
-        />
-        
+          education={education}  
+          handleSubmit={this.handleSubmit}   
+        />     
         )
         case 7:
         return (
-        <Done/>
+        <Done
+        Gotohome={this.Gotohome}
+        />
         )
-      default:
+        default:
         (console.log('This is a multi-step form built with React.'))
     }
-=======
-import TeacherSignup from "./TeacherSignup";
-import Header from "./Header";
-export default class TeacherFinal extends Component {
-  render() {
-    return (
-      <div>
-        <Header />
-        <TeacherSignup />
-      </div>
-    );
->>>>>>> parent of 7b2b514... validation checks & multi step form
   }
+
 }

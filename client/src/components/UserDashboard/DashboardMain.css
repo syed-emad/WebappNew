@@ -54,7 +54,39 @@
  .wrapper .sidebar ul li:hover a {
      color: #fff;
  }
+ .cancelbutton {
+    border: none;
+    border-radius: 0.1cm;
+    outline: 0;
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    background-color: #940707;
+    text-align: center;
+    width: 100%;
+    transition: 0.3s;
+    margin-top: -22px;
+    margin-bottom: 10px;
+    align-items: left;
 
+}
+
+.cancelled {
+    border: none;
+    border-radius: 0.1cm;
+    outline: 0;
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    background-color: #940707;
+    text-align: center;
+    width: 100%;
+    transition: 0.3s;
+    margin-top: -22px;
+    margin-bottom: 10px;
+    align-items: left;
+
+}
  .wrapper .sidebar .social_media {
      position: absolute;
      bottom: 0;

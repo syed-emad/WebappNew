@@ -13,7 +13,6 @@ export class Schedule extends Component {
         const { handleChange,addSchedule,deleteSchedule } = this.props;
 
         return (
-            <Fragment>
            
                
             <div >
@@ -108,9 +107,7 @@ export class Schedule extends Component {
                 </div>
                 </div>
             </div>
-           
-            </Fragment>
-        )
+                    )
     }
 }
 

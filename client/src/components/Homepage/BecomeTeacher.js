@@ -41,7 +41,7 @@ export default class BecomeTeacher extends Component {
                     </div>
                   </div>
                   <div className="button cta_button" id="becomeatutor">
-                    <a href="/TeacherSignup">Apply Now</a>
+                    <a href="/teachersignup">Apply Now</a>
                   </div>
                 </div>
               </div>

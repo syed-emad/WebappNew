@@ -6,22 +6,16 @@ export class Success extends Component {
         super(props);
     }
     continue = e => {
-        e.preventDefault();
-        this.props.nextStep();
+        // e.preventDefault();
+        // this.props.nextStep();
       };
       back = e => {
         e.preventDefault();
         this.props.prevStep();
       };
 
-    //   handleSubmit = e => {
-    //     e.preventDefault();
-    //     this.props.handleForm();
-     
-        
-    //   };
     render() {
-        const {  handleForm,
+        const {  handleSubmit,
             values: { name, email, password, About, subjects, age, Price},
             schedule, work, education
           }
@@ -37,8 +31,7 @@ export class Success extends Component {
                 <div className="form-group mb-10px" style={{padding:"40px",border: "2px solid lightgrey", height:"", marginLeft:"100px",marginRight:"100px"}}>
                 <h1 style={{ fontFamily: "Montserrat",fontSize:"30px"}}>Confirm Details</h1>
                     <br />
-                <form onSubmit={handleForm} 
-                className="">
+                <form onSubmit={handleSubmit} >
                     <div className="row" style={{justifyContent:"space-between", paddingLeft:"35px"}}>
                     <div className="col-md- 6">
                         <label htmlFor="x"
@@ -129,7 +122,7 @@ export class Success extends Component {
                                     Institute: {work[index].place}
                                 </p>
                                 <p>
-                                    Start date: {work[index].startDate} End date: {education[index].endDate}
+                                    Start date: {work[index].startDate} End date: {work[index].endDate}
                                 </p>
                                 <p>
                                     Field of Study: {work[index].details}
@@ -146,9 +139,7 @@ export class Success extends Component {
                         >
                         Back</button>
                         <button className="login100-form-btnx"
-                        onClick={this.continue}   type="submit"        
-                         >
-                        Save and Continue</button>              
+                        type="submit" >Save and Continue</button>              
                         </div>
                 </form>
                 </div>

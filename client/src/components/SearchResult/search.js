@@ -3,27 +3,13 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import FadeIn from "react-fade-in";
 import { useHistory } from "react-router-dom";
-import { getUser, removeUserSession } from "../../Utils/Common";
-import UserProfile from "../UserProfile/UserProfile";
-import Session from "../UserProfile/Session";
-import { getToken } from "../../Utils/Common";
-const { If, Then, Else } = require("react-if");
 //wait
-function Search(props) {
+function Search() {
   const [searchedsubject, setName] = useState("");
   const [searchedprice, setPrice] = useState("");
   const [searchedtime, setTime] = useState("");
   const [searchedday, setDay] = useState("");
-  const user = getUser(); var usersession = Session.getSession();
-  const token=getToken();
-  console.log(token);
-   var name;
-   if (!!user && !!user.name) {
-     name = user.name;
-   } else {
-     name = "a";
-   }
- 
+
   // let { name } = useParams();\var name
   var name;
   var price;
@@ -42,7 +28,6 @@ function Search(props) {
       const response = await axios.get(`/api/teachers/search?name=${name}`);
       setValue(response.data);
       console.log(response.data);
-      console.log(Session.getSession());
     } catch (error) {
       console.error(error);
     }
@@ -59,23 +44,7 @@ function Search(props) {
       console.error(error);
     }
   }
-async function getSomething3() {
-  try {
-    const response = await axios.get(
-      `/api/users/session?sessionValue=${usersession}&id=${Session.getId()}`
-    );
 
-    setValue(response.data);
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-useEffect(() => {
-  getSomething();
-  getSomething3();
-}, []);
   useEffect(() => {
     getSomething();
   }, []);

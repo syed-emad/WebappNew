@@ -2,9 +2,7 @@
 /* CSS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Fonts
 2. Body and some general stuff
 3. Header
@@ -18,7 +16,6 @@
 11. CTA 2
 12. Clients
 13. Footer
-
 ******************************/
 
 /***********
@@ -349,7 +346,7 @@ section {
 }
 
 .section_title {
-	padding-top: 50px;
+	padding-top: 14px;
 }
 
 .section_title h1 {
@@ -939,8 +936,8 @@ section {
 *********************************/
 
 .locations {
-	margin-top: 100px;
-	padding-top:120px;
+	background: #FFFFFF;
+	padding-top: 95px;
 	z-index: 1;
 }
 

@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 const Users = require("./models/Users");
 const Teachers = require("./models/Teachers");
-const usersession=require("./models/UserSession");
+//const usersession=require("./models/UserSession");
 //DB Config
 const db = config.get("mongoURI");
 
@@ -147,8 +147,8 @@ app.post("/x/signin", (req, res) => {
           message: "Auth failed,incorrect password",
         });
       });
-      const  session = new usersession({ name: user.name,email:user.email,isSession:true });
-      session.save().then((X) => res.json(X));
+      // const  session = new usersession({ name: user.name,email:user.email,isSession:true });
+      // session.save().then((X) => res.json(X));
 
     })
      
@@ -250,7 +250,7 @@ const http = require("http");
 const socketio = require("socket.io");
  
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require("./routes/api/userfunctions");
+//const { addUser, removeUser, getUser, getUsersInRoom } = require("./routes/api/userfunctions");
 
 const router = require("./router");
 

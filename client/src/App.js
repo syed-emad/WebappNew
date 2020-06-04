@@ -21,7 +21,7 @@ import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
 import PublicRouteDashboard from "./Utils/PublicRouteDashboard"
 import search2 from "./components/SearchResult/search2";
 import TP from "./components/TeacherProfile/TeachersProfile";
-import TF from "./components/TeacherForm/TeacherForm";
+
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
 import TeacherLogin from "./components/TeacherLogin/TeacherLogin"; 
 import PublicRoute22 from "./Utils/PublicRoute22";
@@ -79,16 +79,11 @@ function App() {
               <PublicRoute22 exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
-<<<<<<< HEAD
-<<<<<<< HEAD
-              <PublicRoute exact path="/TF" component={TF} />
+ 
               <PublicRoute exact path="/teachersignup" component={TeacherFinal} />
-=======
-              <PublicRoute exact path="/TeacherFinal" component={TeacherFinal} />
->>>>>>> parent of 74eed3e... signup step form with backend
-=======
-              
->>>>>>> parent of 7b2b514... validation checks & multi step form
+
+             
+
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"

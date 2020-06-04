@@ -74,7 +74,7 @@ async function getSomething3() {
 
 useEffect(() => {
   getSomething();
-  getSomething3();
+  // getSomething3();
 }, []);
   useEffect(() => {
     getSomething();

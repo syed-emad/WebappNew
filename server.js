@@ -145,8 +145,8 @@ app.post("/x/signin", (req, res) => {
           message: "Auth failed,incorrect password",
         });
       });
-      const  session = new usersession({ name: user.name,email:user.email,isSession:true });
-      session.save().then((X) => res.json(X));
+      // const  session = new usersession({ name: user.name,email:user.email,isSession:true });
+      // session.save().then((X) => res.json(X));
 
     })
      

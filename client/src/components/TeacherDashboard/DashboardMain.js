@@ -10,10 +10,12 @@ import FadeIn from "react-fade-in";
 import "../TeacherProfile/Styling/main.css";
 import "../TeacherProfile/Styling/bootstrap.min.css";
 import "../TeacherProfile/Styling/aos.css";
+const { If, Then, Else } = require("react-if");
 
 function DashboardMain(props) {
   var buttonid;
-  const Teacher = getUser();
+  var buttonid2;
+
   var url_string = window.location.href;
   var url = new URL(url_string);
   var name = url.searchParams.get("name");
@@ -23,6 +25,8 @@ function DashboardMain(props) {
   const [searchedprice, setPrice] = useState("");
   const [searchedtime, setTime] = useState("");
   const [searchedday, setDay] = useState("");
+
+  const Teacher = getUser();
 
   console.log(name);
   console.log("ID:");
@@ -39,16 +43,58 @@ function DashboardMain(props) {
       console.error(error);
     }
   }
-  async function getSomething2() {
+  function getSomething2() {
     bookfunction();
     refreshPage();
   }
-  async function deleteRecord(id) {
+  function deleteRecord(id) {
     buttonid = id;
     deleteSchedule();
     refreshPage();
   }
 
+  function cancelClass(id) {
+    buttonid2 = id;
+
+    cancelTeacher();
+    cancelStudent();
+    book();
+    refreshPage();
+  }
+
+  async function cancelTeacher() {
+    try {
+      const response = await axios.put(
+        `/api/teachers/cancel?id=${id}&buttonid=${buttonid2}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function cancelStudent() {
+    try {
+      const response = await axios.put(
+        `/api/users/cancel2?id=${id}&buttonid=${buttonid2}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function book() {
+    try {
+      const response = await axios.put(
+        `/api/teachers/book?id=${id}&buttonid=${buttonid2}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   async function deleteSchedule() {
     try {
       const response = await axios.delete(
@@ -236,7 +282,7 @@ function DashboardMain(props) {
                     <br></br>
                     <hr></hr>
                     <div id="schedule" className="schedule">
-                      
+                      {/* add schedule bar */}
                       <FadeIn>
                         <div className="home2">
                           <div
@@ -353,7 +399,10 @@ function DashboardMain(props) {
 
                                         <a
                                           className="newbutton4"
-                                          style={{ color: "white" }}
+                                          style={{
+                                            color: "white",
+                                            padding: "15px",
+                                          }}
                                           onClick={() => {
                                             getSomething2();
                                           }}
@@ -370,8 +419,15 @@ function DashboardMain(props) {
                         </div>
                       </FadeIn>
                     </div>
-                    <div className=" " id="table">
-                     
+                    <div className="" id="table">
+                      {" "}
+                      {/* <div
+              class="  "
+              style={{
+                paddingLeft: "100px",
+                paddingRight: "100px",
+                paddingTop: "60px",
+              }} */}
                       <h3 className=" text-center" style={{ margin: "30px" }}>
                         My Schedule
                       </h3>
@@ -425,7 +481,6 @@ function DashboardMain(props) {
                                           Delete
                                         </button>
                                       </td>
-                                   
                                     </tr>
                                   </tbody>
                                 </table>
@@ -452,8 +507,17 @@ function DashboardMain(props) {
                                 <th className="cell100 column2">Time</th>
                                 {/* <th className="cell100 column4">Day</th> */}
                                 <th className="cell100 column5">Date</th>
-                                <th className="cell100 column5"> Price</th>
-                                <th className="cell100 column2">
+                                <th
+                                  className="cell100 column5"
+                                  style={{ paddingLeft: "25px" }}
+                                >
+                                  {" "}
+                                  Price
+                                </th>
+                                <th
+                                  className="cell100 column2"
+                                  style={{ paddingLeft: "20px" }}
+                                >
                                   {" "}
                                   ClassID
                                 </th>{" "}
@@ -473,7 +537,7 @@ function DashboardMain(props) {
                                       <td className="cell100 column1">
                                         {data2.Username}
                                       </td>
-                                      <td className="cell100 column2">
+                                      <td className="cell100 column3">
                                         {data2.Subject}
                                       </td>
                                       <td className="cell100 column2">
@@ -482,29 +546,63 @@ function DashboardMain(props) {
                                       {/* <td className="cell100 column4">
                                         {data2.Day}
                                       </td> */}
-                                      <td className="cell100 column2">
-                                        {data2.Date}({data2.Day})
+                                      <td
+                                        className="cell100 column2"
+                                        style={{ paddingLeft: "30px" }}
+                                      >
+                                        {data2.Date} ({data2.Day})
                                       </td>{" "}
-                                      <td className="cell100 column2">
-                                        {/* {data2.Price} */}Price
+                                      <td
+                                        className="cell100 column7"
+                                        style={{ paddingLeft: "30px" }}
+                                      >
+                                        {data2.Price}
                                       </td>{" "}
                                       <td className="cell100 column2">
                                         {data2.Classid}
                                       </td>
-                                      <td className="cell100 column2">
-                                        <Link
-                                          to={`./VideoStyle?name=${name}&room=${data2.Classid}`}
+                                      <td className="cell100 column3">
+                                        <If
+                                          condition={data2.Status == "Booked"}
                                         >
-                                          <button class="newbuttonx">
+                                          <Then>
+                                            <Link
+                                              to={`./VideoStyle?username=${name}&bookingid=${data2._id}&teacherid=${id}`}
+                                            >
+                                              <button class="newbuttonx">
+                                                Start Class
+                                              </button>
+                                            </Link>
+                                          </Then>
+                                          <Else>
+                                            {/* <button class="newbuttonx" disabled> 
                                             Start Class
-                                          </button>
-                                        </Link>
+                                          </button> */}
+                                          </Else>
+                                        </If>
                                       </td>
-                                      <td className="cell100 column2">
+                                      <td className="cell100 column3">
                                         {/* {data2.Status} */}
-                                        <button class="newbutton2">
-                                          Cancel
-                                        </button>
+
+                                        <If
+                                          condition={data2.Status == "Booked"}
+                                        >
+                                          <Then>
+                                            <button
+                                              class="newbutton2"
+                                              onClick={() => {
+                                                cancelClass(data2._id);
+                                              }}
+                                            >
+                                              Cancel
+                                            </button>
+                                          </Then>
+                                          <Else>
+                                            <button class="newbutton2" disabled>
+                                              {data2.Status}
+                                            </button>
+                                          </Else>
+                                        </If>
                                       </td>
                                     </tr>
                                   </tbody>

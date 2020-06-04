@@ -94,7 +94,7 @@ function UpperSection(props) {
   }
 
   useEffect(() => {
-    checkSession();
+    // checkSession();
   }, []);
   return (
     <div>

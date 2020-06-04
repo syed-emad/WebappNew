@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+<<<<<<< HEAD
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -10,6 +11,8 @@ const validateForm = (errors) => {
   return valid;
 };
 
+=======
+>>>>>>> parent of 7b2b514... validation checks & multi step form
 export default class RegisterNew extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +21,7 @@ export default class RegisterNew extends Component {
       name: "",
       email: "",
       password: "",
+<<<<<<< HEAD
       errors: {
         name: "",
         email: "",
@@ -49,12 +53,23 @@ export default class RegisterNew extends Component {
         break;
     }
     this.setState({ errors, [name]: value });
+=======
+
+      success: true
+    };
+  }
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+>>>>>>> parent of 7b2b514... validation checks & multi step form
   };
   handleSubmit = (e) => {
     e.preventDefault();
 
     const { name, email, password, date } = this.state;
 
+<<<<<<< HEAD
     if (validateForm(this.state.errors)) {
       console.log("Valid Form");
       const User = {
@@ -79,6 +94,26 @@ export default class RegisterNew extends Component {
   };
   render() {
     const { errors } = this.state;
+=======
+    const User = {
+      name,
+      email,
+      password,
+      date
+    };
+
+    axios
+      .post("/api/users", User)
+      .then(() => {
+        console.log("User Created");
+        window.location = "/login";
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+  render() {
+>>>>>>> parent of 7b2b514... validation checks & multi step form
     return (
       <div>
         <div className="limiter">
@@ -103,14 +138,20 @@ export default class RegisterNew extends Component {
                     placeholder="Username"
                     onChange={this.handleInputChange}
                   />
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 7b2b514... validation checks & multi step form
                   <span className="focus-input100" />
                   <span className="symbol-input100">
                     <i className="fa fa-user" aria-hidden="true" />
                   </span>
+<<<<<<< HEAD
                   {errors.name.length > 0 && (
                     <span className="error">{errors.name}</span>
                   )}
+=======
+>>>>>>> parent of 7b2b514... validation checks & multi step form
                 </div>
                 <div
                   className="wrap-input100 validate-input"
@@ -123,9 +164,12 @@ export default class RegisterNew extends Component {
                     placeholder="Email"
                     onChange={this.handleInputChange}
                   />
+<<<<<<< HEAD
                   {errors.email.length > 0 && (
                     <span className="error">{errors.email}</span>
                   )}
+=======
+>>>>>>> parent of 7b2b514... validation checks & multi step form
                   <span className="focus-input100" />
                   <span className="symbol-input100">
                     <i className="fa fa-envelope" aria-hidden="true" />
@@ -142,9 +186,12 @@ export default class RegisterNew extends Component {
                     placeholder="Password"
                     onChange={this.handleInputChange}
                   />
+<<<<<<< HEAD
                   {errors.password.length > 0 && (
                     <span className="error">{errors.password}</span>
                   )}
+=======
+>>>>>>> parent of 7b2b514... validation checks & multi step form
                   <span className="focus-input100" />
                   <span className="symbol-input100">
                     <i className="fa fa-lock" aria-hidden="true" />

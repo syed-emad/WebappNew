@@ -128,10 +128,6 @@ router.post("/", (req, res) => {
     DayTime: req.body.DayTime,
     Day: req.body.Day,
     Time: req.body.Time,
-<<<<<<< HEAD
-=======
-    age:req.body.age,
->>>>>>> parent of 74eed3e... signup step form with backend
     email: req.body.email,
     password: req.body.password,
     bookings: data,

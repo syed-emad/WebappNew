@@ -1,7 +1,6 @@
-import React, { Component,useState, useContext, useCallback } from 'react'
+import React, { Component } from 'react'
 import ReactSelect from 'react-select';
 import axios from "axios";
-import ImageUpload from "./ImageUpload";
 
 const levelList = [
   { value: "primary", label: "Primary" },
@@ -27,12 +26,11 @@ const timeList=[
   { value: "evening", label: "Evening (4pm-9pm)" },
   { value: "night", label: "Night (9pm-12am)" },
 ];
-export class TeacherSignup extends Component {
+export class test extends Component {
     constructor(props) {
       super(props)
       this.state = {
         currentStep: 1,
-        roleID: "2",
         firstname: "",
           lastname:"",
           email: "",
@@ -41,11 +39,11 @@ export class TeacherSignup extends Component {
           gender:null,
           city:null,
           zipCode:"",
-          profileImage:null,
+          profileImage:"",
           about:"",
           qualification:null,
           subjects:"",
-          level:null,
+          level:"",
           days:"",
           time:"",
           success: true
@@ -59,64 +57,35 @@ export class TeacherSignup extends Component {
             [e.target.name]: e.target.value
           });   
     }
-    uploadImage = e => {
-      this.setState(
-        {
-          // profileImage: e.target.files[0]
-        },
-        () => 
-        console.log(this.state.profileImage)
-      );
-      console.log('neha');
-    };
-
+     
     handleSubmit = event => {
       event.preventDefault()
-      // const {roleID,firstname, lastname, email, password, gender,city,zipCode,phone,profileImage,qualification,about,subjects,level,days,time, date } = this.state;
+      const {firstname, lastname, email, password, gender,city,zipCode,phone,qualification,about,subjects,level,days,time, date } = this.state;
 
-    // const Teacher = {
-    //   roleID,
-    //   firstname,
-    //   lastname,
-    //   email,
-    //   password,
-    //   gender,
-    //   city,
-    //   zipCode,
-    //   phone,
-    //   profileImage,
-    //   about,
-    //   qualification,
-    //   subjects,
-    //   level,
-    //   days,
-    //   time,
-    //   date
-    // };
-    const formData = new FormData();
-    formData.append('email', this.state.email);
-    formData.append('firstname', this.state.firstname);
-    formData.append('lastname', this.state.lastname);
-    formData.append('password', this.state.password);
-    formData.append('gender', this.state.gender);
-    formData.append('phone', this.state.phone);
-    formData.append('city', this.state.city);
-    formData.append('zipCode',this.state.zipCode);
-    formData.append('profileImage', this.state.profileImage);
-    formData.append('about', this.state.about);
-    formData.append('qualification',this.state.qualification);
-    formData.append('subjects', this.state.subjects);
-    formData.append('level', this.state.level);
-    formData.append('days',this.state.days);
-    formData.append('time', this.state.time);
-    
-    console.log('neha2');
-    console.log(formData);
+    const Teacher = {
+      firstname,
+      lastname,
+      email,
+      password,
+      gender,
+      city,
+      zipCode,
+      phone,
+     // profileImage,
+      about,
+      qualification,
+      subjects,
+      level,
+      days,
+      time,
+      date
+    };
+
     axios
-      .post("/api/teachers", formData)
+      .post("/api/teachers", Teacher)
       .then(() => {
         console.log("User Created");
-        window.location = "/TeacherLogin";
+        window.location = "/login";
       })
       .catch(err => {
         console.error(err);
@@ -182,13 +151,7 @@ export class TeacherSignup extends Component {
     render() {    
       return (
         <React.Fragment>
-         {/* <div className="background_image"
-                        style={{ backgroundImage: "url(images/bg.jpg)" }}
-                      /> */}
-        <div className="container2"
-        
-        >
-         
+        <div className="container2">
         <div className="row" style={{ fontFamily: "Montserrat", marginLeft: "10px", marginTop:"20px" }}>
         <h1 >Teacher Sign-up</h1>
         </div>
@@ -200,7 +163,7 @@ export class TeacherSignup extends Component {
         <form 
         onSubmit={this.handleSubmit}
         className="form-group validate-form"
-        // enctype="multipart/form-data"
+        enctype="multipart/form-data"
         >
         {/* 
           render the form steps and pass required props in
@@ -221,10 +184,8 @@ export class TeacherSignup extends Component {
           <Step2 
             currentStep={this.state.currentStep} 
             handleChange={this.handleChange}
-            onInput={this.uploadImage}
             about={this.state.about}
             qualification={this.state.qualification}
-            profileImage={this.state.profileImage}
             subjects={this.state.subjects}
             level={this.state.level}
           />
@@ -416,26 +377,7 @@ export class TeacherSignup extends Component {
                         onChange={props.handleChange}
                         />
                         
-                         <ImageUpload name="profileImage" center id="profileImage"  />
-                         {/* <div >
-                         <label className="ml-2">
-                       Pick image
-                        </label>
-                          <input
-                           name="profileImage"
-                          
-                                style={{ display: 'none' }}
-                                type="file"
-                                accept=".jpg,.png,.jpeg"
-                                onChange={props.onChangeHandler}
-                              /> 
-                              
-                                <button type="button" className="login100-form-btn" onClick={props.handleSubmit}>
-                                  
-                                </button>
-                              
-                              
-                            </div> */}
+                         
 
                         <div className="col">
                         <label className="ml-2">
@@ -548,4 +490,4 @@ export class TeacherSignup extends Component {
     );
   }
 
-  export default TeacherSignup
+  export default test

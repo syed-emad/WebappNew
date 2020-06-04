@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+<<<<<<< HEAD
 import UserDetails from './UserDetails';
 import PersonalDetails from './PersonalDetails';
 import Schedule from './Schedule';
@@ -236,6 +237,17 @@ export default class TeacherFinal extends Component {
       default:
         (console.log('This is a multi-step form built with React.'))
     }
+=======
+import TeacherSignup from "./TeacherSignup";
+import Header from "./Header";
+export default class TeacherFinal extends Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <TeacherSignup />
+      </div>
+    );
+>>>>>>> parent of 7b2b514... validation checks & multi step form
   }
-
 }

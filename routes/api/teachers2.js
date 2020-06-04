@@ -54,11 +54,29 @@ router.post("/", (req, res) => {
   }
   //if (!req.file) return res.send('Please upload a file')
   //Check for exsisting teacher
+<<<<<<< HEAD
   Teacher2.findOne({ email })
     .then(teachers2 => {
       if (teachers2) {
         return res.status(400).json({
           msg: "teacher already exist"
+=======
+  Teacher.findOne({ email })
+  .then(teacher => {
+    if (teacher) {
+      return res.status(400).json({ 
+        msg: "teacher already exist" 
+      });
+    }
+  
+  //salt is use to create password hash
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newTeacher.password, salt, (err, hash) => {
+      // if (err) throw err;
+      if (err) {
+        return res.status(500).json({
+          error: err
+>>>>>>> parent of 7b2b514... validation checks & multi step form
         });
       }
 

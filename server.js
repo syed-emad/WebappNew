@@ -31,6 +31,8 @@ const Teachers = require("./models/Teachers");
 const usersession=require("./models/UserSession");
 //DB Config
 const db = config.get("mongoURI");
+
+
 //Connect to Mongo
 mongoose
   .connect(db, {
@@ -229,6 +231,19 @@ app.get("/verifyToken", function (req, res) {
   });
 });
 
+// app.use((error, req, res, next) => {
+//   if (req.file) {
+//     fs.unlink(req.file.path, err => {
+//       console.log(err);
+//       console.log('neha');
+//     });
+//   }
+//   if (res.headerSent) {
+//     return next(error);
+//   }
+//   res.status(error.code || 500);
+//   res.json({ message: error.message || 'An unknown error occurred!' });
+// });
 
 const http = require("http");
  

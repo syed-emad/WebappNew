@@ -20,7 +20,6 @@ export default class TeacherFinal extends Component {
     About: '',
     subjects:'',
     Price:'',
-    City:'',
     schedule: [ {Day:'', Time:''} ],
     work:[{title:'', place:'',startDate:'',endDate:'', details:''}],
     education:[{level:'',institute:'',start:'',end:'', field:''}]
@@ -46,7 +45,7 @@ export default class TeacherFinal extends Component {
 
    handleForm = e =>{
      e.preventDefault();
-      const { name, email, password, About, age, Price, City,subjects, schedule, work, education, date } = this.state;
+      const { name, email, password, About, age, Price, subjects, schedule, work, education, date } = this.state;
       console.log("NEHA HAWTY");
       const Teacher = {
          name,
@@ -54,7 +53,6 @@ export default class TeacherFinal extends Component {
          password,
          About,
          age,
-         City,
          Price,
          subjects,
          schedule,
@@ -150,8 +148,8 @@ export default class TeacherFinal extends Component {
     const {schedule}=this.state;
     const {work}=this.state;
     const {education}=this.state;
-    const { name, email, password, age, About,subjects,Price,City } = this.state;
-    const values = { name, email, password,age, About,subjects,Price,City };
+    const { name, email, password, age, About,subjects,Price } = this.state;
+    const values = { name, email, password,age, About,subjects,Price };
    
     switch (step) {
       case 1:

@@ -18,7 +18,6 @@ var subject = url.searchParams.get("Subject");
 var day = url.searchParams.get("Day");
 var datenew = url.searchParams.get("Date");
 var time = url.searchParams.get("Time");
-var price= url.searchParams.get("Price");
 var teachername = url.searchParams.get("teachername");
   // handle button click of login form
   const handleLogin = () => {
@@ -34,7 +33,7 @@ var teachername = url.searchParams.get("teachername");
         setUserSession(response.data.token, response.data.user);
         props.history.push(
           // `/dashboard?name=${response.data.user.name}&id=${response.data.user.id}`
-          `/Checkout?teacherid=${id}&index=${"1"}&bookingid=${bookingid}&Price=${price}&Subject=${subject}&Day=${day}&Date=${datenew}&Time=${time}&teachername=${teachername}&username=${
+          `/Checkout?teacherid=${id}&index=${"1"}&bookingid=${bookingid}&Subject=${subject}&Day=${day}&Date=${datenew}&Time=${time}&teachername=${teachername}&username=${
             response.data.user.name
           }&userid=${response.data.user.id}`
         );

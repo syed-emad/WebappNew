@@ -11,8 +11,8 @@
     padding: 0px;
     box-sizing: border-box;
 }
-
-.newbutton2 {
+ 
+.cancelbutton {
     border: none;
     border-radius: 0.1cm;
     outline: 0;
@@ -21,13 +21,31 @@
     color: white;
     background-color: #940707;
     text-align: center;
-    cursor: pointer;
-    width: 90%;
+    width: 100%;
     transition: 0.3s;
-    margin-top:-2px;
+    margin-top: -22px;
+    margin-bottom:10px;
     align-items: left;
 
 }
+
+.cancelled {
+    border: none;
+    border-radius: 0.1cm;
+    outline: 0;
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    background-color: #940707;
+    text-align: center;
+    width: 100%;
+    transition: 0.3s;
+    margin-top: -22px;
+    margin-bottom: 10px;
+    align-items: left;
+
+}
+ 
 .newbuttonx {
     border: none;
     border-radius: 0.1cm;

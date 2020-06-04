@@ -36,13 +36,19 @@ export default class RegisterNew extends Component {
             ? "Full Name must be at least 5 characters long!"
             : "";
         break;
+      // case "name":
+      // errors.name =
+      //   value.match(/^[a-zA-Z]+$/)
+      //     ? "Full Name must only be in letters"
+      //     : "";
+      // break;
       case "email":
         errors.email = validEmailRegex.test(value) ? "" : "Email is not valid!";
         break;
       case "password":
         errors.password =
-          value.length < 8
-            ? "Password must be at least 8 characters long!"
+          value.length < 6
+            ? "Password must be at least 6 characters long!"
             : "";
         break;
       default:
@@ -74,6 +80,16 @@ export default class RegisterNew extends Component {
           console.error(err);
         });
     } else {
+      if (!validateForm(this.state.errors.name)) {
+        alert(this.state.errors.name);
+      }
+      if (!validateForm(this.state.errors.email)) {
+        alert(this.state.errors.email);
+      }
+      if (!validateForm(this.state.errors.password)) {
+        alert(this.state.errors.password);
+      }
+
       console.log("Invalid Form");
     }
   };
@@ -108,9 +124,6 @@ export default class RegisterNew extends Component {
                   <span className="symbol-input100">
                     <i className="fa fa-user" aria-hidden="true" />
                   </span>
-                  {errors.name.length > 0 && (
-                    <span className="error">{errors.name}</span>
-                  )}
                 </div>
                 <div
                   className="wrap-input100 validate-input"
@@ -123,9 +136,7 @@ export default class RegisterNew extends Component {
                     placeholder="Email"
                     onChange={this.handleInputChange}
                   />
-                  {errors.email.length > 0 && (
-                    <span className="error">{errors.email}</span>
-                  )}
+
                   <span className="focus-input100" />
                   <span className="symbol-input100">
                     <i className="fa fa-envelope" aria-hidden="true" />
@@ -142,9 +153,7 @@ export default class RegisterNew extends Component {
                     placeholder="Password"
                     onChange={this.handleInputChange}
                   />
-                  {errors.password.length > 0 && (
-                    <span className="error">{errors.password}</span>
-                  )}
+
                   <span className="focus-input100" />
                   <span className="symbol-input100">
                     <i className="fa fa-lock" aria-hidden="true" />
@@ -155,7 +164,7 @@ export default class RegisterNew extends Component {
                 </div>
                 <div className="text-center p-t-136">
                   <a className="txt2" href="\login">
-                    Already Have A Account?Login.{" "}
+                    Already Have An Account?Login.{" "}
                     <i
                       className="fa fa-long-arrow-right m-l-5"
                       aria-hidden="true"

@@ -589,7 +589,7 @@ function DashboardMain(props) {
                                         >
                                           <Then>
                                             <button
-                                              class="newbutton2"
+                                              class="cancelbutton"
                                               onClick={() => {
                                                 cancelClass(data2._id);
                                               }}
@@ -598,7 +598,7 @@ function DashboardMain(props) {
                                             </button>
                                           </Then>
                                           <Else>
-                                            <button class="newbutton2" disabled>
+                                            <button class="cancelled" disabled>
                                               {data2.Status}
                                             </button>
                                           </Else>

@@ -51,39 +51,47 @@ function UserDashboardMain(props) {
     book();
     refreshPage();
   }
-  async function cancelTeacher() {
-    try {
-      const response = await axios.put(
-        `/api/teachers/cancel2?id=${id}&buttonid=${buttonid2}`
-      );
-      setValue(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
+    function cancelClass(classid, id2) {
+      buttonid2 = classid;
+      id = id2;
+      cancelTeacher();
+      cancelStudent();
+      book();
+      refreshPage();
     }
-  }
-  async function cancelStudent() {
-    try {
-      const response = await axios.put(
-        `/api/users/cancel?id=${uid}&buttonid=${id}`
-      );
-      setValue(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
+    async function cancelTeacher() {
+      try {
+        const response = await axios.put(
+          `/api/teachers/cancel2?id=${id}&buttonid=${buttonid2}`
+        );
+        setValue(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
-  async function book() {
-    try {
-      const response = await axios.put(
-        `/api/teachers/book2?id=${uid}&buttonid=${buttonid2}`
-      );
-      setValue(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
+    async function cancelStudent() {
+      try {
+        const response = await axios.put(
+          `/api/users/cancel?id=${uid}&buttonid=${id}`
+        );
+        setValue(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
+    async function book() {
+      try {
+        const response = await axios.put(
+          `/api/teachers/book2?id=${uid}&buttonid=${buttonid2}`
+        );
+        setValue(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   async function getSomething2() {
     // bookfunction();
     refreshPage();
@@ -362,7 +370,7 @@ function UserDashboardMain(props) {
                                         >
                                           <Then>
                                             <button
-                                              class="newbutton2"
+                                              class="cancelbutton"
                                               onClick={() => {
                                                 cancelClass(
                                                   data2.classid,
@@ -374,7 +382,7 @@ function UserDashboardMain(props) {
                                             </button>
                                           </Then>
                                           <Else>
-                                            <button class="newbutton2" disabled>
+                                            <button class="cancelled" disabled>
                                               {data2.Status}
                                             </button>
                                           </Else>

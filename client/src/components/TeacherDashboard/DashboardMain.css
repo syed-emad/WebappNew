@@ -10,6 +10,39 @@
  body {
      background-color: #f3f5f9;
  }
+ .cancelbutton {
+     border: none;
+     border-radius: 0.1cm;
+     outline: 0;
+     display: inline-block;
+     padding: 10px;
+     color: white;
+     background-color: #940707;
+     text-align: center;
+     width: 100%;
+     transition: 0.3s;
+     margin-top: -22px;
+     margin-bottom: 10px;
+     align-items: left;
+
+ }
+
+ .cancelled {
+     border: none;
+     border-radius: 0.1cm;
+     outline: 0;
+     display: inline-block;
+     padding: 10px;
+     color: white;
+     background-color: #940707;
+     text-align: center;
+     width: 100%;
+     transition: 0.3s;
+     margin-top: -22px;
+     margin-bottom: 10px;
+     align-items: left;
+
+ }
 
  .wrapper {
      display: flex;

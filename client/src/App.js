@@ -79,8 +79,12 @@ function App() {
               <PublicRoute22 exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
+<<<<<<< HEAD
               <PublicRoute exact path="/TF" component={TF} />
               <PublicRoute exact path="/teachersignup" component={TeacherFinal} />
+=======
+              <PublicRoute exact path="/TeacherFinal" component={TeacherFinal} />
+>>>>>>> parent of 74eed3e... signup step form with backend
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"

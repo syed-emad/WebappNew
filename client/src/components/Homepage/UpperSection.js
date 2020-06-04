@@ -153,6 +153,7 @@ function UpperSection(props) {
                         {" "}
                         <a href="#">Find a Tutor</a>
                       </Link>
+<<<<<<< HEAD
                     </li>
                     <li>
                       <a href="#becomeatutor">Become a Tutor</a>
@@ -222,6 +223,52 @@ function UpperSection(props) {
                                       aria-hidden="true"
                                     />
                                   </span>
+=======
+                      </li>
+                      <li>
+                        <a href="/TeacherSignup">Become a Tutor</a>
+                      </li>
+                    </ul>
+                  </nav>
+                  <div className="log_reg">
+                    <ul className="d-flex flex-row align-items-center justify-content-start">
+                      <li>
+                        <a href="/login">Login </a>
+                      </li>
+                      <li>
+                        <a href="/Register">Register</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="hamburger">
+                    <i className="fa fa-bars trans_200" />
+                  </div>
+                </div>
+              </div>
+            </header>
+            <div className="super_container_inner">
+              <div className="super_overlay" />
+              {/* Home */}
+              <div className="home">
+                {/* Home Slider */}
+                <div className="home_slider_container">
+                  <div className="owl-carousel owl-theme home_slider">
+                    {/* Slide */}
+                    <div className="slide">
+                      <div
+                        className="background_image"
+                        style={{ backgroundImage: "url(images/Tpic4.jpg)" }}
+                      />
+                      <div className="home_container">
+                        <div className="container">
+                          <div className="row">
+                            <div className="col-xl-9 offset-xl-2">
+                              <div className="home_content text-center">
+                                <div className="home_title">
+                                  <h1>
+                                    Here <span>Tutoring</span> Begins
+                                  </h1>
+>>>>>>> parent of 74eed3e... signup step form with backend
                                 </div>
 
                                 <div className="text-center p-t-12">

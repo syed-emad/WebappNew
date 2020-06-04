@@ -269,11 +269,11 @@ router.put("/booked", function (req, res) {
  
    
   
-  Teacher.findOne({ "schedule._id":new ObjectId(buttonid)}, function (err, foundObject) {
+  Teacher.findOne({ "schedule._id": new ObjectId(buttonid)}, function (err, foundObject) {
     if (err) {
       console.log(err);
     } else {
-      //console.log(foundObject.schedule._id, "SUBJ");
+      console.log(foundObject.schedule._id, "SUBJ");
       if(foundObject.schedule._id=buttonid){
         console.log(foundObject.schedule._id,"---------");
          

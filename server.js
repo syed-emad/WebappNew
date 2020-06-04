@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const config = require("config");
 const path = require("path");
-const multer = require("multer");
 const cors = require("cors");
 const utils = require("./utils");
 const bcrypt = require("bcryptjs");
@@ -20,9 +19,7 @@ const app = express();
 require("dotenv").config();
 
 // parse application/x-www-form-urlencoded
-//app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 // enable CORS
 app.use(cors());
 // parse application/json

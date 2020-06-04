@@ -340,11 +340,11 @@ router.delete("/delete", function (req, res) {
 //Cancel
 router.put("/cancel", function (req, res) {
   var id = req.query.id;
-  var buttonid = req.query.buttonid;
+  var classid = req.query.classid;
   // console.log("emad");
-  // console.log(buttonid);
+  console.log(classid);
   Teacher.updateOne(
-    { "bookings._id": buttonid },
+    { "bookings.Classid": classid },
     { $set: { "bookings.$.Status": "Cancelled" } },
 
     function (err, foundObject) {
@@ -361,11 +361,11 @@ router.put("/cancel", function (req, res) {
 //cancel booking from userside
 router.put("/cancel2", function (req, res) {
   var classid = req.query.id;  //classid or teacher booking id
-  var buttonid = req.query.buttonid;
+  var classid = req.query.classid;
   // console.log("cancel");
   // console.log(buttonid);
   Teacher.updateOne(
-    { "bookings._id": buttonid },
+    { "bookings.Classid": classid },
     { $set: { "bookings.$.Status": "Cancelled" } },
 
     function (err, foundObject) {
@@ -374,7 +374,7 @@ router.put("/cancel2", function (req, res) {
       } else {
         //  console.log(foundObject,"ans");
         // console.log("statusupdates");
-        console.log("cancel2");
+        console.log("user cancelled");
       }
     }
   );
@@ -401,11 +401,11 @@ router.put("/book", function (req, res) {
 });
 router.put("/book2", function (req, res) {
   var id = req.query.id;
-  var buttonid = req.query.buttonid;
+  var scheduleid = req.query.scheduleid;
   console.log("neha");
   // console.log(buttonid);
   Teacher.updateOne(
-    { "schedule._id": new ObjectId(buttonid) },
+    { "schedule._id": new ObjectId(scheduleid) },
     { $set: { "schedule.$.Status": "Book" } },
 
     function (err, foundObject) {

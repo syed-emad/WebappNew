@@ -26,6 +26,8 @@ function UserDashboardMain(props) {
   const [searchedday, setDay] = useState("");
  
   var buttonid2;
+  var scheduleid;
+  var classid;
   var id;
   console.log(name);
   console.log("ID:");
@@ -43,9 +45,9 @@ function UserDashboardMain(props) {
     }
   }
   
-  function cancelClass(classid,id2){
-    buttonid2=classid;
-    id=id2;
+  function cancelClass(cid,sid){
+    classid=cid;
+    scheduleid=sid;
     cancelTeacher();
     cancelStudent();
     book();
@@ -54,7 +56,7 @@ function UserDashboardMain(props) {
   async function cancelTeacher(){
     try {
       const response = await axios.put(
-        `/api/teachers/cancel2?id=${id}&buttonid=${buttonid2}`
+        `/api/teachers/cancel2?id=${uid}&classid=${classid}`
       );
       setValue(response.data);
       console.log(response.data);
@@ -66,7 +68,7 @@ function UserDashboardMain(props) {
   async function cancelStudent(){
     try {
       const response = await axios.put(
-        `/api/users/cancel?id=${uid}&buttonid=${id}`
+        `/api/users/cancel?id=${uid}&classid=${classid}`
       );
       setValue(response.data);
       console.log(response.data);
@@ -78,7 +80,7 @@ function UserDashboardMain(props) {
   async function book(){
     try {
       const response = await axios.put(
-        `/api/teachers/book2?id=${uid}&buttonid=${buttonid2}`
+        `/api/teachers/book2?id=${uid}&scheduleid=${scheduleid}`
       );
       setValue(response.data);
       console.log(response.data);
@@ -356,7 +358,7 @@ function UserDashboardMain(props) {
                                         <button 
                                         class="cancelbutton"
                                         onClick={() => {
-                                          cancelClass(data2.classid,data2._id);
+                                          cancelClass(data2.Classid,data2.classid);
                                          }}
                                         >
                                           Cancel

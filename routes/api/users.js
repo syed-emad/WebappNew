@@ -176,11 +176,11 @@ router.put("/classbooked", function (req, res) {
 // end class ----status change (in bookings: booked to cancel)
 router.put("/cancel",function(req,res){
   var id = req.query.id;
-  var buttonid = req.query.buttonid;
+  var classid = req.query.classid;
   console.log("hiii2");
-  console.log(buttonid);
+  console.log(classid);
   Users.updateOne(
-    {   "mybookings._id": new ObjectId(buttonid)} ,
+    {   "mybookings.Classid": classid} ,
     { $set: { "mybookings.$.Status": "Cancelled" }}, 
     
 
@@ -199,11 +199,11 @@ router.put("/cancel",function(req,res){
 //cancel from teacher side
 router.put("/cancel2",function(req,res){
   var teacherid = req.query.id;
-  var buttonid = req.query.buttonid;
+  var classid = req.query.classid;
   // console.log("hiii2");
-  // console.log(buttonid);
+   console.log(classid);
   Users.updateOne(
-    {   "mybookings.classid": new ObjectId(buttonid)} ,
+    {   "mybookings.Classid": classid} ,
     { $set: { "mybookings.$.Status": "Cancelled" }}, 
     
 
@@ -213,7 +213,7 @@ router.put("/cancel2",function(req,res){
       } else {
         //  console.log(foundObject,"ans");
         // console.log("statusupdates");
-       
+       console.log("teacher cancelled ")
       }
     }
   );

@@ -14,8 +14,8 @@ const { If, Then, Else } = require("react-if");
 
 function DashboardMain(props) {
   var buttonid;
+  var classid;
   var buttonid2;
-
   var url_string = window.location.href;
   var url = new URL(url_string);
   var name = url.searchParams.get("name");
@@ -53,8 +53,9 @@ function DashboardMain(props) {
     refreshPage();
   }
 
-  function cancelClass(id) {
-    buttonid2 = id;
+  function cancelClass(bid, cid) {
+    classid = cid;
+    buttonid2 = bid;
 
     cancelTeacher();
     cancelStudent();
@@ -65,7 +66,7 @@ function DashboardMain(props) {
   async function cancelTeacher() {
     try {
       const response = await axios.put(
-        `/api/teachers/cancel?id=${id}&buttonid=${buttonid2}`
+        `/api/teachers/cancel?id=${id}&classid=${classid}`
       );
       setValue(response.data);
       console.log(response.data);
@@ -76,7 +77,7 @@ function DashboardMain(props) {
   async function cancelStudent() {
     try {
       const response = await axios.put(
-        `/api/users/cancel2?id=${id}&buttonid=${buttonid2}`
+        `/api/users/cancel2?id=${id}&classid=${classid}`
       );
       setValue(response.data);
       console.log(response.data);
@@ -591,7 +592,10 @@ function DashboardMain(props) {
                                             <button
                                               class="cancelbutton"
                                               onClick={() => {
-                                                cancelClass(data2._id);
+                                                cancelClass(
+                                                  data2._id,
+                                                  data2.Classid
+                                                );
                                               }}
                                             >
                                               Cancel

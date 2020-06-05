@@ -109,7 +109,7 @@ router.post("/", (req, res) => {
 router.get("/", (req, res) => {
   Users.find()
     .sort({ date: -1 })
-    .then(items => res.json(items));
+    .then((items) => res.json(items));
 });
 router.get("/id", (req, res) => {
   let _id = req.query.id;
@@ -122,7 +122,7 @@ router.get("/id", (req, res) => {
 router.put("/classbooked", function (req, res) {
   var id = req.query.userid;
   var email = "OKEMAIL";
-  console.log("in ids",id);
+  console.log("in ids", id);
   console.log("HEREEEEEEEEEEEEEEEEEEEEEEE");
   var data = {
     _id: new ObjectId(),
@@ -132,9 +132,9 @@ router.put("/classbooked", function (req, res) {
     Day: req.query.Day,
     Date: req.query.Date,
     Time: req.query.Time,
-    Price: req.query.price,
+    Price: req.query.Price,
     Status: "Booked",
-    Classid:req.query.classid,
+    Classid: req.query.classid,
   };
   console.log(data);
   Users.findOne({ _id: id }, function (err, foundObject) {
@@ -144,7 +144,8 @@ router.put("/classbooked", function (req, res) {
       if (!foundObject) {
         console.log(err);
       } else {
-        if (req.query.id) {console.log("Hi");
+        if (req.query.id) {
+          console.log("Hi");
           Users.updateOne(
             { _id: new ObjectId(id) },
             { $push: { mybookings: data } },
@@ -152,7 +153,8 @@ router.put("/classbooked", function (req, res) {
               if (err) {
                 console.log(err);
               } else {
-                console.log("Success",data);
+                console.log("Success", data);
+                console.log("Succefully add booking to student");
               }
             }
           );
@@ -161,26 +163,25 @@ router.put("/classbooked", function (req, res) {
     }
   });
 });
-router.get("/session", (req, res) => {
-  let _id = req.query.id;
-  console.log(_id, "ID");
-  console.log("in session");
-  let sessionvalue = req.query.sessionValue;
-  console.log(sessionvalue, "SV");
-  if (sessionvalue == "true") {
-    UserSession.find({ _id })
-      .sort({ date: -1 })
-      .then((items) => res.json(items));
-  }
-});
- // end class ----status change (in bookings: booked to cancel)
+// router.get("/session", (req, res) => {
+//   let _id = req.query.id;
+//   console.log(_id,"ID");
+//   console.log("in session")
+//   let sessionvalue=req.query.sessionValue;
+//   console.log(sessionvalue,"SV");
+//  if(sessionvalue=="true"){
+//    UserSession.find({ _id })
+//    .sort({ date: -1 })
+//    .then((items) => res.json(items));}
+// });
+// end class ----status change (in bookings: booked to cancel)
 router.put("/cancel", function (req, res) {
   var id = req.query.id;
-  var buttonid = req.query.buttonid;
+  var classid = req.query.classid;
   console.log("hiii2");
-  console.log(buttonid);
+  console.log(classid);
   Users.updateOne(
-    { "mybookings._id": new ObjectId(buttonid) },
+    { "mybookings.Classid": classid },
     { $set: { "mybookings.$.Status": "Cancelled" } },
 
     function (err, foundObject) {
@@ -197,11 +198,11 @@ router.put("/cancel", function (req, res) {
 //cancel from teacher side
 router.put("/cancel2", function (req, res) {
   var teacherid = req.query.id;
-  var buttonid = req.query.buttonid;
+  var classid = req.query.classid;
   // console.log("hiii2");
-  // console.log(buttonid);
+  console.log(classid);
   Users.updateOne(
-    { "mybookings.classid": new ObjectId(buttonid) },
+    { "mybookings.Classid": classid },
     { $set: { "mybookings.$.Status": "Cancelled" } },
 
     function (err, foundObject) {
@@ -210,6 +211,7 @@ router.put("/cancel2", function (req, res) {
       } else {
         //  console.log(foundObject,"ans");
         // console.log("statusupdates");
+        console.log("teacher cancelled ");
       }
     }
   );

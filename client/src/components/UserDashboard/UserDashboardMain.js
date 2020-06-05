@@ -26,6 +26,8 @@ function UserDashboardMain(props) {
   const [searchedday, setDay] = useState("");
 
   var buttonid2;
+  var scheduleid;
+  var classid;
   var id;
   console.log(name);
   console.log("ID:");
@@ -43,59 +45,51 @@ function UserDashboardMain(props) {
     }
   }
 
-  function cancelClass(classid, id2) {
-    buttonid2 = classid;
-    id = id2;
+  function cancelClass(cid, sid) {
+    classid = cid;
+    scheduleid = sid;
     cancelTeacher();
     cancelStudent();
     book();
     refreshPage();
   }
-    function cancelClass(classid, id2) {
-      buttonid2 = classid;
-      id = id2;
-      cancelTeacher();
-      cancelStudent();
-      book();
-      refreshPage();
+  async function cancelTeacher() {
+    try {
+      const response = await axios.put(
+        `/api/teachers/cancel2?id=${uid}&classid=${classid}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
     }
-    async function cancelTeacher() {
-      try {
-        const response = await axios.put(
-          `/api/teachers/cancel2?id=${id}&buttonid=${buttonid2}`
-        );
-        setValue(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    async function cancelStudent() {
-      try {
-        const response = await axios.put(
-          `/api/users/cancel?id=${uid}&buttonid=${id}`
-        );
-        setValue(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    async function book() {
-      try {
-        const response = await axios.put(
-          `/api/teachers/book2?id=${uid}&buttonid=${buttonid2}`
-        );
-        setValue(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  async function getSomething2() {
-    // bookfunction();
-    refreshPage();
   }
+  async function cancelStudent() {
+    try {
+      const response = await axios.put(
+        `/api/users/cancel?id=${uid}&classid=${classid}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function book() {
+    try {
+      const response = await axios.put(
+        `/api/teachers/book2?id=${uid}&scheduleid=${scheduleid}`
+      );
+      setValue(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  // async function getSomething2() {
+  //   // bookfunction();
+  //   refreshPage();
+  // }
   // async function bookfunction() {
   //   try {
   //     const response = await axios.put(
@@ -373,8 +367,8 @@ function UserDashboardMain(props) {
                                               class="cancelbutton"
                                               onClick={() => {
                                                 cancelClass(
-                                                  data2.classid,
-                                                  data2._id
+                                                  data2.Classid,
+                                                  data2.classid
                                                 );
                                               }}
                                             >

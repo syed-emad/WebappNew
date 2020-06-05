@@ -33,6 +33,10 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
+  City:{
+    type: String,
+    required: false,
+  },
   Qualification: {
     type: String,
     required: false,
@@ -41,7 +45,10 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
-
+  ProfileImage:{
+    type: Buffer,
+    required:false,
+  },
   About: {
     type: String,
     required: false,
@@ -66,13 +73,9 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
-  bookings: [],
+  bookings: [ ],
   schedule: [],
   emad: [],
-  City: {
-    type: String,
-    required: false,
-  },
 });
 
 module.exports = Teacher = mongoose.model("teacher", TeacherSchema);

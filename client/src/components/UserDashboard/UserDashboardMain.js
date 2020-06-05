@@ -24,7 +24,7 @@ function UserDashboardMain(props) {
   const [searchedprice, setPrice] = useState("");
   const [searchedtime, setTime] = useState("");
   const [searchedday, setDay] = useState("");
-
+ 
   var buttonid2;
   var scheduleid;
   var classid;
@@ -44,16 +44,16 @@ function UserDashboardMain(props) {
       console.error(error);
     }
   }
-
-  function cancelClass(cid, sid) {
-    classid = cid;
-    scheduleid = sid;
+  
+  function cancelClass(cid,sid){
+    classid=cid;
+    scheduleid=sid;
     cancelTeacher();
     cancelStudent();
     book();
     refreshPage();
   }
-  async function cancelTeacher() {
+  async function cancelTeacher(){
     try {
       const response = await axios.put(
         `/api/teachers/cancel2?id=${uid}&classid=${classid}`
@@ -63,8 +63,9 @@ function UserDashboardMain(props) {
     } catch (error) {
       console.error(error);
     }
+
   }
-  async function cancelStudent() {
+  async function cancelStudent(){
     try {
       const response = await axios.put(
         `/api/users/cancel?id=${uid}&classid=${classid}`
@@ -74,8 +75,9 @@ function UserDashboardMain(props) {
     } catch (error) {
       console.error(error);
     }
+
   }
-  async function book() {
+  async function book(){
     try {
       const response = await axios.put(
         `/api/teachers/book2?id=${uid}&scheduleid=${scheduleid}`
@@ -275,6 +277,7 @@ function UserDashboardMain(props) {
                           <table>
                             <thead>
                               <tr className="row100 head">
+                              
                                 <th className="cell100 column1">
                                   Teacher name
                                 </th>
@@ -282,22 +285,13 @@ function UserDashboardMain(props) {
                                 <th className="cell100 column2">Time</th>
                                 {/* <th className="cell100 column4">Day</th> */}
                                 <th className="cell100 column5">Date</th>
-                                <th
-                                  className="cell100 column5"
-                                  style={{ paddingLeft: "25px" }}
-                                >
-                                  {" "}
-                                  Price
-                                </th>
-                                <th
-                                  className="cell100 column2"
-                                  style={{ paddingLeft: "20px" }}
-                                >
+                                <th className="cell100 column5"style={{paddingLeft:"25px"}}> Price</th>
+                                <th className="cell100 column2" style={{paddingLeft:"20px"}}>
                                   {" "}
                                   ClassID
                                 </th>{" "}
-                                <th className="cell100 column2"> </th>
-                                <th className="cell100 column2"> </th>
+                                <th className="cell100 column2">  </th>
+                                <th className="cell100 column2">  </th>
                               </tr>
                             </thead>
                           </table>
@@ -321,65 +315,60 @@ function UserDashboardMain(props) {
                                       {/* <td className="cell100 column4">
                                         {data2.Day}
                                       </td> */}
-                                      <td
-                                        className="cell100 column2"
-                                        style={{ paddingLeft: "30px" }}
-                                      >
+                                      <td className="cell100 column2" style={{paddingLeft:"30px"}}>
                                         {data2.Date} ({data2.Day})
                                       </td>{" "}
-                                      <td
-                                        className="cell100 column7"
-                                        style={{ paddingLeft: "30px" }}
-                                      >
+                                      <td className="cell100 column7" style={{paddingLeft:"30px"}}>
                                         {data2.Price}
                                       </td>{" "}
                                       <td className="cell100 column2">
                                         {data2.Classid}
                                       </td>
                                       <td className="cell100 column3">
-                                        <If
-                                          condition={data2.Status == "Booked"}
+                                      <If
+                                           condition={
+                                            data2.Status == "Booked"
+                                            }
                                         >
                                           <Then>
-                                            <Link
-                                              to={`./VideoStyle?username=${name}&bookingid=${data2._id}&teacherid=${uid}`}
-                                            >
-                                              <button class="newbuttonx">
-                                                Start Class
-                                              </button>
-                                            </Link>
-                                          </Then>
-                                          <Else>
-                                            {/* <button class="newbuttonx" disabled> 
+                                        <Link
+                                           to={`./VideoStyle?name=${name}&room=${data2.Classid}`}
+                                        >
+                                          <button class="newbuttonx">
+                                            Start Class
+                                          </button>
+                                        </Link>
+                                        </Then>
+                                        <Else>
+                                        {/* <button class="newbuttonx" disabled> 
                                             Start Class
                                           </button> */}
-                                          </Else>
+                                        </Else>
                                         </If>
                                       </td>
                                       <td className="cell100 column3">
                                         {/* {data2.Status} */}
 
                                         <If
-                                          condition={data2.Status == "Booked"}
+                                           condition={
+                                            data2.Status == "Booked"
+                                            }
                                         >
                                           <Then>
-                                            <button
-                                              class="cancelbutton"
-                                              onClick={() => {
-                                                cancelClass(
-                                                  data2.Classid,
-                                                  data2.classid
-                                                );
-                                              }}
-                                            >
-                                              Cancel
-                                            </button>
-                                          </Then>
-                                          <Else>
-                                            <button class="cancelled" disabled>
-                                              {data2.Status}
-                                            </button>
-                                          </Else>
+                                        <button 
+                                        class="cancelbutton"
+                                        onClick={() => {
+                                          cancelClass(data2.Classid,data2.classid);
+                                         }}
+                                        >
+                                          Cancel
+                                        </button>
+                                        </Then>
+                                        <Else>
+                                        <button class="cancelled" disabled> 
+                                        {data2.Status}
+                                          </button>
+                                        </Else>
                                         </If>
                                       </td>
                                     </tr>

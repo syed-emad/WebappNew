@@ -1,4 +1,3 @@
-
 import "./Checkout.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -20,6 +19,7 @@ var day = url.searchParams.get("Day");
 var datenew = url.searchParams.get("Date");
 var time = url.searchParams.get("Time");
 var teachername = url.searchParams.get("teachername");
+var price= url.searchParams.get("Price");
 const [CardName, setCardName] = useState("");
 const [CardNumber, setCardNumber] = useState("");
 const [ExpiryMonth, setCardExpiryMonth] = useState("");
@@ -72,7 +72,7 @@ console.error(error);
  async function confirmbook() {
 try {
 const response = await axios.put(
-`/api/teachers/booked?id=${id}&index=${"1"}&buttonid=${bookingid}&Subject=${subject}&Day=${day}&Date=${datenew}&Time=${time}&userid=${userid}&username=${username}&classid=${classid}`
+`/api/teachers/booked?id=${id}&index=${"1"}&buttonid=${bookingid}&Subject=${subject}&Price=${price}&Day=${day}&Date=${datenew}&Time=${time}&userid=${userid}&username=${username}&classid=${classid}`
 );
 setValue(response.data);
 console.log(response.data);
@@ -84,7 +84,7 @@ console.error(error);
 async function userbooking() {
   try {
     const response = await axios.put(
-      `/api/users/classbooked?id=${id}&buttonid=${bookingid}&teachername=${teachername}&Subject=${subject}&Day=${day}&Date=${datenew}&Time=${time}&userid=${userid}&username=${username}&classid=${classid}`
+      `/api/users/classbooked?id=${id}&buttonid=${bookingid}&teachername=${teachername}&Price=${price}&Subject=${subject}&Day=${day}&Date=${datenew}&Time=${time}&userid=${userid}&username=${username}&classid=${classid}`
     );
     setValue(response.data);
     console.log(response.data);

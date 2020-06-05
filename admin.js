@@ -6,8 +6,7 @@ const mongoose = require("mongoose");
 
 const User = require("./models/Users");
 const Teacher = require("./models/Teachers");
-const Item = require("./models/Item");
-
+ 
 AdminBro.registerAdapter(AdminBroMongoose);
 
 const adminBro = new AdminBro({
@@ -39,14 +38,7 @@ const adminBro = new AdminBro({
         },
       },
     },
-    {
-      resource: Item,
-      options: {
-        name: {
-          isVisible: { list: true, filter: true, show: true, edit: true },
-        },
-      },
-    },
+    
   ],
   branding: {
     logo: "images/logo.png",

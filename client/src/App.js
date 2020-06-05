@@ -21,7 +21,7 @@ import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
 import PublicRouteDashboard from "./Utils/PublicRouteDashboard"
 import search2 from "./components/SearchResult/search2";
 import TP from "./components/TeacherProfile/TeachersProfile";
-import TF from "./components/TeacherForm/TeacherForm";
+
 import DashboardMain from "./components/TeacherDashboard/DashboardMain";
 import TeacherLogin from "./components/TeacherLogin/TeacherLogin"; 
 import PublicRoute22 from "./Utils/PublicRoute22";
@@ -79,8 +79,11 @@ function App() {
               <PublicRoute22 exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
-              <PublicRoute exact path="/TF" component={TF} />
+ 
               <PublicRoute exact path="/teachersignup" component={TeacherFinal} />
+
+             
+
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"

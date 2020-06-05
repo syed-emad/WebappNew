@@ -127,7 +127,7 @@ function TeachersProfile() {
                                 fontStretch: "1px",
                               }}
                             >
-                              {data.City}
+                             {data.City}
                             </p>
                             <a className="newbutton" href="#table">
                               Free Demo
@@ -257,7 +257,9 @@ function TeachersProfile() {
                                     Language:
                                   </strong>
                                 </div>
-                                <div className="col-sm-8">English, Urdu</div>
+                                <div className="col-sm-8">
+                                  English, Urdu
+                                </div>
                               </div>
                             </div>
                           </div>

@@ -7,7 +7,7 @@ function Success(props) {
   };
   {
     return (
-      <div class="row" style={{ background: "black", marginTop: "10px" }}>
+      <div class="row" style={{ background: "#360f64"}}>
         <div className="modal-dialog modal-confirm">
           <div className="modal-content">
             <div className="modal-header">

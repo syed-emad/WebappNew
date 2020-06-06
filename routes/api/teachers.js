@@ -365,7 +365,7 @@ router.put("/cancel", function (req, res) {
 });
 //cancel booking from userside
 router.put("/cancel2", function (req, res) {
-  var classid = req.query.id;  //classid or teacher booking id
+  var id = req.query.id;  //classid or teacher booking id
   var classid = req.query.classid;
   // console.log("cancel");
   // console.log(buttonid);

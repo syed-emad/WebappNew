@@ -167,14 +167,14 @@ function UserDashboardMain(props) {
                       Messages
                     </a>
                   </li>
-                  <li>
-                    {/* <Link to={`/TeacherDashboard?name=${data.name}&id=${data._id}/schedule`}> */}
+                  {/* <li>
+                    
                     <a href="#schedule">
                       <i className="fa fa-calendar" />
                       My Schedule
                     </a>
-                    {/* </Link> */}
-                  </li>
+                    
+                  </li> */}
                   <li>
                     <a href="#bookings">
                       <i className="fa fa-address-book" />

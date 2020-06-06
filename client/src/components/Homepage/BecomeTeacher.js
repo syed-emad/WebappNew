@@ -42,6 +42,10 @@ export default class BecomeTeacher extends Component {
                   </div>
                   <div className="button cta_button" id="becomeatutor">
                     <a href="/teachersignup">Apply Now</a>
+                    
+                  </div>
+                  <div>
+                    <a style={{ color: "white" }} href="/TeacherLogin" >Already have an account? Login</a>
                   </div>
                 </div>
               </div>

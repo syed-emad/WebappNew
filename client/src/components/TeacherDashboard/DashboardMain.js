@@ -235,34 +235,38 @@ const Teacher = getUser();
           </div>
           <div className="info">
             <div className="row">
-              <div className="col lg-6">
-                <div className="card" style={{height:"100px",width:"90%",margin:"50px", backgroundColor:"#360f64"}}>
+              <div className="col-6">
+                <div className="card" style={{height:"100px",width:"70%",marginTop:"50px", marginLeft:"100px", backgroundColor:"#594f8d"}}>
                   <div className="card-body">
-                    <div className="d-flex row">
-                      <div className="col-3">
-                          <i className="fa  fa-star"></i>
+                    <div className="d-flex row" style={{paddingLeft:"20px", paddingTop:"15px"}}>  
+                    <div style={{ paddingRight:"15px"}}>
+                        <i className="fa  fa-star fa-2x" style={{color:"white"}}></i>
                       </div>
-                      <div className="col-5">
-                        <h5>Rating: </h5>
-                        <p>{data.Rating}</p>
-                      </div>
+                      <div style={{ paddingTop:"5px"}}>
+                        <h5 
+                        style={{fontFamily:"Montserrat", color:"white"}}
+                        >Rating: {data.Rating}</h5>
+               
+                     </div>
                     </div>
                   </div>
 
                 </div>
               </div>
               
-              <div className="col lg-6">
-                <div className="card"style={{height:"100px",width:"90%",margin:"50px", backgroundColor:"#360f64"}}>
+              <div className="col-6">
+                <div className="card"style={{height:"100px",width:"70%",marginTop:"50px", marginLeft:"60px",marginRight:"60px", backgroundColor:"#594f8d"}}>
                   <div className="card-body">
-                    <div className="d-flex row">
-                      <div className="col-3">
-                          <i className="fa  fa-star"></i>
+                    <div className="d-flex row" style={{paddingLeft:"30px", paddingTop:"15px"}}>
+                    <div style={{ paddingRight:"15px"}}>
+                        <i className="fa  fa-star fa-2x" style={{color:"white"}}></i>
                       </div>
-                      <div className="col-5">
-                        <h5>Rating: </h5>
-                        <p>{data.Rating}</p>
-                      </div>
+                      <div style={{ paddingTop:"5px"}}>
+                        <h5
+                        style={{fontFamily:"Montserrat", color:"white"}}
+                        >Total Earnings: Rs. {data.totalEarnings}</h5>
+                        
+                        </div>
                     </div>
                   </div>
 
@@ -271,6 +275,20 @@ const Teacher = getUser();
               </div>
 
             </div>
+            {/* <div>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
+              nobis ut exercitationem atque accusamus sit natus officiis totam
+              blanditiis at eum nemo, nulla et quae eius culpa eveniet
+              voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio
+              perferendis itaque alias sint, beatae non maiores magnam ad,
+              veniam tenetur atque ea exercitationem earum eveniet totam ipsam
+              magni tempora aliquid ullam possimus? Tempora nobis facere porro,
+              praesentium magnam provident accusamus temporibus! Repellendus
+              harum veritatis itaque molestias repudiandae ea corporis maiores
+              non obcaecati libero, unde ipsum consequuntur aut consectetur
+              culpa magni omnis vero odio suscipit vitae dolor quod dignissimos
+              perferendis eos? Consequuntur!
+            </div> */}
             <div>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
               nobis ut exercitationem atque accusamus sit natus officiis totam
@@ -284,26 +302,15 @@ const Teacher = getUser();
               non obcaecati libero, unde ipsum consequuntur aut consectetur
               culpa magni omnis vero odio suscipit vitae dolor quod dignissimos
               perferendis eos? Consequuntur!
-            </div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
-              nobis ut exercitationem atque accusamus sit natus officiis totam
-              blanditiis at eum nemo, nulla et quae eius culpa eveniet
-              voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio
-              perferendis itaque alias sint, beatae non maiores magnam ad,
-              veniam tenetur atque ea exercitationem earum eveniet totam ipsam
-              magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-              praesentium magnam provident accusamus temporibus! Repellendus
-              harum veritatis itaque molestias repudiandae ea corporis maiores
-              non obcaecati libero, unde ipsum consequuntur aut consectetur
-              culpa magni omnis vero odio suscipit vitae dolor quod dignissimos
-              perferendis eos? Consequuntur!
-              <br></br>
+              </div>
+              </div> 
               <br></br>
               <hr></hr>
 
     <div id ="schedule" className="schedule">
-    
+    <h3 className=" text-center" style={{ margin: "30px" }}>
+                              Make My Schedule
+                            </h3>
     {/* add schedule bar */}
     <FadeIn>
         <div className="home2" >
@@ -406,6 +413,7 @@ const Teacher = getUser();
         </div>
       </FadeIn>
       </div>    
+      <br/><br/>
           <div className="" id="table">
           
                         
@@ -511,7 +519,7 @@ const Teacher = getUser();
                             </div>
                           </div>
                        
-             
+                          <br/><br/>
               {/* <Table /> */}
               <div id="bookings" className="bookings">
                       <h3 className=" text-center" style={{ margin: "30px" }}>
@@ -626,8 +634,8 @@ const Teacher = getUser();
                     </div>
 
                     <br/> <br/><br/><br/>
-            </div>
-          </div>
+            
+          
         </div>
       </div>
           );

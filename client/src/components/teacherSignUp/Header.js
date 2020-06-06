@@ -29,10 +29,10 @@ export default class Header extends Component {
               <div className="log_reg">
                 <ul className="d-flex flex-row align-items-center justify-content-start">
                   <li>
-                    <a href="/login-teacher">Login </a>
+                    <a href="/TeacherLogin">Login </a>
                   </li>
                   <li>
-                    <a href="/TeacherSignup">Register</a>
+                    <a href="/teachersignup">Register</a>
                   </li>
                 </ul>
               </div>

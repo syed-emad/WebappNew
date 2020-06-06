@@ -554,7 +554,7 @@ const Teacher = getUser();
                                         >
                                           <Then>
                                         <Link
-                                          to={`./VideoStyle?username=${name}&bookingid=${data2._id}&teacherid=${id}`}
+                                          to={`./VideoStyle?name=${name}&room=${data2.Classid}`}
                                         >
                                           <button class="newbuttonx">
                                             Start Class
@@ -601,6 +601,8 @@ const Teacher = getUser();
                         </div>
                       </div>
                     </div>
+
+                    <br/> <br/><br/><br/>
             </div>
           </div>
         </div>

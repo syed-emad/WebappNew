@@ -231,7 +231,7 @@ router.put("/nottoube", function (req, res) {
      Day: req.query.day,
      Date: req.query.date,
      Time: req.query.time,
-     Price: req.query.price,
+     Price: req.query.Price,
      Status: "Book",
    };
    console.log(data);
@@ -263,7 +263,7 @@ router.put("/nottoube", function (req, res) {
 router.put("/booked", function (req, res) {
   var id = req.query.id;
   var buttonid = req.query.buttonid;
-  console.log("bookid",buttonid);
+  //console.log("bookid",buttonid);
   console.log(req.query.index, "index");
   console.log("buttonid:", buttonid);
  

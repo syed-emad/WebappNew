@@ -90,7 +90,7 @@ function TeacherLogin(props) {
                 <a className="txt2">Username / Password?</a>
               </div>
               <div className="text-center p-t-136">
-                <a className="txt2" href="\Register">
+                <a className="txt2" href="/teachersignup">
                   Create your Account
                   <i
                     className="fa fa-long-arrow-right m-l-5"

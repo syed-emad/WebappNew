@@ -28,11 +28,9 @@ app.use(bodyParser.json());
 app.use(express.json());
 const Users = require("./models/Users");
 const Teachers = require("./models/Teachers");
-//const usersession=require("./models/UserSession");
+const usersession=require("./models/UserSession");
 //DB Config
 const db = config.get("mongoURI");
-
-
 //Connect to Mongo
 mongoose
   .connect(db, {
@@ -147,8 +145,8 @@ app.post("/x/signin", (req, res) => {
           message: "Auth failed,incorrect password",
         });
       });
-      // const  session = new usersession({ name: user.name,email:user.email,isSession:true });
-      // session.save().then((X) => res.json(X));
+      const  session = new usersession({ name: user.name,email:user.email,isSession:true });
+      session.save().then((X) => res.json(X));
 
     })
      
@@ -231,26 +229,13 @@ app.get("/verifyToken", function (req, res) {
   });
 });
 
-// app.use((error, req, res, next) => {
-//   if (req.file) {
-//     fs.unlink(req.file.path, err => {
-//       console.log(err);
-//       console.log('neha');
-//     });
-//   }
-//   if (res.headerSent) {
-//     return next(error);
-//   }
-//   res.status(error.code || 500);
-//   res.json({ message: error.message || 'An unknown error occurred!' });
-// });
 
 const http = require("http");
  
 const socketio = require("socket.io");
  
 
-//const { addUser, removeUser, getUser, getUsersInRoom } = require("./routes/api/userfunctions");
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./routes/api/userfunctions");
 
 const router = require("./router");
 

@@ -332,7 +332,7 @@ function UserDashboardMain(props) {
                                         >
                                           <Then>
                                         <Link
-                                          to={`./VideoStyle?username=${name}&bookingid=${data2._id}&teacherid=${uid}`}
+                                           to={`./VideoStyle?name=${name}&room=${data2.Classid}`}
                                         >
                                           <button class="newbuttonx">
                                             Start Class

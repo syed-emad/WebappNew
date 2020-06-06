@@ -164,11 +164,11 @@ function Search() {
                       <p>{data.About}</p>
                       <div class=" ">
                         <Link to={`/TeachersProfile?id=${data._id}`}>
-                          <button className="buttonx43">Book</button>
+                          <button className="buttonx43">Free Demo</button>
                         </Link>
-                        <Link>
+                        {/* <Link>
                           <button className="buttonx43">Message</button>
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                   </div>

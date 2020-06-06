@@ -132,7 +132,7 @@ router.put("/classbooked", function (req, res) {
     Day: req.query.Day,
     Date: req.query.Date,
     Time: req.query.Time,
-    Price: req.query.price,
+    Price: req.query.Price,
     Status: "Booked",
     Classid:req.query.classid,
   };

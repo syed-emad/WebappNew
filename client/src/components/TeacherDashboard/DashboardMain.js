@@ -164,7 +164,7 @@ const Teacher = getUser();
           <br></br>
           <ul>
             <li>
-              <a href="#">
+              <a href="/">
                 <i className="fa fa-home" />
                 Home
               </a>
@@ -234,19 +234,42 @@ const Teacher = getUser();
             </div>
           </div>
           <div className="info">
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
-              nobis ut exercitationem atque accusamus sit natus officiis totam
-              blanditiis at eum nemo, nulla et quae eius culpa eveniet
-              voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio
-              perferendis itaque alias sint, beatae non maiores magnam ad,
-              veniam tenetur atque ea exercitationem earum eveniet totam ipsam
-              magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-              praesentium magnam provident accusamus temporibus! Repellendus
-              harum veritatis itaque molestias repudiandae ea corporis maiores
-              non obcaecati libero, unde ipsum consequuntur aut consectetur
-              culpa magni omnis vero odio suscipit vitae dolor quod dignissimos
-              perferendis eos? Consequuntur!
+            <div className="row">
+              <div className="col lg-6">
+                <div className="card" style={{height:"100px",width:"90%",margin:"50px", backgroundColor:"#360f64"}}>
+                  <div className="card-body">
+                    <div className="d-flex row">
+                      <div className="col-3">
+                          <i className="fa  fa-star"></i>
+                      </div>
+                      <div className="col-5">
+                        <h5>Rating: </h5>
+                        <p>{data.Rating}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              
+              <div className="col lg-6">
+                <div className="card"style={{height:"100px",width:"90%",margin:"50px", backgroundColor:"#360f64"}}>
+                  <div className="card-body">
+                    <div className="d-flex row">
+                      <div className="col-3">
+                          <i className="fa  fa-star"></i>
+                      </div>
+                      <div className="col-5">
+                        <h5>Rating: </h5>
+                        <p>{data.Rating}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
             <div>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed
@@ -341,8 +364,8 @@ const Teacher = getUser();
                             <option value="12:00am-3:00am">
                               12:00am-3:00am
                             </option>
-                            <option value="3:00pm-6:00am">3:00pm-6:00am</option>
-                            <option value="6:00pm-9:00am">6:00pm-9:00am</option>
+                            <option value="3:00am-6:00am">3:00am-6:00am</option>
+                            <option value="6:00am-9:00am">6:00am-9:00am</option>
                             <option value="9:00am-12:00pm">
                               9:00am-12:00pm
                             </option>

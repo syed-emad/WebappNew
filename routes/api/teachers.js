@@ -5,6 +5,9 @@ const db = require("../../server").getDB;
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const multer =require("multer");
+
+const upload= require("../../middleware/file-upload")
 //item model
 const Teacher = require("../../models/Teachers");
 
@@ -17,10 +20,10 @@ router.get("/", (req, res) => {
 router.get("/search", (req, res) => {
   let Qualification = req.query.name;
   let Price = req.query.price;
-  console.log(Price);
+  //console.log(Price);
   //let name = "Ali Aman";
   //req.query.name;
-  console.log("yahya");
+  console.log("search");
 
   //console.log(req.query.name);
   if (!Qualification) {
@@ -35,10 +38,7 @@ router.get("/search", (req, res) => {
 });
 
 router.get("/searchbyid", (req, res) => {
-  let _id = req.query.id;
-
-  //let name = "Ali Aman";
-  //req.query.name;
+   _id = req.query.id;
   console.log(_id);
   //console.log(req.query.name);
   if (_id) {
@@ -51,14 +51,12 @@ router.get("/searchbyid", (req, res) => {
 });
 
 router.get("/dash", (req, res) => {
-  _id = req.query.id;
+  let _id = req.query.id;
 
   console.log(_id);
   let Price = req.query.price;
-  console.log(Price);
-  //let name = "Ali Aman";
-  //req.query.name;
-  console.log("yahya");
+  //console.log(Price);
+  console.log("found teacher");
 
   //console.log(req.query.name);
   if (!_id) {
@@ -81,7 +79,7 @@ router.get("/search2", (req, res) => {
   let DayTime = Day + sep + Time;
   //let name = "Ali Aman";
   //req.query.name;
-  console.log("emad");
+  console.log("search query:");
   console.log(DayTime);
   console.log(Qualification);
   console.log(Time);
@@ -112,25 +110,24 @@ router.get("/search2", (req, res) => {
 });
 
 //Post method teac
-router.post("/", (req, res) => {
+router.post("/", upload.single('ProfileImage') ,(req, res) => {
   console.log(req.body);
-  var data = {
-    username: "emad",
-    amount: 0,
-  };
+  console.log(req.file)
+  
   const newTeacher = new Teacher({
     name: req.body.name,
-    Qualification: req.body.Qualification,
-    Qualification2: req.body.Qualification,
-    Rating: req.body.Rating,
-    About: req.body.About,
-    Price: req.body.Price,
-    DayTime: req.body.DayTime,
-    Day: req.body.Day,
-    Time: req.body.Time,
     email: req.body.email,
     password: req.body.password,
-    bookings: data,
+    ProfileImage: req.file.path,
+    //Qualification: req.body.Qualification,
+    // Qualification2: req.body.Qualification,
+    // Rating: req.body.Rating,
+    // About: req.body.About,
+    // Price: req.body.Price,
+    // DayTime: req.body.DayTime,
+    // Day: req.body.Day,
+    // Time: req.body.Time,
+    //bookings: data,
   });
 
   newTeacher.save().then((teacher) => res.json(teacher));
@@ -231,7 +228,7 @@ router.put("/nottoube", function (req, res) {
      Day: req.query.day,
      Date: req.query.date,
      Time: req.query.time,
-     Price: req.query.Price,
+     Price: req.query.price,
      Status: "Book",
    };
    console.log(data);
@@ -250,6 +247,10 @@ router.put("/nottoube", function (req, res) {
                if (err) {
                  console.log(err);
                } else {
+                res.status(200).json({
+                  message: 'schedule added',
+                  
+              });
                  console.log("Success");
                }
              }
@@ -330,6 +331,10 @@ router.delete("/delete", function (req, res) {
       if (err) {
         console.log(err);
       } else {
+        res.status(200).json({
+          message: 'Schedule deleted',
+          
+      });
         console.log(foundObject, "ans");
         console.log("statusupdates");
       }
@@ -558,4 +563,6 @@ router.post("/asb", (req, res) => {
       });
     }); //.catch ends
 });
+
+
 module.exports = router;

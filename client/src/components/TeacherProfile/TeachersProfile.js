@@ -113,8 +113,9 @@ function TeachersProfile() {
                         />
                         <div className="container">
                           <div className="content-center">
-                            <div className="cc-profile-image">
+                            <div className="cc-profile-image"> 
                               <a href="#">
+                               
                                 <img src="images/anthony.jpg" alt="Image" />
                               </a>
                             </div>

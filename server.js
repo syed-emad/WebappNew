@@ -26,6 +26,9 @@ app.use(cors());
 app.use(bodyParser.json());
 //Bodyparser Middleware
 app.use(express.json());
+
+app.use('/uploads',express.static('uploads')); //makes this folder publicly available
+
 const Users = require("./models/Users");
 const Teachers = require("./models/Teachers");
 const usersession=require("./models/UserSession");

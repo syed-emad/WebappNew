@@ -49,7 +49,7 @@ const adminBro = new AdminBro({
     },
   ],
   branding: {
-    logo: "images/logo.png",
+    logo: "logo.png",
     companyName: "Professor",
     softwareBrothers: false, // if Software Brothers logos should be shown in the sidebar footer
   },

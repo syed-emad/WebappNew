@@ -72,6 +72,7 @@ router.get("/dash", (req, res) => {
 
 router.get("/search2", (req, res) => {
   let Qualification = req.query.name;
+  // let Qualification2 = req.query.name;
   let Price = req.query.price;
   let Time = req.query.time;
   let Day = req.query.day;
@@ -80,30 +81,64 @@ router.get("/search2", (req, res) => {
   //let name = "Ali Aman";
   //req.query.name;
   console.log("search query:");
-  console.log(DayTime);
+  console.log(Price);
   console.log(Qualification);
+  // console.log(Qualification2);
   console.log(Time);
   console.log(Day);
   console.log("---");
   //console.log(req.query.name);
-  if (!Qualification && !Price && !Day && !Time) {
+  if (!Qualification  && !Price && !Day && !Time) {
     Teacher.find({})
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
   } else if (Qualification && !Price && !Day && !Time) {
-    Teacher.find({ Qualification })
+    Teacher.find({$or :[{ 'Qualification':Qualification } , { 'Qualification2':Qualification}]})
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
-  } else if (Qualification && Price && !Day && !Time) {
-    Teacher.find({ Qualification, Price })
+     
+  }
+   else if (Qualification && Price && !Day && !Time) {
+    Teacher.find({$and:[
+      {$or :[{ 'Qualification':Qualification } , { 'Qualification2':Qualification}]},{'Price':Price}]})
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
-  } else if (Qualification && Price && Day && !Time) {
-    Teacher.find({ Qualification, Price, Day })
+  }
+
+  else if (Qualification && Price && Day && !Time) {
+    Teacher.find({$and:[
+      {$or :[{ 'Qualification':Qualification } , { 'Qualification2':Qualification}]},{'Price':Price}, {'Day':Day}]})
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
-  } else if (Qualification && Price && !Day && Time) {
-    Teacher.find({ Qualification, Price, Time })
+  }
+  
+   else if (Qualification && Price && !Day && Time) {
+    Teacher.find({$and:[
+      {$or :[{ 'Qualification':Qualification } , { 'Qualification2':Qualification}]},{'Price':Price}, {'Time':Time}]})
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  }
+  else if (Qualification && Price && Day && Time) {
+    Teacher.find({$and:[
+      {$or :[{ 'Qualification':Qualification } , { 'Qualification2':Qualification}]},{'Price':Price}, {'Day':Day}, {'Time':Time}]})
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  }
+  else if (Qualification && !Price && Day && Time) {
+    Teacher.find({$and:[
+      {$or :[{ 'Qualification':Qualification } , { 'Qualification2':Qualification}]}, {'Day':Day}, {'Time':Time}]})
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  }
+  else if (Qualification && !Price && !Day && Time) {
+    Teacher.find({$and:[
+      {$or :[{ 'Qualification':Qualification } , { 'Qualification2':Qualification}]}, {'Time':Time}]})
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  }
+  else if (Qualification && !Price && Day && !Time) {
+    Teacher.find({$and:[
+      {$or :[{ 'Qualification':Qualification } , { 'Qualification2':Qualification}]}, {'Day':Day}]})
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
   }
@@ -428,11 +463,11 @@ router.put("/book2", function (req, res) {
 // end class ----status change (in bookings: booked to completed)
 router.put("/end",function(req,res){
   var id = req.query.id;
-  var buttonid = req.query.buttonid;
-  console.log("hiii2");
-  console.log(buttonid);
+  var classid = req.query.room;
+  console.log("end class api");
+  console.log(classid);
   Teacher.updateOne(
-    {   "bookings._id": buttonid} ,
+    {   "bookings.Classid": classid} ,
     { $set: { "bookings.$.Status": "Completed" }}, 
     
 
@@ -441,7 +476,7 @@ router.put("/end",function(req,res){
         console.log(err);
       } else {
         //  console.log(foundObject,"ans");
-        // console.log("statusupdates");
+        console.log("booking status=completed in teacher");
        
       }
     }

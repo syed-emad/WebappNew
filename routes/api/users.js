@@ -143,7 +143,8 @@ router.put("/classbooked", function (req, res) {
     } else {
       if (!foundObject) {
         console.log(err);
-      } else {
+      } 
+      else {
         if (req.query.id) {console.log("Hi");
           Users.updateOne(
             { _id: new ObjectId(id) },

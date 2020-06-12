@@ -67,7 +67,6 @@ class Style extends Component {
             </div>{" "}
           </div>{" "}
         </div>{" "}
-      
         <Link
           to={`/functionalpage?classid=${this.room}&bookingid=${this.bookingid}`}
         >

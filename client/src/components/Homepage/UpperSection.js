@@ -19,16 +19,28 @@ const UpperSection = () => {
               <div className="menu_close">close</div>
               <nav className="menu_nav">
                 <ul>
-                  <li>
-                    <a href="index.html">Home</a>
+                  <li className="active">
+                    <a href="#">Home</a>
                   </li>
                   <li>
-                    <a href="#">About us</a>
+                    <a href="#aboutus">About us</a>
+                  </li>
+                  <li>
+                    <a href="#howitworks">How it works?</a>
+                  </li>
+                  <li>
+                    <Link to={`/search?name=${searchedsubject}`}>
+                      {" "}
+                      <a href="#">Find a Tutor</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <a href="#becomeatutor">Become a Tutor</a>
                   </li>
                 </ul>
               </nav>
               <div className="menu_link">
-                <a href="#">+Add Listing</a>
+                 
               </div>
             </div>
           </div>
@@ -61,10 +73,10 @@ const UpperSection = () => {
                         <a href="#howitworks">How it works?</a>
                       </li>
                       <li>
-                      <Link to={`/search?name=${searchedsubject}`}>
-                        {" "}
-                        <a href="#">Find a Tutor</a>
-                      </Link>
+                        <Link to={`/search?name=${searchedsubject}`}>
+                          {" "}
+                          <a href="#">Find a Tutor</a>
+                        </Link>
                       </li>
                       <li>
                         <a href="#becomeatutor">Become a Tutor</a>
@@ -74,7 +86,7 @@ const UpperSection = () => {
                   <div className="log_reg">
                     <ul className="d-flex flex-row align-items-center justify-content-start">
                       <li>
-                        <a href="/login">Login </a>
+                        <a href="/logindashboard">Login </a>
                       </li>
                       <li>
                         <a href="/Register">Register</a>

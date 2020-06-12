@@ -33,7 +33,7 @@ const classid = Math.floor(10000 + Math.random() * 90000);
  // handle click event of logout button
  const handleLogout = () => {
    removeUserSession();
-   props.history.push("/");
+   props.history.push("/Success");
  };
 
 async function getSomething() {
@@ -249,7 +249,7 @@ return (
         <br></br>
 
         <button
-          className="search_button"
+        
           style={{
             width: "100%",
             marginbottom: "20px",
@@ -333,7 +333,7 @@ return (
       >
         1hr Class{" "}
         <span className="price">
-          Rs.{data.Price}
+          Rs.{price}
         </span>
       </p>
       <p
@@ -371,7 +371,7 @@ return (
             fontSize: "20px",
           }}
         >
-          <b> Rs.{data.Price}</b>
+          <b> Rs.{price}</b>
         </span>
       </p>
     </div>

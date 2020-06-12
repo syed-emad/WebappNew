@@ -1,9 +1,11 @@
 import React from "react";
 import "./Sucess.css";
-import Footer from "./Footer";
+import {Link} from 'react-router-dom';
+import { getUser, removeUserSession } from "../../Utils/Common";
 function Success(props) {
-  const Gotohome = () => {
-    props.history.push(`/`);
+  const handleLogout = () => {
+    removeUserSession();
+    
   };
   {
     return (
@@ -14,21 +16,24 @@ function Success(props) {
               <div className="icon-box">
                 <i className="fa fa-star"></i>
               </div>
-              <h4 className="modal-title">Awesome!</h4>
+              <h4 className="modal-title">Class Ended!</h4>
             </div>
             <div className="modal-body">
               <p className="text-center">
-                Your booking has been confirmed. Check your email for detials.
+                Hope you had a good experience
               </p>
             </div>
             <div className="modal-footer">
+             <Link to ={`/`}>
               <button
                 className="btn btn-success btn-block"
                 data-dismiss="modal"
-                onClick={Gotohome}
+                style={{width:"100%"}}
+                onClick={handleLogout}
               >
                 Home
-              </button>
+             
+              </button></Link>
             </div>
           </div>
         </div>

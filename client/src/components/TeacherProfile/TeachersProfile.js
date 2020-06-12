@@ -10,6 +10,7 @@ import Table from "./table";
 import { Link } from "react-router-dom";
 import { getUser, removeUserSession } from "../../Utils/Common";
 import Footer from "../CheckoutPage/Footer";
+import Headercopy from "./Header copy"
 const { If, Then, Else } = require("react-if");
 
 function TeachersProfile() {
@@ -95,7 +96,10 @@ function TeachersProfile() {
         value.map((data) => {
           return (
             <div>
-              <div></div>
+              <div>
+                {" "}
+                <Headercopy/>
+              </div>
               <div className="page-content">
                 <div>
                   <div className="profile-page">
@@ -127,7 +131,7 @@ function TeachersProfile() {
                                 fontStretch: "1px",
                               }}
                             >
-                             {data.City}
+                              {data.City}
                             </p>
                             <a className="newbutton" href="#table">
                               Free Demo
@@ -257,9 +261,7 @@ function TeachersProfile() {
                                     Language:
                                   </strong>
                                 </div>
-                                <div className="col-sm-8">
-                                  English, Urdu
-                                </div>
+                                <div className="col-sm-8">English, Urdu</div>
                               </div>
                             </div>
                           </div>

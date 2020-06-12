@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
-import "./DashboardMain.css";
+ 
 import { getUser, removeUserSession } from "../../Utils/Common";
 import { Link } from "react-router-dom";
-import Image from "./Image";
-import Charbox from "./Chatbox/Charbox";
+ 
 import axios from "axios";
-import "./table.css";
+ 
 import FadeIn from "react-fade-in";
 import "../TeacherProfile/Styling/main.css";
 import "../TeacherProfile/Styling/bootstrap.min.css";
 import "../TeacherProfile/Styling/aos.css";
 const { If, Then, Else } = require("react-if");
 
-function DashboardMain(props) {
+function TeacherSchedule(props) {
   var buttonid;
   var classid;
   var buttonid2;
 var url_string = window.location.href;
 var url = new URL(url_string);
 var name = url.searchParams.get("name");
-var id = url.searchParams.get("id");
+var id = url.searchParams.get("id");  var adminname = url.searchParams.get(
+                                        "adminname"
+                                      );
 const [searchedsubject, setName] = useState("");
 const [searcheddate, setDate] = useState("");
 const [searchedprice, setPrice] = useState("");
@@ -164,42 +165,10 @@ const Teacher = getUser();
                 <br></br>
                 <ul>
                   <li>
-                    <a href="/">
+                    <Link to={`\admin?name=${adminname}`}>
                       <i className="fa fa-home" />
                       Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i className="fa fa-user" />
-                      Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i className="fa fa-address-card" />
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/messages">
-                      <i className="fa fa-envelope" />
-                      Messages
-                    </a>
-                  </li>
-                  <li>
-                    {/* <Link to={`/TeacherDashboard?name=${data.name}&id=${data._id}/schedule`}> */}
-                    <a href="#schedule">
-                      <i className="fa fa-calendar" />
-                      My Schedule
-                    </a>
-                    {/* </Link> */}
-                  </li>
-                  <li>
-                    <a href="#bookings">
-                      <i className="fa fa-address-book" />
-                      My Bookings
-                    </a>
+                    </Link>
                   </li>
                 </ul>
                 <div className="social_media">
@@ -227,126 +196,14 @@ const Teacher = getUser();
                         width: "50px",
                       }}
                     />
-                    <a style={{ marginLeft: "5px" }}>
-                      {" "}
-                      Welcome {name}! Have a nice day.{" "}
-                    </a>
+                    <a style={{ marginLeft: "5px" }}> {adminname}</a>
                   </div>
                   <div class="pull-right" style={{ margin: "10px" }}>
                     <a onClick={handleLogout}>Logout</a>
                   </div>
                 </div>
                 <div className="info">
-                  <div className="row">
-                    <div className="col-6">
-                      <div
-                        className="card"
-                        style={{
-                          height: "100px",
-                          width: "70%",
-                          marginTop: "50px",
-                          marginLeft: "100px",
-                          backgroundColor: "#594f8d",
-                        }}
-                      >
-                        <div className="card-body">
-                          <div
-                            className="d-flex row"
-                            style={{ paddingLeft: "20px", paddingTop: "15px" }}
-                          >
-                            <div style={{ paddingRight: "15px" }}>
-                              <i
-                                className="fa  fa-star fa-2x"
-                                style={{ color: "white" }}
-                              ></i>
-                            </div>
-                            <div style={{ paddingTop: "5px" }}>
-                              <h5
-                                style={{
-                                  fontFamily: "Montserrat",
-                                  color: "white",
-                                }}
-                              >
-                                Rating: {data.Rating}
-                              </h5>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-6">
-                      <div
-                        className="card"
-                        style={{
-                          height: "100px",
-                          width: "70%",
-                          marginTop: "50px",
-                          marginLeft: "60px",
-                          marginRight: "60px",
-                          backgroundColor: "#594f8d",
-                        }}
-                      >
-                        <div className="card-body">
-                          <div
-                            className="d-flex row"
-                            style={{ paddingLeft: "30px", paddingTop: "15px" }}
-                          >
-                            <div style={{ paddingRight: "15px" }}>
-                              <i
-                                className="fa  fa-star fa-2x"
-                                style={{ color: "white" }}
-                              ></i>
-                            </div>
-                            <div style={{ paddingTop: "5px" }}>
-                              <h5
-                                style={{
-                                  fontFamily: "Montserrat",
-                                  color: "white",
-                                }}
-                              >
-                                Total Earnings: Rs. {data.totalEarnings}
-                              </h5>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. A
-                    sed nobis ut exercitationem atque accusamus sit natus
-                    officiis totam blanditiis at eum nemo, nulla et quae eius
-                    culpa eveniet voluptatibus repellat illum tenetur, facilis
-                    porro. Quae fuga odio perferendis itaque alias sint, beatae
-                    non maiores magnam ad, veniam tenetur atque ea
-                    exercitationem earum eveniet totam ipsam magni tempora
-                    aliquid ullam possimus? Tempora nobis facere porro,
-                    praesentium magnam provident accusamus temporibus!
-                    Repellendus harum veritatis itaque molestias repudiandae ea
-                    corporis maiores non obcaecati libero, unde ipsum
-                    consequuntur aut consectetur culpa magni omnis vero odio
-                    suscipit vitae dolor quod dignissimos perferendis eos?
-                    Consequuntur!
-                  </div>
-                  <div>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. A
-                    sed nobis ut exercitationem atque accusamus sit natus
-                    officiis totam blanditiis at eum nemo, nulla et quae eius
-                    culpa eveniet voluptatibus repellat illum tenetur, facilis
-                    porro. Quae fuga odio perferendis itaque alias sint, beatae
-                    non maiores magnam ad, veniam tenetur atque ea
-                    exercitationem earum eveniet totam ipsam magni tempora
-                    aliquid ullam possimus? Tempora nobis facere porro,
-                    praesentium magnam provident accusamus temporibus!
-                    Repellendus harum veritatis itaque molestias repudiandae ea
-                    corporis maiores non obcaecati libero, unde ipsum
-                    consequuntur aut consectetur culpa magni omnis vero odio
-                    suscipit vitae dolor quod dignissimos perferendis eos?
-                    Consequuntur!
-                    <br></br>
-                    <br></br>
-                    <hr></hr>
                     <div id="schedule" className="schedule">
                       {/* add schedule bar */}
                       <FadeIn>
@@ -486,14 +343,6 @@ const Teacher = getUser();
                       </FadeIn>
                     </div>
                     <div className="" id="table">
-                      {" "}
-                      {/* <div
-              class="  "
-              style={{
-                paddingLeft: "100px",
-                paddingRight: "100px",
-                paddingTop: "60px",
-              }} */}
                       <h3 className=" text-center" style={{ margin: "30px" }}>
                         My Schedule
                       </h3>
@@ -555,135 +404,8 @@ const Teacher = getUser();
                         </div>
                       </div>
                     </div>
+
                     {/* <Table /> */}
-                    <div id="bookings" className="bookings">
-                      <h3 className=" text-center" style={{ margin: "30px" }}>
-                        My Bookings
-                      </h3>
-
-                      <div className="table100 ver1 m-b-110">
-                        <div className="table100-head">
-                          <table>
-                            <thead>
-                              <tr className="row100 head">
-                                <th className="cell100 column1">
-                                  Student name
-                                </th>
-                                <th className="cell100 column2">Subject</th>
-                                <th className="cell100 column2">Time</th>
-                                {/* <th className="cell100 column4">Day</th> */}
-                                <th className="cell100 column5">Date</th>
-                                <th
-                                  className="cell100 column5"
-                                  style={{ paddingLeft: "25px" }}
-                                >
-                                  {" "}
-                                  Price
-                                </th>
-                                <th
-                                  className="cell100 column2"
-                                  style={{ paddingLeft: "20px" }}
-                                >
-                                  {" "}
-                                  ClassID
-                                </th>{" "}
-                                <th className="cell100 column2"> </th>
-                                <th className="cell100 column2"> </th>
-                              </tr>
-                            </thead>
-                          </table>
-                        </div>
-                        <div className="table100-body js-pscroll">
-                          {data.bookings &&
-                            data.bookings.map((data2) => {
-                              return (
-                                <table>
-                                  <tbody>
-                                    <tr className="row100 body">
-                                      <td className="cell100 column1">
-                                        {data2.Username}
-                                      </td>
-                                      <td className="cell100 column3">
-                                        {data2.Subject}
-                                      </td>
-                                      <td className="cell100 column2">
-                                        {data2.Time}
-                                      </td>
-                                      {/* <td className="cell100 column4">
-                                        {data2.Day}
-                                      </td> */}
-                                      <td
-                                        className="cell100 column2"
-                                        style={{ paddingLeft: "30px" }}
-                                      >
-                                        {data2.Date} ({data2.Day})
-                                      </td>{" "}
-                                      <td
-                                        className="cell100 column7"
-                                        style={{ paddingLeft: "30px" }}
-                                      >
-                                        {data2.Price}
-                                      </td>{" "}
-                                      <td className="cell100 column2">
-                                        {data2.Classid}
-                                      </td>
-                                      <td className="cell100 column3">
-                                        <If
-                                          condition={data2.Status == "Booked"}
-                                        >
-                                          <Then>
-                                            <Link
-                                              to={`./VideoStyle?name=${name}&room=${data2.Classid}&id=${id}&bookingid=${data2._id}`}
-                                            >
-                                              <button class="newbuttonx">
-                                                Start Class
-                                              </button>
-                                            </Link>
-                                          </Then>
-                                          <Else>
-                                            {/* <button class="newbuttonx" disabled> 
-                                            Start Class
-                                          </button> */}
-                                          </Else>
-                                        </If>
-                                      </td>
-                                      <td className="cell100 column3">
-                                        {/* {data2.Status} */}
-
-                                        <If
-                                          condition={data2.Status == "Booked"}
-                                        >
-                                          <Then>
-                                            <button
-                                              class="cancelbutton"
-                                              onClick={() => {
-                                                cancelClass(
-                                                  data2._id,
-                                                  data2.Classid
-                                                );
-                                              }}
-                                            >
-                                              Cancel
-                                            </button>
-                                          </Then>
-                                          <Else>
-                                            <button class="cancelled" disabled>
-                                              {data2.Status}
-                                            </button>
-                                          </Else>
-                                        </If>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              );
-                            })}
-                        </div>
-                      </div>
-                    </div>
-                    <br /> <br />
-                    <br />
-                    <br />
                   </div>
                 </div>
               </div>
@@ -695,4 +417,4 @@ const Teacher = getUser();
   );
 }
 
-export default DashboardMain;
+export default TeacherSchedule;

@@ -46,7 +46,7 @@ const TeacherSchema = new Schema({
     required: false,
   },
   ProfileImage:{
-    type: Buffer,
+    type: String,
     required:false,
   },
   About: {
@@ -73,8 +73,15 @@ const TeacherSchema = new Schema({
     type: String,
     required: false,
   },
+  totalEarnings:{
+    type:Number,
+    required:false,
+  },
   bookings: [ ],
   schedule: [],
+  education:[],
+  work:[],
+  account:[],
   emad: [],
 });
 

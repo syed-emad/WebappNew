@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./admin.css";
 import { getUser, removeUserSession } from "../../Utils/Common";
 import { Link } from "react-router-dom";
- 
+
 import axios from "axios";
- 
+
 import FadeIn from "react-fade-in";
 import "../TeacherProfile/Styling/main.css";
 import "../TeacherProfile/Styling/bootstrap.min.css";
 import "../TeacherProfile/Styling/aos.css";
- 
+
 const { If, Then, Else } = require("react-if");
 
 function UserDashboardMain(props) {
@@ -17,6 +17,7 @@ function UserDashboardMain(props) {
   var url_string = window.location.href;
   var url = new URL(url_string);
   var name = url.searchParams.get("name");
+   var adminname = url.searchParams.get("adminname");
   var uid = url.searchParams.get("id");
   const [searchedsubject, setName] = useState("");
   const [searcheddate, setDate] = useState("");
@@ -85,29 +86,11 @@ function UserDashboardMain(props) {
       console.error(error);
     }
   }
-  // async function getSomething2() {
-  //   // bookfunction();
-  //   refreshPage();
-  // }
-  // async function bookfunction() {
-  //   try {
-  //     const response = await axios.put(
-  //       `/api/teachers/add?id=${id}&subjectname=${searchedsubject}&date=${searcheddate}&price=${searchedprice}&time=${searchedtime}&day=${searchedday}`
-  //     );
-  //     setValue(response.data);
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+   
   function refreshPage() {
     window.location.reload(false);
   }
-  // handle click event of logout button
-  const handleLogout = () => {
-    removeUserSession();
-    props.history.push("/TeacherLogin");
-  };
+  
   useEffect(() => {
     getSomething();
   }, []);
@@ -141,14 +124,11 @@ function UserDashboardMain(props) {
                 <br></br>
                 <ul>
                   <li>
-                    <a href="/admin">
+                    <Link to ={`\admin?name=${adminname}`}> 
                       <i className="fa fa-home" />
                       Home
-                    </a>
+                    </Link>
                   </li>
-                  
-                 
-                  
                 </ul>
                 <div className="social_media">
                   <a href="#">
@@ -175,22 +155,15 @@ function UserDashboardMain(props) {
                         width: "50px",
                       }}
                     />
-                    <a style={{ marginLeft: "5px" }}>
-                      {" "}
-               
-                    </a>
+                    <a style={{ marginLeft: "5px" }}> {adminname}</a>
                   </div>
-                  <div class="pull-right" style={{ margin: "10px" }}>
-                     
-                  </div>
+                  <div class="pull-right" style={{ margin: "10px" }}></div>
                 </div>
                 <div className="info">
-                
                   <div>
-                    
                     <div id="bookings" className="bookings">
                       <h3 className=" text-center" style={{ margin: "30px" }}>
-                      {name}
+                        {name}
                       </h3>
 
                       <div className="table100 ver1 m-b-100">
@@ -259,7 +232,6 @@ function UserDashboardMain(props) {
                                       <td className="cell100 column2">
                                         {data2.Classid}
                                       </td>
-                                      
                                       <td className="cell100 column3">
                                         {/* {data2.Status} */}
 

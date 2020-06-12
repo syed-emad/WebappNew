@@ -39,14 +39,7 @@ export default class ChannelForm extends Component {
             >
               Start Class
             </button>{" "}
-            <button
-              class="newbutton4 "
-              type="submit"
-              value="Join Channel"
-              style={{ color: "white" }}
-            >
-              End Class
-            </button>
+        
           </div>
         </form>
       </div>

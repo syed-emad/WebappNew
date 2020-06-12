@@ -3,7 +3,9 @@ import { getUser, removeUserSession } from "../../Utils/Common";
 
 function Header(props) {
   const user = getUser();
-
+  var url_string = window.location.href;
+  var url = new URL(url_string);
+  var name = url.searchParams.get("username");
   // handle click event of logout button
   const handleLogout = () => {
     removeUserSession();
@@ -49,10 +51,13 @@ function Header(props) {
             <div className="log_reg">
               <ul className="d-flex flex-row align-items-center justify-content-start">
                 <li>
-                  <a> Welcome {user.name}!</a>
+                  <a> Welcome {name}!</a>
+                  {/* <a> Welcome {user.name}!</a> */}
                 </li>
                 <li>
-                  <a onClick={handleLogout}>Logoutxx</a>
+                  <a onClick={handleLogout} style={{ color: "white" }}>
+                    Logout
+                  </a>
                 </li>
               </ul>
             </div>

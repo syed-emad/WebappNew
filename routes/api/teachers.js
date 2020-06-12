@@ -5,17 +5,24 @@ const db = require("../../server").getDB;
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+ 
 const Teacher = require("../../models/Teachers");
 
-//Get All Teachers
 router.get("/", (req, res) => {
   Teacher.find()
     .sort({ date: -1 })
     .then((teachers) => res.json(teachers));
 });
-//Search Teacher By Subject
+
 router.get("/search", (req, res) => {
   let Qualification = req.query.name;
+  let Price = req.query.price;
+  //console.log(Price);
+  //let name = "Ali Aman";
+  //req.query.name;
+  console.log("search");
+
+  //console.log(req.query.name);
   if (!Qualification) {
     Teacher.find({})
       .sort({ date: -1 })
@@ -26,12 +33,57 @@ router.get("/search", (req, res) => {
       .then((teachers) => res.json(teachers));
   }
 });
-//Search Teacher By Various Parameters
-router.get("/search2", (req, res) => {
+
+router.get("/searchbyid", (req, res) => {
+  _id = req.query.id;
+  console.log(_id);
+  //console.log(req.query.name);
+  if (_id) {
+    Teacher.find({ _id })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else {
+    console.log("erroxr");
+  }
+});
+
+router.get("/dash", (req, res) => {
+  let _id = req.query.id;
+
+  console.log(_id);
+  let Price = req.query.price;
+  //console.log(Price);
+  console.log("found teacher");
+
+  //console.log(req.query.name);
+  if (!_id) {
+    Teacher.find({})
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else {
+    Teacher.find({ _id })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  }
+});
+
+router.get("/search22222", (req, res) => {
   let Qualification = req.query.name;
+ let Qualification2 = req.query.name;
   let Price = req.query.price;
   let Time = req.query.time;
   let Day = req.query.day;
+  let sep = "_";
+  let DayTime = Day + sep + Time;
+  //let name = "Ali Aman";
+  //req.query.name;
+  console.log("search query:");
+  console.log(DayTime);
+  console.log(Qualification);
+  console.log(Time);
+  console.log(Day);
+  console.log("---");
+  //console.log(req.query.name);
   if (!Qualification && !Price && !Day && !Time) {
     Teacher.find({})
       .sort({ date: -1 })
@@ -54,60 +106,142 @@ router.get("/search2", (req, res) => {
       .then((teachers) => res.json(teachers));
   }
 });
-//Search Teacher By ID
-router.get("/searchbyid", (req, res) => {
-  let _id = req.query.id;
-  if (_id) {
-    Teacher.find({ _id })
-      .sort({ date: -1 })
-      .then((teachers) => res.json(teachers));
-  } else {
-    console.log("error");
-  }
-});
-//Search For Dashboard
-router.get("/dash", (req, res) => {
-  _id = req.query.id;
-  console.log(_id);
+router.get("/search2", (req, res) => {
+  let Qualification = req.query.name;
   let Price = req.query.price;
+  let Time = req.query.time;
+  let Day = req.query.day;
+  let sep = "_";
+  let DayTime = Day + sep + Time;
+  console.log("search query:");
   console.log(Price);
-  if (!_id) {
+  console.log(Qualification);
+  console.log(Time);
+  console.log(Day);
+  console.log("---");
+  if (!Qualification && !Price && !Day && !Time) {
     Teacher.find({})
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
-  } else {
-    Teacher.find({ _id })
+  } else if (Qualification && !Price && !Day && !Time) {
+    Teacher.find({
+      $or: [
+        { Qualification: Qualification },
+        { Qualification2: Qualification },
+      ],
+    })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && Price && !Day && !Time) {
+    Teacher.find({
+      $and: [
+        {
+          $or: [
+            { Qualification: Qualification },
+            { Qualification2: Qualification },
+          ],
+        },
+        { Price: Price },
+      ],
+    })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && Price && Day && !Time) {
+    Teacher.find({
+      $and: [
+        {
+          $or: [
+            { Qualification: Qualification },
+            { Qualification2: Qualification },
+          ],
+        },
+        { Price: Price },
+        { Day: Day },
+      ],
+    })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && Price && !Day && Time) {
+    Teacher.find({
+      $and: [
+        {
+          $or: [
+            { Qualification: Qualification },
+            { Qualification2: Qualification },
+          ],
+        },
+        { Price: Price },
+        { Time: Time },
+      ],
+    })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && Price && Day && Time) {
+    Teacher.find({
+      $and: [
+        {
+          $or: [
+            { Qualification: Qualification },
+            { Qualification2: Qualification },
+          ],
+        },
+        { Price: Price },
+        { Day: Day },
+        { Time: Time },
+      ],
+    })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && !Price && Day && Time) {
+    Teacher.find({
+      $and: [
+        {
+          $or: [
+            { Qualification: Qualification },
+            { Qualification2: Qualification },
+          ],
+        },
+        { Day: Day },
+        { Time: Time },
+      ],
+    })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && !Price && !Day && Time) {
+    Teacher.find({
+      $and: [
+        {
+          $or: [
+            { Qualification: Qualification },
+            { Qualification2: Qualification },
+          ],
+        },
+        { Time: Time },
+      ],
+    })
+      .sort({ date: -1 })
+      .then((teachers) => res.json(teachers));
+  } else if (Qualification && !Price && Day && !Time) {
+    Teacher.find({
+      $and: [
+        {
+          $or: [
+            { Qualification: Qualification },
+            { Qualification2: Qualification },
+          ],
+        },
+        { Day: Day },
+      ],
+    })
       .sort({ date: -1 })
       .then((teachers) => res.json(teachers));
   }
 });
-//Simple Post API
-router.post("/", (req, res) => {
-  console.log(req.body);
-  var data = {
-    username: "emad",
-    amount: 0,
-  };
-  const newTeacher = new Teacher({
-    name: req.body.name,
-    Qualification: req.body.Qualification,
-    Qualification2: req.body.Qualification,
-    Rating: req.body.Rating,
-    About: req.body.About,
-    Price: req.body.Price,
-    DayTime: req.body.DayTime,
-    Day: req.body.Day,
-    Time: req.body.Time,
-    email: req.body.email,
-    password: req.body.password,
-    bookings: data,
-  });
-
-  newTeacher.save().then((teacher) => res.json(teacher));
-});
-//For pushing random data , for ease
+//Add teacher schedule details to database
 router.put("/ids", function (req, res) {
   var id = req.query.id;
+  var email = "OKEMAIL";
+  console.log("in ids");
   var data = {
     _id: new ObjectId(),
     Subject: "Chemistry",
@@ -141,10 +275,15 @@ router.put("/ids", function (req, res) {
     }
   });
 });
-//Change from Book to Booked
+
+//Update the status of booking
 router.put("/newx", function (req, res) {
   var id = req.query.id;
   var buttonid = req.query.buttonid;
+
+  console.log(req.query.index, "index");
+  console.log("buttonid:", buttonid);
+
   Teacher.updateOne(
     { _id: new ObjectId(id), "schedule._id": new ObjectId(buttonid) },
     { $set: { "schedule.$.Status": "Booked" } },
@@ -153,6 +292,30 @@ router.put("/newx", function (req, res) {
       if (err) {
         console.log(err);
       } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+      }
+    }
+  );
+});
+
+router.put("/nottoube", function (req, res) {
+  var id = req.query.id;
+  var buttonid = req.query.buttonid;
+
+  console.log(req.query.index, "index");
+  console.log("buttonid:", buttonid);
+
+  Teacher.findOne(
+    { _id: new ObjectId(id), "schedule._id": new ObjectId(buttonid) },
+    { "schedule.$.Status": { $in: "Booked" } },
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(foundObject, "ans");
+        // console.log("statusupdates");
       }
     }
   );
@@ -160,6 +323,8 @@ router.put("/newx", function (req, res) {
 //Add Schedule
 router.put("/add", function (req, res) {
   var id = req.query.id;
+  var email = "OKEMAIL";
+  console.log("in ids");
   var data = {
     _id: new ObjectId(),
     Subject: req.query.subjectname,
@@ -169,6 +334,7 @@ router.put("/add", function (req, res) {
     Price: req.query.price,
     Status: "Book",
   };
+  console.log(data);
   Teacher.findOne({ _id: id }, function (err, foundObject) {
     if (err) {
       console.log(err);
@@ -184,6 +350,9 @@ router.put("/add", function (req, res) {
               if (err) {
                 console.log(err);
               } else {
+                res.status(200).json({
+                  message: "schedule added",
+                });
                 console.log("Success");
               }
             }
@@ -193,10 +362,14 @@ router.put("/add", function (req, res) {
     }
   });
 });
-//Class Booked
+//Confirm button
 router.put("/booked", function (req, res) {
   var id = req.query.id;
   var buttonid = req.query.buttonid;
+  //console.log("bookid",buttonid);
+  console.log(req.query.index, "index");
+  console.log("buttonid:", buttonid);
+
   Teacher.findOne({ "schedule._id": new ObjectId(buttonid) }, function (
     err,
     foundObject
@@ -204,7 +377,10 @@ router.put("/booked", function (req, res) {
     if (err) {
       console.log(err);
     } else {
+      console.log(foundObject.schedule._id, "SUBJ");
       if ((foundObject.schedule._id = buttonid)) {
+        console.log(foundObject.schedule._id, "---------");
+
         var data = {
           _id: foundObject.schedule._id,
           Subject: req.query.Subject,
@@ -232,16 +408,27 @@ router.put("/booked", function (req, res) {
     }
   });
 });
-//Delete By ID
+//Deleting method
 router.delete("/id", (req, res) => {
   Teacher.findById(req.params.id)
     .then((teacher) => teacher.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
 });
-//Delete Schedule
+//Deleting method
+router.delete("/teacherdelete", (req, res) => {
+  console.log("HERE IN DELEE")
+  Teacher.findById(req.query.id)
+    .then((teacher) => teacher.remove().then(() => res.json({ success: true })))
+    .catch((err) => res.status(404).json({ success: false }));
+});
+//DeleteSchedule
 router.delete("/delete", function (req, res) {
   var id = req.query.id;
   var buttonid = req.query.buttonid; //schedule to be deleted obj id
+  console.log("IM IN DELETE");
+  console.log(id);
+  console.log(buttonid);
+
   Teacher.updateOne(
     { _id: new ObjectId(id) },
     { $pull: { schedule: { _id: new ObjectId(buttonid) } } },
@@ -250,14 +437,21 @@ router.delete("/delete", function (req, res) {
       if (err) {
         console.log(err);
       } else {
-        console.log("StatusUpdated");
+        res.status(200).json({
+          message: "Schedule deleted",
+        });
+        console.log(foundObject, "ans");
+        console.log("statusupdates");
       }
     }
   );
 });
-//Cance Class User Side
+//Cancel
 router.put("/cancel", function (req, res) {
+  var id = req.query.id;
   var classid = req.query.classid;
+  // console.log("emad");
+  console.log(classid);
   Teacher.updateOne(
     { "bookings.Classid": classid },
     { $set: { "bookings.$.Status": "Cancelled" } },
@@ -266,14 +460,19 @@ router.put("/cancel", function (req, res) {
       if (err) {
         console.log(err);
       } else {
-        console.log("Cancel Teacher");
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+        console.log("cancel teacherrr");
       }
     }
   );
 });
-//Cancel Class Teacher Side
+//cancel booking from userside
 router.put("/cancel2", function (req, res) {
+  var id = req.query.id; //classid or teacher booking id
   var classid = req.query.classid;
+  // console.log("cancel");
+  // console.log(buttonid);
   Teacher.updateOne(
     { "bookings.Classid": classid },
     { $set: { "bookings.$.Status": "Cancelled" } },
@@ -282,62 +481,106 @@ router.put("/cancel2", function (req, res) {
       if (err) {
         console.log(err);
       } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
         console.log("user cancelled");
       }
     }
   );
 });
-//Change form BOOKED to BOOK US
+//Book
 router.put("/book", function (req, res) {
+  var id = req.query.id;
   var buttonid = req.query.buttonid;
+  console.log("neha");
+  console.log(buttonid);
   Teacher.updateOne(
     { "schedule._id": new ObjectId(buttonid) },
     { $set: { "schedule.$.Status": "Book" } },
+
     function (err, foundObject) {
       if (err) {
         console.log(err);
       } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
       }
     }
   );
 });
-//Change from BOOKED to BOOK TS
 router.put("/book2", function (req, res) {
+  var id = req.query.id;
   var scheduleid = req.query.scheduleid;
+  console.log("neha");
+  // console.log(buttonid);
   Teacher.updateOne(
     { "schedule._id": new ObjectId(scheduleid) },
     { $set: { "schedule.$.Status": "Book" } },
+
     function (err, foundObject) {
       if (err) {
         console.log(err);
       } else {
-        console.log("Changed");
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+        console.log("book 2");
       }
     }
   );
 });
-//For Ending Class,incomplete
+router.put("/book3", function (req, res) {
+  var id = req.query.id;
+  var scheduleid = req.query.scheduleid;
+  console.log("nehax", scheduleid);
+  // console.log(buttonid);
+  Teacher.updateOne(
+    { "schedule._id": new ObjectId(scheduleid) },
+    { $set: { "schedule.$.Status": "Book" } },
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
+        console.log("book 3");
+      }
+    }
+  );
+});
 router.put("/end", function (req, res) {
+  var id = req.query.id;
   var buttonid = req.query.buttonid;
+  console.log("hiii2");
+  console.log(buttonid);
   Teacher.updateOne(
     { "bookings._id": buttonid },
     { $set: { "bookings.$.Status": "Completed" } },
+
     function (err, foundObject) {
       if (err) {
         console.log(err);
       } else {
+        //  console.log(foundObject,"ans");
+        // console.log("statusupdates");
       }
     }
   );
 });
-//For TeacherSignup
 router.post("/asb", (req, res) => {
   const { name, email, password } = req.body;
+  console.log(req.body);
 
   const newTeacher = new Teacher({
     name: req.body.name,
+    // Qualification: req.body.Qualification,
+    // Qualification2: req.body.Qualification,
+    // Rating: req.body.Rating,
     About: req.body.About,
     Price: req.body.Price,
+    // DayTime: req.body.DayTime,
+    // Day: req.body.Day,
+    // Time: req.body.Time,
     age: req.body.age,
     email: req.body.email,
     password: req.body.password,
@@ -347,6 +590,44 @@ router.post("/asb", (req, res) => {
     schedule: req.body.schedule,
     education: req.body.education,
     work: req.body.work,
+    // bookings: [
+    //   // {
+    //   //   Day:req.body.bookings[0].Day,
+    //   //   Date: req.body.bookings[0].Date,
+    //   //   Time: req.body.bookings[0].Time,
+    //   //   Subject: req.body.bookings[0].Subject,
+    //   //  Price: req.body.bookings[0].Price,
+    //   //  Username: req.body.bookings[0].Username,
+    //   //  Status: req.body.bookings[0].Status
+    //   // }
+    // ],
+    // schedule:[
+    //   // {
+    //   //   Day:req.body.schedule[0].Day,
+    //   //   Date: req.body.schedule[0].Date,
+    //   //   Time: req.body.schedule[0].Time,
+    //   //   Subject: req.body.schedule[0].Subject,
+    //   //  Price: req.body.schedule[0].Price
+    //   // }
+    // ],
+    // work: [
+    //   // {
+    //   //   title: req.body.work[0].title,
+    //   //   startDate: req.body.work[0].startDate,
+    //   //   endDate: req.body.work[0].endDate,
+    //   //   details: req.body.work[0].details
+    //   // }
+    // ],
+    // education: [],
+    // //[
+    //   //{
+    //     // level: req.body.education[0].level,
+    //     // institute:  req.body.education[0].institute,
+    //     // startDate:  req.body.education[0].startDate,
+    //     // endDate:  req.body.education[0].endDate,
+    //     // field:  req.body.education[0].field
+    //   //}
+    // //],
   });
   if (!name || !email || !password) {
     return res.status(404).json({ msg: "please enter everthing" });
@@ -358,6 +639,7 @@ router.post("/asb", (req, res) => {
           msg: "teacher already exist",
         });
       }
+
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newTeacher.password, salt, (err, hash) => {
           if (err) {
@@ -389,12 +671,32 @@ router.post("/asb", (req, res) => {
           });
         });
       });
-    })
+    }) //.then ends
+
     .catch((err) => {
       console.log(err);
       res.status(500).json({
         error: err,
       });
-    });
+    }); //.catch ends
+});
+router.put("/endclass", function (req, res) {
+  var id = req.query.id;
+  var classid = req.query.room;
+  console.log("end class api");
+  console.log(classid);
+  Teacher.updateOne(
+    { "bookings.Classid": classid },
+    { $set: { "bookings.$.Status": "Completed" } },
+
+    function (err, foundObject) {
+      if (err) {
+        console.log(err);
+      } else {
+        //  console.log(foundObject,"ans");
+        console.log("booking status=completed in teacher");
+      }
+    }
+  );
 });
 module.exports = router;

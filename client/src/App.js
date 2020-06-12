@@ -18,6 +18,8 @@ import Checkout from "./components/CheckoutPage/Checkout";
 import Success from "./components/CheckoutPage/Success";
 import Final from "./components/TeacherDashboard/Chatbox/Final";
 import PrivateRouteTeacher from "./Utils/PrivateRouteTeacher";
+import PrivateRouteAdmin from "./Utils/PrivateRouteAdmin";
+import PublicRouteAdmin from "./Utils/PublicRouteAdmin";
 import PublicRouteDashboard from "./Utils/PublicRouteDashboard"
 import search2 from "./components/SearchResult/search2";
 import TP from "./components/TeacherProfile/TeachersProfile";
@@ -34,7 +36,11 @@ import chat from "./components/VideoChat/Chat/Chat/Chat";
 import join from "./components/VideoChat/Chat/Join/Join";
 import TeacherFinal from "./components/teacherSignUp/teacherfinal";
 import Admin from "./components/Admin/Admin";
-import UserBookings from "./components/Admin/UserBookings";
+import UserBooking from './components/Admin/UserBookings';
+import TeacherBookings from "./components/Admin/TeacherBookings";
+import TeacherSchedule from './components/Admin/TeacherSchedule';
+import AdminLogin from "./components/AdminLogin/AdminLogin";
+import functionalpage from "./components/VideoChat/functionalpage";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -81,14 +87,24 @@ function App() {
               <PublicRoute22 exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
+              <Route exact path="/functionalpage" component={functionalpage} />
               <PublicRoute
                 exact
                 path="/teachersignup"
                 component={TeacherFinal}
               />
-              <Route exact path="/admin" component={Admin} />
-
-              <Route exact path="/userbookingsa" component={UserBookings} />
+              {/* <Route exact path="/admin" component={Admin} /> */}
+              <Route exact path="/userbookingsa" component={UserBooking} />
+              <Route
+                exact
+                path="/teacherbookingsa"
+                component={TeacherBookings}
+              />
+              <Route
+                exact
+                path="/teacherschedulea"
+                component={TeacherSchedule}
+              />
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"
@@ -109,6 +125,12 @@ function App() {
                 path="/TeacherLogin"
                 component={TeacherLogin}
               />
+              <PublicRouteAdmin
+                exact
+                path="/adminlogin"
+                component={AdminLogin}
+              />
+              <PrivateRouteAdmin exact path="/admin" component={Admin} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               <Route exact path="/2" component={App2} />
             </Switch>

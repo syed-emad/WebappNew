@@ -164,7 +164,7 @@ export default class RegisterNew extends Component {
                   <button className="login100-form-btn">Register</button>
                 </div>
                 <div className="text-center p-t-136">
-                  <a className="txt2" href="\login">
+                  <a className="txt2" href="\logindashboard">
                     Already Have An Account?Login.{" "}
                     <i
                       className="fa fa-long-arrow-right m-l-5"

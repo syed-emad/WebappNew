@@ -12,7 +12,7 @@ function TeacherLogin(props) {
     setError(null);
     setLoading(true);
     axios
-      .post("/x/signin/teachers", {
+      .post("/x/signin/admin", {
         email: email.value,
         password: password.value,
       })
@@ -20,7 +20,7 @@ function TeacherLogin(props) {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
         props.history.push(
-          `/TeacherDashboard?name=${response.data.user.name}&id=${response.data.user.id}`
+          `/admin?name=${response.data.user.name}&id=${response.data.user.id}`
         );
       })
       .catch((error) => {
@@ -40,7 +40,7 @@ function TeacherLogin(props) {
               <img src="images/img-01.png" alt="IMG" />
             </div>
             <form className="login100-form validate-form">
-              <span className="login100-form-title">Teacher Login</span>
+              <span className="login100-form-title">Admin Login</span>
               <div
                 className="wrap-input100 validate-input"
                 data-validate="Valid email is required: ex@abc.xyz"
@@ -91,11 +91,8 @@ function TeacherLogin(props) {
               </div>
               <div className="text-center p-t-136">
                 <a className="txt2" href="/teachersignup">
-                  Create your Account
-                  <i
-                    className="fa fa-long-arrow-right m-l-5"
-                    aria-hidden="true"
-                  />
+                  
+                  
                 </a>
               </div>
             </form>

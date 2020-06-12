@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
-import "./DashboardMain.css";
+import "./admin.css";
 import { getUser, removeUserSession } from "../../Utils/Common";
 import { Link } from "react-router-dom";
-import Image from "./Image";
-import Charbox from "./Chatbox/Charbox";
+
 import axios from "axios";
-import "./table.css";
+
 import FadeIn from "react-fade-in";
 import "../TeacherProfile/Styling/main.css";
 import "../TeacherProfile/Styling/bootstrap.min.css";
 import "../TeacherProfile/Styling/aos.css";
-import ChannelForm from "../VideoChat/ChannelForm";
+
 const { If, Then, Else } = require("react-if");
 
-function UserDashboardMain(props) {
+function TeacherBookings(props) {
   const Teacher = getUser();
   var url_string = window.location.href;
   var url = new URL(url_string);
   var name = url.searchParams.get("name");
-  var uid = url.searchParams.get("id");
+  var uid = url.searchParams.get("id");  var adminname = url.searchParams.get("adminname");
   const [searchedsubject, setName] = useState("");
   const [searcheddate, setDate] = useState("");
   const [searchedprice, setPrice] = useState("");
   const [searchedtime, setTime] = useState("");
   const [searchedday, setDay] = useState("");
- 
+
   var buttonid2;
   var scheduleid;
   var classid;
@@ -36,7 +35,7 @@ function UserDashboardMain(props) {
 
   async function getSomething() {
     try {
-      const response = await axios.get(`/api/users/id?id=${uid}`);
+      const response = await axios.get(`/api/teachers/dash?id=${uid}`);
       setValue(response.data);
       console.log("Hi");
       console.log(response.data);
@@ -44,16 +43,16 @@ function UserDashboardMain(props) {
       console.error(error);
     }
   }
-  
-  function cancelClass(cid,sid){
-    classid=cid;
-    scheduleid=sid;
+
+  function cancelClass(cid, sid) {
+    classid = cid;
+    scheduleid = sid;
     cancelTeacher();
     cancelStudent();
     book();
     refreshPage();
   }
-  async function cancelTeacher(){
+  async function cancelTeacher() {
     try {
       const response = await axios.put(
         `/api/teachers/cancel2?id=${uid}&classid=${classid}`
@@ -63,9 +62,8 @@ function UserDashboardMain(props) {
     } catch (error) {
       console.error(error);
     }
-
   }
-  async function cancelStudent(){
+  async function cancelStudent() {
     try {
       const response = await axios.put(
         `/api/users/cancel?id=${uid}&classid=${classid}`
@@ -75,9 +73,8 @@ function UserDashboardMain(props) {
     } catch (error) {
       console.error(error);
     }
-
   }
-  async function book(){
+  async function book() {
     try {
       const response = await axios.put(
         `/api/teachers/book2?id=${uid}&scheduleid=${scheduleid}`
@@ -88,29 +85,11 @@ function UserDashboardMain(props) {
       console.error(error);
     }
   }
-  // async function getSomething2() {
-  //   // bookfunction();
-  //   refreshPage();
-  // }
-  // async function bookfunction() {
-  //   try {
-  //     const response = await axios.put(
-  //       `/api/teachers/add?id=${id}&subjectname=${searchedsubject}&date=${searcheddate}&price=${searchedprice}&time=${searchedtime}&day=${searchedday}`
-  //     );
-  //     setValue(response.data);
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+
   function refreshPage() {
     window.location.reload(false);
   }
-  // handle click event of logout button
-  const handleLogout = () => {
-    removeUserSession();
-    props.history.push("/LoginDashboard");
-  };
+
   useEffect(() => {
     getSomething();
   }, []);
@@ -130,7 +109,7 @@ function UserDashboardMain(props) {
                 >
                   <img src="images/logo.png" alt="" />
                   <a
-                    href="/"
+                    href="#"
                     style={{
                       fontFamily: "Montserrat",
                       marginLeft: "5px",
@@ -144,42 +123,10 @@ function UserDashboardMain(props) {
                 <br></br>
                 <ul>
                   <li>
-                    <a href="#">
+                    <Link to={`\admin?name=${adminname}`}>
                       <i className="fa fa-home" />
                       Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i className="fa fa-user" />
-                      Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i className="fa fa-address-card" />
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/messages">
-                      <i className="fa fa-envelope" />
-                      Messages
-                    </a>
-                  </li>
-                  <li>
-                    {/* <Link to={`/TeacherDashboard?name=${data.name}&id=${data._id}/schedule`}> */}
-                    <a href="#schedule">
-                      <i className="fa fa-calendar" />
-                      My Schedule
-                    </a>
-                    {/* </Link> */}
-                  </li>
-                  <li>
-                    <a href="#bookings">
-                      <i className="fa fa-address-book" />
-                      My Bookings
-                    </a>
+                    </Link>
                   </li>
                 </ul>
                 <div className="social_media">
@@ -207,69 +154,15 @@ function UserDashboardMain(props) {
                         width: "50px",
                       }}
                     />
-                    <a style={{ marginLeft: "5px" }}>
-                      {" "}
-                      Welcome {name}! Have a nice day.{" "}
-                    </a>
+                    <a style={{ marginLeft: "5px" }}>{adminname} </a>
                   </div>
-                  <div class="pull-right" style={{ margin: "10px" }}>
-                    <a onClick={handleLogout}>Logout</a>
-                  </div>
+                  <div class="pull-right" style={{ margin: "10px" }}></div>
                 </div>
                 <div className="info">
                   <div>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. A
-                    sed nobis ut exercitationem atque accusamus sit natus
-                    officiis totam blanditiis at eum nemo, nulla et quae eius
-                    culpa eveniet voluptatibus repellat illum tenetur, facilis
-                    porro. Quae fuga odio perferendis itaque alias sint, beatae
-                    non maiores magnam ad, veniam tenetur atque ea
-                    exercitationem earum eveniet totam ipsam magni tempora
-                    aliquid ullam possimus? Tempora nobis facere porro,
-                    praesentium magnam provident accusamus temporibus!
-                    Repellendus harum veritatis itaque molestias repudiandae ea
-                    corporis maiores non obcaecati libero, unde ipsum
-                    consequuntur aut consectetur culpa magni omnis vero odio
-                    suscipit vitae dolor quod dignissimos perferendis eos?
-                    Consequuntur!
-                  </div>
-                  <div>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. A
-                    sed nobis ut exercitationem atque accusamus sit natus
-                    officiis totam blanditiis at eum nemo, nulla et quae eius
-                    culpa eveniet voluptatibus repellat illum tenetur, facilis
-                    porro. Quae fuga odio perferendis itaque alias sint, beatae
-                    non maiores magnam ad, veniam tenetur atque ea
-                    exercitationem earum eveniet totam ipsam magni tempora
-                    aliquid ullam possimus? Tempora nobis facere porro,
-                    praesentium magnam provident accusamus temporibus!
-                    Repellendus harum veritatis itaque molestias repudiandae ea
-                    corporis maiores non obcaecati libero, unde ipsum
-                    consequuntur aut consectetur culpa magni omnis vero odio
-                    suscipit vitae dolor quod dignissimos perferendis eos?
-                    Consequuntur!
-                  </div>
-                  <div>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. A
-                    sed nobis ut exercitationem atque accusamus sit natus
-                    officiis totam blanditiis at eum nemo, nulla et quae eius
-                    culpa eveniet voluptatibus repellat illum tenetur, facilis
-                    porro. Quae fuga odio perferendis itaque alias sint, beatae
-                    non maiores magnam ad, veniam tenetur atque ea
-                    exercitationem earum eveniet totam ipsam magni tempora
-                    aliquid ullam possimus? Tempora nobis facere porro,
-                    praesentium magnam provident accusamus temporibus!
-                    Repellendus harum veritatis itaque molestias repudiandae ea
-                    corporis maiores non obcaecati libero, unde ipsum
-                    consequuntur aut consectetur culpa magni omnis vero odio
-                    suscipit vitae dolor quod dignissimos perferendis eos?
-                    Consequuntur!
-                    <br></br>
-                    <br></br>
-                    <hr></hr>
                     <div id="bookings" className="bookings">
                       <h3 className=" text-center" style={{ margin: "30px" }}>
-                        My Bookings
+                        {name}
                       </h3>
 
                       <div className="table100 ver1 m-b-100">
@@ -277,7 +170,6 @@ function UserDashboardMain(props) {
                           <table>
                             <thead>
                               <tr className="row100 head">
-                              
                                 <th className="cell100 column1">
                                   Teacher name
                                 </th>
@@ -285,26 +177,35 @@ function UserDashboardMain(props) {
                                 <th className="cell100 column2">Time</th>
                                 {/* <th className="cell100 column4">Day</th> */}
                                 <th className="cell100 column5">Date</th>
-                                <th className="cell100 column5"style={{paddingLeft:"25px"}}> Price</th>
-                                <th className="cell100 column2" style={{paddingLeft:"20px"}}>
+                                <th
+                                  className="cell100 column5"
+                                  style={{ paddingLeft: "25px" }}
+                                >
+                                  {" "}
+                                  Price
+                                </th>
+                                <th
+                                  className="cell100 column2"
+                                  style={{ paddingLeft: "20px" }}
+                                >
                                   {" "}
                                   ClassID
                                 </th>{" "}
-                                <th className="cell100 column2">  </th>
-                                <th className="cell100 column2">  </th>
+                                <th className="cell100 column2"> </th>
+                                <th className="cell100 column2"> </th>
                               </tr>
                             </thead>
                           </table>
                         </div>
                         <div className="table100-body js-pscroll">
-                          {data.mybookings &&
-                            data.mybookings.map((data2) => {
+                          {data.bookings &&
+                            data.bookings.map((data2) => {
                               return (
                                 <table>
                                   <tbody>
                                     <tr className="row100 body">
                                       <td className="cell100 column1">
-                                        {data2.TeacherName}
+                                        {data2.Username}
                                       </td>
                                       <td className="cell100 column3">
                                         {data2.Subject}
@@ -331,26 +232,6 @@ function UserDashboardMain(props) {
                                         {data2.Classid}
                                       </td>
                                       <td className="cell100 column3">
-                                        <If
-                                          condition={data2.Status == "Booked"}
-                                        >
-                                          <Then>
-                                            <Link
-                                              to={`./VideoStyle?name=${name}&room=${data2.Classid}&bookingid=${data2.classid}`}
-                                            >
-                                              <button class="newbuttonx">
-                                                Start Class
-                                              </button>
-                                            </Link>
-                                          </Then>
-                                          <Else>
-                                            {/* <button class="newbuttonx" disabled> 
-                                            Start Class
-                                          </button> */}
-                                          </Else>
-                                        </If>
-                                      </td>
-                                      <td className="cell100 column3">
                                         {/* {data2.Status} */}
 
                                         <If
@@ -358,7 +239,7 @@ function UserDashboardMain(props) {
                                         >
                                           <Then>
                                             <button
-                                              class="cancelbutton"
+                                              class="purplebutton"
                                               onClick={() => {
                                                 cancelClass(
                                                   data2.Classid,
@@ -366,7 +247,7 @@ function UserDashboardMain(props) {
                                                 );
                                               }}
                                             >
-                                              Cancel
+                                              Cancel Class
                                             </button>
                                           </Then>
                                           <Else>
@@ -384,7 +265,6 @@ function UserDashboardMain(props) {
                         </div>
                       </div>
                     </div>
-                    <br/><br/><br/><br/>
                   </div>
                 </div>
               </div>
@@ -395,4 +275,4 @@ function UserDashboardMain(props) {
   );
 }
 
-export default UserDashboardMain;
+export default TeacherBookings;

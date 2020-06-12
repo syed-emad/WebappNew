@@ -291,28 +291,28 @@ const UpperSection = () => {
                 </div>
               </div>
               {/* About */}
-                <div className="locations container_custom" id="aboutus">
-                  <div className="container">
-                    <div className="row">
-                      <div className="col" style={{ paddingBottom: "150px" }}>
-                        <div className="section_title text-center">
-                          <h1>About Professor</h1>
-                          <p>
-                            Having trouble in doing your maths homework?cant
-                            understand the complicated topics of chemistry? or
-                            just strugling to learn a language? We got you
-                            covered! <br />
-                            Our tutors goes thorugh a in depth verification
-                            process to be able to reach the standard to teach you.
-                            So feel free to book a lesson and get help in your
-                            desire subjects.For any quries you are more than
-                            welcome to contact us.
-                          </p>
-                        </div>
+              <div className="locations container_custom" id="aboutus">
+                <div className="container">
+                  <div className="row">
+                    <div className="col" style={{ paddingBottom: "150px" }}>
+                      <div className="section_title text-center">
+                        <h1>About Professor</h1>
+                        <p>
+                          Having trouble in doing your maths homework?cant
+                          understand the complicated topics of chemistry? or
+                          just strugling to learn a language? We got you
+                          covered! <br />
+                          Our tutors goes thorugh a in depth verification
+                          process to be able to reach the standard to teach you.
+                          So feel free to book a lesson and get help in your
+                          desire subjects.For any quries you are more than
+                          welcome to contact us.
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>

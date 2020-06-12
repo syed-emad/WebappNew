@@ -33,6 +33,8 @@ import video from "./components/VideoChat/VideoStyle";
 import chat from "./components/VideoChat/Chat/Chat/Chat";
 import join from "./components/VideoChat/Chat/Join/Join";
 import TeacherFinal from "./components/teacherSignUp/teacherfinal";
+import Admin from "./components/Admin/Admin";
+import UserBookings from "./components/Admin/UserBookings";
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -79,11 +81,14 @@ function App() {
               <PublicRoute22 exact path="/Checkout" component={Checkout} />
               <PublicRoute exact path="/Success" component={Success} />
               <PublicRoute exact path="/Register" component={Register} />
- 
-              <PublicRoute exact path="/teachersignup" component={TeacherFinal} />
+              <PublicRoute
+                exact
+                path="/teachersignup"
+                component={TeacherFinal}
+              />
+              <Route exact path="/admin" component={Admin} />
 
-             
-
+              <Route exact path="/userbookingsa" component={UserBookings} />
               <PrivateRouteTeacher
                 exact
                 path="/TeacherDashboard"
@@ -105,7 +110,6 @@ function App() {
                 component={TeacherLogin}
               />
               <PrivateRoute path="/dashboard" component={Dashboard} />
-
               <Route exact path="/2" component={App2} />
             </Switch>
           </div>

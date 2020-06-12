@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
       name,
       email,
       password,
-    });   
+    });
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         if (err) throw err;
@@ -30,7 +30,7 @@ router.post("/", (req, res) => {
               id: user.id,
             },
             config.get("jwtSecret"),
-           
+
             (err, token) => {
               if (err) throw err;
               res.json({
@@ -52,7 +52,7 @@ router.post("/", (req, res) => {
 router.get("/", (req, res) => {
   Users.find()
     .sort({ date: -1 })
-    .then(items => res.json(items));
+    .then((items) => res.json(items));
 });
 //Get by ID
 router.get("/id", (req, res) => {
@@ -74,7 +74,7 @@ router.put("/classbooked", function (req, res) {
     Time: req.query.Time,
     Price: req.query.Price,
     Status: "Booked",
-    Classid:req.query.classid,
+    Classid: req.query.classid,
   };
   console.log(data);
   Users.findOne({ _id: id }, function (err, foundObject) {
@@ -84,7 +84,7 @@ router.put("/classbooked", function (req, res) {
       if (!foundObject) {
         console.log(err);
       } else {
-        if (req.query.id) { 
+        if (req.query.id) {
           Users.updateOne(
             { _id: new ObjectId(id) },
             { $push: { mybookings: data } },
@@ -102,14 +102,14 @@ router.put("/classbooked", function (req, res) {
   });
 });
 //Cancel From User Side
-router.put("/cancel",function(req,res){
+router.put("/cancel", function (req, res) {
   var id = req.query.id;
   var classid = req.query.classid;
   console.log("hiii2");
   console.log(classid);
   Users.updateOne(
-    {   "mybookings.Classid": classid} ,
-    { $set: { "mybookings.$.Status": "Cancelled" }}, 
+    { "mybookings.Classid": classid },
+    { $set: { "mybookings.$.Status": "Cancelled" } },
     function (err, foundObject) {
       if (err) {
         console.log(err);
@@ -118,25 +118,23 @@ router.put("/cancel",function(req,res){
       }
     }
   );
-
-})
+});
 //Cancel From Teacher Side
-router.put("/cancel2",function(req,res){
+router.put("/cancel2", function (req, res) {
   var teacherid = req.query.id;
   var classid = req.query.classid;
   // console.log("hiii2");
-   console.log(classid);
+  console.log(classid);
   Users.updateOne(
-    {   "mybookings.Classid": classid} ,
-    { $set: { "mybookings.$.Status": "Cancelled" }}, 
+    { "mybookings.Classid": classid },
+    { $set: { "mybookings.$.Status": "Cancelled" } },
     function (err, foundObject) {
       if (err) {
         console.log(err);
       } else {
-       console.log("teacher cancelled ")
+        console.log("teacher cancelled ");
       }
     }
   );
-
-})
+});
 module.exports = router;

@@ -1,0 +1,35 @@
+.purplebutton{
+    border: none;
+    border-radius: 0.1cm;
+    outline: 0;
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    background-color: #360f64;
+    ;
+    text-align: center;
+    cursor: pointer;
+    width: 90%;
+    transition: 0.3s;
+    margin-top: -2px;
+    align-items: left;
+
+}
+
+.redbutton {
+    border: none;
+    border-radius: 0.1cm;
+    outline: 0;
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    background-color: #940707;
+    ;
+    text-align: center;
+    cursor: pointer;
+    width: 90%;
+    transition: 0.3s;
+    margin-top: -2px;
+    align-items: left;
+
+}
